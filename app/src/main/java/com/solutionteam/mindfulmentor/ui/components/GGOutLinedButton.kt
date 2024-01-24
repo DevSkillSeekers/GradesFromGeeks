@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.components
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -25,7 +26,7 @@ import com.solutionteam.mindfulmentor.ui.theme.MainFontColor
 import com.solutionteam.mindfulmentor.ui.theme.Theme
 
 @Composable
-fun MMButton(
+fun GGOutLinedButton(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -34,41 +35,43 @@ fun MMButton(
     enabled: Boolean = true,
     textPadding: PaddingValues = PaddingValues(16.dp),
     shape: Shape = RoundedCornerShape(16.dp),
-    containerColor: Color = MainColor,
     contentColor: Color = MainFontColor,
+    border: BorderStroke = BorderStroke(1.dp, color = MainColor),
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
-    val buttonColor by animateColorAsState(
-        if (enabled) containerColor else DisabledColor, label = ""
+    val buttonBorderColor by animateColorAsState(
+        if (enabled) MainColor else DisabledColor, label = ""
+    )
+
+    val buttonContentColor by animateColorAsState(
+        if (enabled) contentColor else DisabledColor, label = ""
     )
     val height = if (type == ContainerType.CHIP) 36.dp else 48.dp
 
     Surface(
         modifier = modifier.height(height),
         onClick = onClick,
-        color = buttonColor,
-        contentColor = contentColor,
         shape = shape,
-        enabled = enabled
+        enabled = enabled,
+        color = Color.Transparent,
+        contentColor = buttonContentColor,
+        border = BorderStroke(border.width, buttonBorderColor)
     ) {
         Row(
-            Modifier.defaultMinSize(
-                minWidth = ButtonDefaults.MinWidth,
-                minHeight = ButtonDefaults.MinHeight
-            ),
+            Modifier
+                .defaultMinSize(
+                    minWidth = ButtonDefaults.MinWidth,
+                    minHeight = ButtonDefaults.MinHeight
+                ),
             horizontalArrangement = horizontalArrangement,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = title,
-                style = style.copy(color = contentColor),
+                style = style,
+                color = buttonContentColor ,
                 modifier = Modifier.padding(textPadding)
             )
         }
     }
-}
-
-enum class ContainerType {
-    BUTTON,
-    CHIP
 }

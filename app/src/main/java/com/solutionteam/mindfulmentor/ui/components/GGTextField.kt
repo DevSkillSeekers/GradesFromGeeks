@@ -35,7 +35,7 @@ import com.solutionteam.mindfulmentor.ui.theme.MainFontColor
 import com.solutionteam.mindfulmentor.ui.theme.Theme
 
 @Composable
-fun MMTextField(
+fun GGTextField(
     label: String,
     text: String,
     onValueChange: (String) -> Unit,
