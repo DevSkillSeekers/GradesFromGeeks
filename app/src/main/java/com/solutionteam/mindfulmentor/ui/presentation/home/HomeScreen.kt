@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.solutionteam.mindfulmentor.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,7 +66,11 @@ private fun HomeContent(
        if (state.isLoading){
            CircularProgressIndicator()
        }else{
-           Text(text = "Hello Mindful Mentor")
+           Text(
+                   text = "Hello Mindful Mentor",
+                   style = Theme.typography.mainFontMedium,
+                   color = Theme.colors.mainColor
+           )
        }
     }
 
