@@ -1,4 +1,15 @@
 <resources>
-    <string name="app_name">MindfulMentor</string>
+    <string name="app_name">gg</string>
+
+    <!-- home section -->
+    <string name="home_title">Home</string>
+
+    <!-- search section -->
+    <string name="search_title">Search</string>
+
+    <!-- profile section -->
+    <string name="profile_title">Profile</string>
+
+
     <string name="web_client_id">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
 </resources>
