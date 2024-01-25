@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">MindfulMentor</string>
+    <string name="app_name">gg</string>
+
+    <!-- home section -->
+    <string name="home_title">Home</string>
+
+    <!-- search section -->
+    <string name="search_title">Search</string>
+
+    <!-- profile section -->
+    <string name="profile_title">Profile</string>
+
 </resources>

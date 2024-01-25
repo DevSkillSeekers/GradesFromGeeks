@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.solutionteam.mindfulmentor.ui.presentation.App
+import com.solutionteam.mindfulmentor.ui.presentation.main.App
 import com.solutionteam.mindfulmentor.ui.theme.MindfulMentorTheme
 import com.solutionteam.mindfulmentor.ui.theme.Theme
 
