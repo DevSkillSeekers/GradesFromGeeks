@@ -3,20 +3,21 @@ package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun HRBottomNavigation(
@@ -45,11 +46,15 @@ fun HRBottomNavigation(
                     onClick = { onNavigateTo(screen) },
                     icon = {
                         Icon(
-                            imageVector = screen.icon ?: Icons.Default.Warning,
-                            contentDescription = null
+                            imageVector = if (selected) {
+                                screen.selectedIcon
+                            } else {
+                                screen.unselectedIcon
+                            } ?: Icons.Default.Warning,
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp)
                         )
                     },
-                    label = { Text(text = stringResource(id = screen.title)) }
                 )
             }
         }
@@ -64,8 +69,8 @@ private fun AppBottomBar(
 
     NavigationBar(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 0.dp,
+        containerColor = Theme.colors.backgroundColor,
+        tonalElevation = 4.dp,
         content = content
     )
 }
@@ -78,7 +83,6 @@ private fun RowScope.AppBottomBarItem(
     modifier: Modifier = Modifier,
     selectedIcon: @Composable () -> Unit = icon,
     enabled: Boolean = true,
-    label: @Composable (() -> Unit)? = null,
     alwaysShowLabel: Boolean = true
 ) {
     NavigationBarItem(
@@ -87,14 +91,24 @@ private fun RowScope.AppBottomBarItem(
         icon = if (selected) selectedIcon else icon,
         modifier = modifier,
         enabled = enabled,
-        label = label,
+        label = {
+            Divider(
+                thickness = 3.dp,
+                color = if (selected) {
+                    Theme.colors.mainColor
+                } else {
+                    Theme.colors.backgroundColor
+                },
+                modifier = Modifier.padding(vertical = 5.dp, horizontal = 20.dp)
+            )
+        },
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = MaterialTheme.colorScheme.primary,
-            unselectedIconColor = MaterialTheme.colorScheme.onBackground,
-            selectedTextColor = MaterialTheme.colorScheme.primary,
-            unselectedTextColor = MaterialTheme.colorScheme.onBackground,
-            indicatorColor = MaterialTheme.colorScheme.onPrimary
-        )
+            selectedIconColor = Theme.colors.mainColor,
+            unselectedIconColor = Theme.colors.iconsColor,
+            selectedTextColor = Theme.colors.mainColor,
+            unselectedTextColor = Theme.colors.backgroundColor,
+            indicatorColor = Theme.colors.backgroundColor
+        ),
     )
 }

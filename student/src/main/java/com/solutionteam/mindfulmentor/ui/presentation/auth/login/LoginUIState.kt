@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.login
+package com.solutionteam.mindfulmentor.ui.presentation.auth.login
 
 data class LoginUIState(
     val isLoading: Boolean = false,

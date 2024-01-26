@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.downloadsScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.homeScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.profileScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.searchScreen
@@ -20,10 +21,9 @@ fun MainNavGraph(
         startDestination = Screen.Home.route,
         modifier = modifier,
     ) {
-
         homeScreen(onNavigateToRoot)
         searchScreen(onNavigateToRoot)
         profileScreen(onNavigateToRoot)
-
+        downloadsScreen(onNavigateToRoot)
     }
 }

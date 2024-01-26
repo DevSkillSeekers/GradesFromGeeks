@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.login
+package com.solutionteam.mindfulmentor.ui.presentation.auth.login
 
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel

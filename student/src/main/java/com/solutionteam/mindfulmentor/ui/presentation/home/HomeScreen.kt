@@ -55,21 +55,20 @@ private fun HomeContent(
 ) {
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
-       if (state.isLoading){
-           CircularProgressIndicator()
-       }else{
-           Text(
-                   text = "Home Screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
-           )
-       }
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Text(
+                text = "Home Screen",
+                style = Theme.typography.mainFontMedium,
+                color = Theme.colors.mainColor
+            )
+        }
     }
 
 }

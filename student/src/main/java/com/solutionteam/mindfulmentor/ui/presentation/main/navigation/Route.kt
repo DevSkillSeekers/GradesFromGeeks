@@ -1,11 +1,15 @@
 package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.rounded.Build
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.solutionteam.mindfulmentor.R
 
 
 const val navigationRouteLogin = "login"
@@ -15,6 +19,7 @@ const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
+const val navigationRouteDownloads = "downloads"
 
 
 sealed class Screen(
@@ -22,8 +27,8 @@ sealed class Screen(
     var routePath: String? = null,
     var clearBackStack: Boolean = false,
     val restoreState: Boolean = true,
-    val title: Int = 0,
-    val icon: ImageVector? = null
+    val selectedIcon: ImageVector? = null,
+    val unselectedIcon: ImageVector? = null
 ) {
     fun withClearBackStack() = apply { clearBackStack = true }
 
@@ -37,17 +42,27 @@ sealed class Screen(
     object Main : Screen(navigationRouteMain)
     object Home : Screen(
         route = navigationRouteHome,
-        title = R.string.home_title,
-        icon = Icons.Rounded.Home
+        selectedIcon = Icons.Rounded.Home,
+        unselectedIcon = Icons.Outlined.Home
     )
+
     object Search : Screen(
         route = navigationRouteSearch,
-        title = R.string.search_title,
-        icon = Icons.Rounded.Search
+        selectedIcon = Icons.Rounded.Search,
+        unselectedIcon = Icons.Outlined.Search
+
     )
+
     object Profile : Screen(
         route = navigationRouteProfile,
-        title = R.string.profile_title,
-        icon = Icons.Rounded.Person
+        selectedIcon = Icons.Rounded.Person,
+        unselectedIcon = Icons.Outlined.Person
+
+    )
+
+    object Downloads : Screen(
+        route = navigationRouteDownloads,
+        selectedIcon = Icons.Rounded.Build,
+        unselectedIcon = Icons.Outlined.Build
     )
 }

@@ -6,8 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginScreen
+import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeScreen
-import com.solutionteam.mindfulmentor.ui.presentation.login.LoginScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.MainScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph.MainNavGraph
@@ -42,8 +43,10 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
                 screens = listOf(
                     Screen.Home,
                     Screen.Search,
-                    Screen.Profile
-                ), onNavigateTo = navController::navigateTo,
+                    Screen.Downloads,
+                    Screen.Profile,
+                ),
+                onNavigateTo = navController::navigateTo,
                 currentDestination = navBackStackEntry?.destination
             )
         }
@@ -68,7 +71,6 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Home.route
     ) {
-
         HomeScreen()
     }
 }
@@ -77,7 +79,6 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Search.route
     ) {
-
         SearchScreen()
     }
 }
@@ -86,7 +87,14 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
     ) {
-
         ProfileScreen()
+    }
+}
+
+fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Downloads.route
+    ) {
+        DownloadsScreen()
     }
 }
