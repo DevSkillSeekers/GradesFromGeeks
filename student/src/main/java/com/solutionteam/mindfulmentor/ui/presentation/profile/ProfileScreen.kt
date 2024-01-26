@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.search
+package com.solutionteam.mindfulmentor.ui.presentation.profile
 
 import android.content.Context
 import android.widget.Toast
@@ -14,13 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.solutionteam.mindfulmentor.ui.theme.Theme
+import com.solutionteam.design_system.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SearchScreen(
-    viewModel: SearchViewModel = koinViewModel(),
+fun ProfileScreen(
+    viewModel: ProfileViewModel = koinViewModel()
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -28,7 +28,7 @@ fun SearchScreen(
     val context = LocalContext.current
 
 
-    SearchContent(
+    ProfileContent(
         state = state
     )
 
@@ -40,18 +40,18 @@ fun SearchScreen(
 }
 
 
-private fun onEffect(effect: SearchUIEffect?, context: Context) {
+private fun onEffect(effect: ProfileUIEffect?, context: Context) {
 
     when (effect) {
-        SearchUIEffect.SearchError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        ProfileUIEffect.ProfileError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         else -> {}
     }
 }
 
 
 @Composable
-private fun SearchContent(
-    state: SearchUIState
+private fun ProfileContent(
+    state: ProfileUIState
 ) {
 
     Column(
@@ -65,7 +65,7 @@ private fun SearchContent(
            CircularProgressIndicator()
        }else{
            Text(
-                   text = "Search screen",
+                   text = "Profile screen",
                    style = Theme.typography.mainFontMedium,
                    color = Theme.colors.mainColor
            )

@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.login
+package com.solutionteam.mindfulmentor.ui.presentation.home
 
 import android.content.Context
 import android.widget.Toast
@@ -14,15 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.solutionteam.mindfulmentor.ui.components.GGButton
-import com.solutionteam.mindfulmentor.ui.theme.Theme
+import com.solutionteam.design_system.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel(),
-    navigateTo: () -> Unit
+fun HomeScreen(
+    viewModel: HomeViewModel = koinViewModel()
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -30,9 +28,8 @@ fun LoginScreen(
     val context = LocalContext.current
 
 
-    LoginContent(
-        state = state,
-        navigateTo = navigateTo
+    HomeContent(
+        state = state
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -43,19 +40,18 @@ fun LoginScreen(
 }
 
 
-private fun onEffect(effect: LoginUIEffect?, context: Context) {
+private fun onEffect(effect: HomeUIEffect?, context: Context) {
 
     when (effect) {
-        LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        HomeUIEffect.HomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         else -> {}
     }
 }
 
 
 @Composable
-private fun LoginContent(
-    state: LoginUIState,
-    navigateTo: () -> Unit
+private fun HomeContent(
+    state: HomeUIState
 ) {
 
     Column(
@@ -69,12 +65,10 @@ private fun LoginContent(
            CircularProgressIndicator()
        }else{
            Text(
-                   text = "login Screen",
+                   text = "Home Screen",
                    style = Theme.typography.mainFontMedium,
                    color = Theme.colors.mainColor
            )
-
-           GGButton(title = "Go to Home", onClick = navigateTo)
        }
     }
 

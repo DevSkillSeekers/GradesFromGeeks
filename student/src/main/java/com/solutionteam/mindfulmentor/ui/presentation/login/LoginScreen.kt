@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.profile
+package com.solutionteam.mindfulmentor.ui.presentation.login
 
 import android.content.Context
 import android.widget.Toast
@@ -14,13 +14,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.solutionteam.mindfulmentor.ui.theme.Theme
+import com.solutionteam.design_system.components.GGButton
+import com.solutionteam.design_system.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ProfileScreen(
-    viewModel: ProfileViewModel = koinViewModel()
+fun LoginScreen(
+    viewModel: LoginViewModel = koinViewModel(),
+    navigateTo: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -28,8 +30,9 @@ fun ProfileScreen(
     val context = LocalContext.current
 
 
-    ProfileContent(
-        state = state
+    LoginContent(
+        state = state,
+        navigateTo = navigateTo
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -40,18 +43,19 @@ fun ProfileScreen(
 }
 
 
-private fun onEffect(effect: ProfileUIEffect?, context: Context) {
+private fun onEffect(effect: LoginUIEffect?, context: Context) {
 
     when (effect) {
-        ProfileUIEffect.ProfileError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         else -> {}
     }
 }
 
 
 @Composable
-private fun ProfileContent(
-    state: ProfileUIState
+private fun LoginContent(
+    state: LoginUIState,
+    navigateTo: () -> Unit
 ) {
 
     Column(
@@ -65,10 +69,12 @@ private fun ProfileContent(
            CircularProgressIndicator()
        }else{
            Text(
-                   text = "Profile screen",
+                   text = "login Screen",
                    style = Theme.typography.mainFontMedium,
                    color = Theme.colors.mainColor
            )
+
+           GGButton(title = "Go to Home", onClick = navigateTo)
        }
     }
 

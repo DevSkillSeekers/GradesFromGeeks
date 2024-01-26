@@ -10,8 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.google.firebase.FirebaseApp
 import com.solutionteam.mindfulmentor.ui.presentation.main.App
+import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.theme.MindfulMentorTheme
-import com.solutionteam.mindfulmentor.ui.theme.Theme
 
 class MainActivity : ComponentActivity() {
 

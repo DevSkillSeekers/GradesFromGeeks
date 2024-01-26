@@ -5,7 +5,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
@@ -14,6 +13,10 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.solutionteam.design_system.theme.DarkColors
+import com.solutionteam.design_system.theme.LightColors
+import com.solutionteam.design_system.theme.MindfulMentorTypography
+import com.solutionteam.design_system.theme.mindfulMentorTypography
 
 
 private val LocalColorScheme = staticCompositionLocalOf { LightColors }
@@ -55,17 +58,4 @@ fun MindfulMentorTheme(
     ) {
         content()
     }
-}
-
-object Theme {
-    val colors: Colors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalColorScheme.current
-
-    val typography: MindfulMentorTypography
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTypography.current
-
 }
