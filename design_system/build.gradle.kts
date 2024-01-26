@@ -68,4 +68,11 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.compose.material:material-icons-core:1.5.4")
+
+
+    //accompanist
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
+    //navigation
+    implementation("androidx.navigation:navigation-compose:2.7.6")
 }

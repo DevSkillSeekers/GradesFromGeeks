@@ -2,9 +2,9 @@ package com.solutionteam.design_system.theme
 
 import androidx.compose.ui.graphics.Color
 
-val MainColor = Color(0xFF0A172C)
+val MainColor = Color(0xFF4B69D0)
 val SecondColor = Color(0xFFA3B0C4)
-val BackgroundColor = Color(0xFFF9F9F9)
+val BackgroundColor = Color(0xFFF6F6F7)
 
 
 val Gray_66 = Color(0xFF666666)
@@ -16,6 +16,8 @@ val Hamesh = Color(0xFFAFAFAF)
 val Yalow = Color(0xFFFFCC16)
 val DisabledColor = Color(0xFF656565)
 val Pink = Color(0xFFC27C7C)
+
+val Grey = Color(0x6104030A)
 
 val Black_100 = Color(0xFF000000)
 val Black_87 = Color(0xDE121212)
@@ -40,29 +42,32 @@ data class Colors(
     val hamesh: Color,
     val star: Color,
     val disabledColor: Color,
-    val notificationColor: Color
+    val notificationColor: Color,
+    val iconsColor: Color
 )
 
 val LightColors = Colors(
-        mainColor = MainColor,
-        secondColor = SecondColor,
-        backgroundColor = BackgroundColor,
-        normalFontColor = NormalFontColor,
-        mainFontColor = MainFontColor,
-        hamesh = Hamesh,
-        star = Yalow,
-        disabledColor = DisabledColor,
-        notificationColor = Pink,
+    mainColor = MainColor,
+    secondColor = SecondColor,
+    backgroundColor = BackgroundColor,
+    normalFontColor = NormalFontColor,
+    mainFontColor = MainFontColor,
+    hamesh = Hamesh,
+    star = Yalow,
+    disabledColor = DisabledColor,
+    notificationColor = Pink,
+    iconsColor = Grey
 )
 
 val DarkColors = Colors(
-        mainColor = MainColor,
-        secondColor = SecondColor,
-        backgroundColor = MainColor,
-        normalFontColor = NormalFontColor,
-        mainFontColor = MainFontColor,
-        hamesh = Hamesh,
-        star = Yalow,
-        disabledColor = DisabledColor,
-        notificationColor = Pink,
+    mainColor = MainColor,
+    secondColor = SecondColor,
+    backgroundColor = MainColor,
+    normalFontColor = NormalFontColor,
+    mainFontColor = MainFontColor,
+    hamesh = Hamesh,
+    star = Yalow,
+    disabledColor = DisabledColor,
+    notificationColor = Pink,
+    iconsColor = Grey
 )
