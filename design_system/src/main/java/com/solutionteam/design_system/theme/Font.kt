@@ -1,9 +1,9 @@
-package com.solutionteam.mindfulmentor.ui.theme
+package com.solutionteam.design_system.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.solutionteam.mindfulmentor.R
+import com.solutionteam.design_system.R
 
 
 val Roboto = FontFamily(

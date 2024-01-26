@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.components
+package com.solutionteam.design_system.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
@@ -20,10 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.solutionteam.mindfulmentor.ui.theme.DisabledColor
-import com.solutionteam.mindfulmentor.ui.theme.MainColor
-import com.solutionteam.mindfulmentor.ui.theme.MainFontColor
-import com.solutionteam.mindfulmentor.ui.theme.Theme
+import com.solutionteam.design_system.components.ContainerType
+import com.solutionteam.design_system.theme.DisabledColor
+import com.solutionteam.design_system.theme.MainColor
+import com.solutionteam.design_system.theme.MainFontColor
+import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun GGOutLinedButton(

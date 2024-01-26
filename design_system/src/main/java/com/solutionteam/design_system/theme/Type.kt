@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.theme
+package com.solutionteam.design_system.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight

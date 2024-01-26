@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.components
+package com.solutionteam.design_system.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
@@ -27,12 +27,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.theme.DisabledColor
-import com.solutionteam.mindfulmentor.ui.theme.Gray_66
-import com.solutionteam.mindfulmentor.ui.theme.MainColor
-import com.solutionteam.mindfulmentor.ui.theme.MainFontColor
-import com.solutionteam.mindfulmentor.ui.theme.Theme
+import com.solutionteam.design_system.R
+import com.solutionteam.design_system.theme.DisabledColor
+import com.solutionteam.design_system.theme.Gray_66
+import com.solutionteam.design_system.theme.MainColor
+import com.solutionteam.design_system.theme.MainFontColor
+import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun GGTextField(
