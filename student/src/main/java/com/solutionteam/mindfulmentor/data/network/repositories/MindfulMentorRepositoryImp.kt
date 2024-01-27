@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
 
@@ -10,6 +11,10 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()
+    }
+
+    override suspend fun getSubject(): List<Subject> {
+        return generateListOfSubjects()
     }
 
 
@@ -41,6 +46,21 @@ class MindfulMentorRepositoryImp(
         )
 
         return list.shuffled().first()
+    }
+
+    fun generateListOfSubjects(): List<Subject> {
+        return listOf(
+            Subject(id = "1", name = "Design Pattern"),
+            Subject(id = "2", name = "Data Structures"),
+            Subject(id = "3", name = "Algorithms"),
+            Subject(id = "4", name = "Software Engineering"),
+            Subject(id = "5", name = "Database Systems"),
+            Subject(id = "6", name = "Web Development"),
+            Subject(id = "7", name = "Mobile App Development"),
+            Subject(id = "8", name = "Artificial Intelligence"),
+            Subject(id = "9", name = "Machine Learning"),
+            Subject(id = "10", name = "Computer Networks")
+        )
     }
 
     //endregion
