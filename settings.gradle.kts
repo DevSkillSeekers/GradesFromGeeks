@@ -14,5 +14,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MindfulMentor"
-include(":app")
- 
+include(":student")
+include(":mentor")
+include(":design_system")
