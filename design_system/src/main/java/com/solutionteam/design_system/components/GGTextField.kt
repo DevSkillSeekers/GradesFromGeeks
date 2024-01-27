@@ -28,10 +28,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.R
-import com.solutionteam.design_system.theme.DisabledColor
-import com.solutionteam.design_system.theme.Gray_66
-import com.solutionteam.design_system.theme.MainColor
-import com.solutionteam.design_system.theme.MainFontColor
+import com.solutionteam.design_system.theme.Gray_1
+import com.solutionteam.design_system.theme.PrimaryLight
 import com.solutionteam.design_system.theme.Theme
 
 @Composable
@@ -40,7 +38,7 @@ fun GGTextField(
     text: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    style: TextStyle = Theme.typography.normalFont,
+    style: TextStyle = Theme.typography.titleMedium,
     textFieldModifier: Modifier = Modifier
         .fillMaxWidth()
         .height(56.dp),
@@ -61,7 +59,7 @@ fun GGTextField(
             text = label,
             modifier = Modifier.padding(bottom = 8.dp),
             style = style,
-            color = MainFontColor
+            color = Theme.colors.primaryShadesDark
         )
 
         OutlinedTextField(
@@ -71,12 +69,12 @@ fun GGTextField(
                 Text(
                     hint,
                     style = style,
-                    color = MainFontColor.copy(alpha = 0.6f)
+                    color = Theme.colors.primaryShadesDark.copy(alpha = 0.6f)
                 )
             },
             onValueChange = onValueChange,
             shape = shapeRadius,
-            textStyle = style.copy(color = MainFontColor),
+            textStyle = style.copy(color = Theme.colors.primaryShadesDark),
             singleLine = singleLine,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             trailingIcon = if (keyboardType == KeyboardType.Password) {
@@ -87,12 +85,12 @@ fun GGTextField(
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
-                disabledContainerColor = DisabledColor,
-                cursorColor = Gray_66,
-                errorCursorColor = MainColor,
-                focusedBorderColor = MainColor.copy(alpha = 0.2f),
-                unfocusedBorderColor = MainColor.copy(alpha = 0.1f),
-                errorBorderColor = MainColor.copy(alpha = 0.5f),
+                disabledContainerColor = Theme.colors.disabled,
+                cursorColor = Gray_1,
+                errorCursorColor = PrimaryLight,
+                focusedBorderColor = PrimaryLight.copy(alpha = 0.2f),
+                unfocusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
+                errorBorderColor = PrimaryLight.copy(alpha = 0.5f),
             ),
         )
 
@@ -100,8 +98,8 @@ fun GGTextField(
             Text(
                 text = errorMessage,
                 modifier = Modifier.padding(top = 8.dp),
-                style = Theme.typography.normalFont,
-                color = MainColor
+                style = Theme.typography.titleMedium,
+                color = PrimaryLight
             )
         }
     }
@@ -122,7 +120,7 @@ private fun TrailingIcon(
                 }
             ),
             contentDescription = if (showPassword) "Show Password" else "Hide Password",
-            tint = Gray_66
+            tint = Gray_1
         )
     }
 

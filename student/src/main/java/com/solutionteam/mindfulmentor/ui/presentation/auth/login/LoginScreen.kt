@@ -70,8 +70,8 @@ private fun LoginContent(
        }else{
            Text(
                    text = "login Screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
+                   style = Theme.typography.labelMedium,
+                   color = Theme.colors.primary
            )
 
            GGButton(title = "Go to Home", onClick = navigateTo)

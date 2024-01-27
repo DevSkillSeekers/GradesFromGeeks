@@ -2,72 +2,78 @@ package com.solutionteam.design_system.theme
 
 import androidx.compose.ui.graphics.Color
 
-val MainColor = Color(0xFF4B69D0)
-val SecondColor = Color(0xFFA3B0C4)
-val BackgroundColor = Color(0xFFF6F6F7)
+val PrimaryLight = Color(0xFF4B69D0)
+val SecondaryLight = Color(0xFFDDEDFF)
+val BackgroundLight = Color(0xFFF6F7F7)
+val CardLight = Color(0xFFFFFFFF)
+
+val PrimaryShadesLight = Color(0xDEFFFFFF)
+val SecondaryShadesLight = Color(0x99FFFFFF)
+val TernaryShadesLight = Color(0x61FFFFFF)
+val QuaternaryShadesLight = Color(0x29FFFFFF)
+
+val PrimaryShadesDark = Color(0xDE04030A)
+val SecondaryShadesDark = Color(0x9904030A)
+val TernaryShadesDark = Color(0x6104030A)
+val QuaternaryShadesDark = Color(0x2904030A)
+
+val Green = Color(0xFF34BC83)
+val Red = Color(0xFFD65656)
+val Green_Light = Color(0xFFDFF6E4)
+
+val Gray_1 = Color(0xFF68686C)
+val Gray_2 = Color(0xFFBDBDBF)
+val Gray_3 = Color(0xFFD2D2D3)
+
+val DisabledColor = Color(0xFF9CA6CD)
 
 
-val Gray_66 = Color(0xFF666666)
-val Gray_8C = Color(0xFF8C8C8C)
-val Gray_CC = Color(0xFFCCCCCC)
-val NormalFontColor = Color(0xFF1C1C1C)
-val MainFontColor = Color(0xFF111111)
-val Hamesh = Color(0xFFAFAFAF)
-val Yalow = Color(0xFFFFCC16)
-val DisabledColor = Color(0xFF656565)
-val Pink = Color(0xFFC27C7C)
 
-val Grey = Color(0x6104030A)
-
-val Black_100 = Color(0xFF000000)
-val Black_87 = Color(0xDE121212)
-val Black_60 = Color(0x99121212)
-val Black_37 = Color(0x5E121212)
-val Black_16 = Color(0x29121212)
-val Black_30 = Color(0x4D121212)
-val Black_10 = Color(0x1A121212)
-
-val White_FF = Color(0xFFFFFFFF)
-val White_FA = Color(0xFFFAFAFA)
-val White_EC = Color(0xFFECECEC)
-val White_E1 = Color(0xFFE1E1E1)
-val White_E3 = Color(0xFFE3E3E3)
 
 data class Colors(
-    val mainColor: Color,
-    val secondColor: Color,
-    val backgroundColor: Color,
-    val normalFontColor: Color,
-    val mainFontColor: Color,
-    val hamesh: Color,
-    val star: Color,
-    val disabledColor: Color,
-    val notificationColor: Color,
-    val iconsColor: Color
+    val primary: Color,
+    val secondary: Color,
+    val background: Color,
+    val card: Color,
+    val disabled: Color,
+    val primaryShadesLight: Color,
+    val secondaryShadesLight: Color,
+    val ternaryShadesLight: Color,
+    val quaternaryShadesLight: Color,
+    val primaryShadesDark: Color,
+    val secondaryShadesDark: Color,
+    val ternaryShadesDark: Color,
+    val quaternaryShadesDark: Color,
 )
 
 val LightColors = Colors(
-    mainColor = MainColor,
-    secondColor = SecondColor,
-    backgroundColor = BackgroundColor,
-    normalFontColor = NormalFontColor,
-    mainFontColor = MainFontColor,
-    hamesh = Hamesh,
-    star = Yalow,
-    disabledColor = DisabledColor,
-    notificationColor = Pink,
-    iconsColor = Grey
+    primary = PrimaryLight,
+    secondary = SecondaryLight,
+    background = BackgroundLight,
+    card = CardLight,
+    disabled = DisabledColor,
+    primaryShadesLight = PrimaryShadesLight,
+    secondaryShadesLight = SecondaryShadesLight,
+    ternaryShadesLight = TernaryShadesLight,
+    quaternaryShadesLight = QuaternaryShadesLight,
+    primaryShadesDark = PrimaryShadesDark,
+    secondaryShadesDark = SecondaryShadesDark,
+    ternaryShadesDark = TernaryShadesDark,
+    quaternaryShadesDark = QuaternaryShadesDark,
 )
 
 val DarkColors = Colors(
-    mainColor = MainColor,
-    secondColor = SecondColor,
-    backgroundColor = MainColor,
-    normalFontColor = NormalFontColor,
-    mainFontColor = MainFontColor,
-    hamesh = Hamesh,
-    star = Yalow,
-    disabledColor = DisabledColor,
-    notificationColor = Pink,
-    iconsColor = Grey
+        primary = PrimaryLight,
+        secondary = SecondaryLight,
+        background = BackgroundLight,
+        card = CardLight,
+        disabled = DisabledColor,
+        primaryShadesLight = PrimaryShadesLight,
+        secondaryShadesLight = SecondaryShadesLight,
+        ternaryShadesLight = TernaryShadesLight,
+        quaternaryShadesLight = QuaternaryShadesLight,
+        primaryShadesDark = PrimaryShadesDark,
+        secondaryShadesDark = SecondaryShadesDark,
+        ternaryShadesDark = TernaryShadesDark,
+        quaternaryShadesDark = QuaternaryShadesDark,
 )

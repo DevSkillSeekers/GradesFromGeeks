@@ -69,7 +69,7 @@ private fun AppBottomBar(
 
     NavigationBar(
         modifier = modifier,
-        containerColor = Theme.colors.backgroundColor,
+        containerColor = Theme.colors.background,
         tonalElevation = 4.dp,
         content = content
     )
@@ -95,20 +95,20 @@ private fun RowScope.AppBottomBarItem(
             Divider(
                 thickness = 3.dp,
                 color = if (selected) {
-                    Theme.colors.mainColor
+                    Theme.colors.primary
                 } else {
-                    Theme.colors.backgroundColor
+                    Theme.colors.background
                 },
                 modifier = Modifier.padding(vertical = 5.dp, horizontal = 20.dp)
             )
         },
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = Theme.colors.mainColor,
-            unselectedIconColor = Theme.colors.iconsColor,
-            selectedTextColor = Theme.colors.mainColor,
-            unselectedTextColor = Theme.colors.backgroundColor,
-            indicatorColor = Theme.colors.backgroundColor
+            selectedIconColor = Theme.colors.primary,
+            unselectedIconColor = Theme.colors.ternaryShadesDark,
+            selectedTextColor = Theme.colors.primary,
+            unselectedTextColor = Theme.colors.background,
+            indicatorColor = Theme.colors.background
         ),
     )
 }

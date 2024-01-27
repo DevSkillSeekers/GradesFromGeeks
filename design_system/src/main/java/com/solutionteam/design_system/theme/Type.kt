@@ -6,77 +6,56 @@ import androidx.compose.ui.unit.sp
 
 
 val mindfulMentorTypography = MindfulMentorTypography(
-        mainFontSemiBold = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
-                fontSize = 24.sp,
+        titleLarge = TextStyle(
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 30.sp,
                 lineHeight = 38.sp
         ),
-        normalFont = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
-                lineHeight = 16.sp
+        titleMedium = TextStyle(
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 24.sp,
+                lineHeight = 32.sp
         ),
-        navBarNormal = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
-                lineHeight = 12.sp
+        titleSmall = TextStyle(
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp,
+                lineHeight = 28.sp
         ),
-        navBarActive = TextStyle(
-                fontFamily = Roboto,
+        bodyLarge =TextStyle(
+                fontFamily = PlusJakartaSans,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                lineHeight = 14.sp
+                lineHeight = 22.sp
         ),
-        card = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
+        bodyMedium = TextStyle(
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
-                lineHeight = 14.sp
+                lineHeight = 22.sp
         ),
-        ctaBig = TextStyle(
-                fontFamily = Roboto,
+        labelLarge = TextStyle(
+                fontFamily = PlusJakartaSans,
                 fontWeight = FontWeight.Normal,
-                fontSize = 18.sp,
-                lineHeight = 18.sp
+                fontSize = 12.sp,
+                lineHeight = 20.sp
         ),
-        ctaSmall = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                lineHeight = 16.sp
-        ),
-        mainFontMedium = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
-                fontSize = 24.sp,
-                lineHeight = 38.sp
-        ),
-        specialCaseFont = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Normal,
-                fontSize = 18.sp,
-                lineHeight = 18.sp
-        ),
-        pop2 = TextStyle(
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                lineHeight = 14.sp
+        labelMedium =TextStyle(
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 12.sp,
+                lineHeight = 15.sp
         ),
 )
 
 data class MindfulMentorTypography(
-    val mainFontSemiBold: TextStyle = TextStyle(),
-    val normalFont: TextStyle = TextStyle(),
-    val navBarNormal: TextStyle = TextStyle(),
-    val navBarActive: TextStyle = TextStyle(),
-    val card: TextStyle = TextStyle(),
-    val ctaBig: TextStyle = TextStyle(),
-    val ctaSmall: TextStyle = TextStyle(),
-    val mainFontMedium: TextStyle = TextStyle(),
-    val specialCaseFont: TextStyle = TextStyle(),
-    val pop2: TextStyle = TextStyle(),
+    val titleLarge: TextStyle = TextStyle(),
+    val titleMedium: TextStyle = TextStyle(),
+    val titleSmall: TextStyle = TextStyle(),
+    val bodyLarge: TextStyle = TextStyle(),
+    val bodyMedium: TextStyle = TextStyle(),
+    val labelLarge: TextStyle = TextStyle(),
+    val labelMedium: TextStyle = TextStyle(),
 )

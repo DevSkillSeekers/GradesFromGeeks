@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             MindfulMentorTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Theme.colors.backgroundColor
+                    color = Theme.colors.background
                 ) {
                     App()
                 }

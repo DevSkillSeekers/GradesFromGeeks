@@ -66,8 +66,8 @@ private fun SearchContent(
        }else{
            Text(
                    text = "Downloads screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
+                   style = Theme.typography.labelMedium,
+                   color = Theme.colors.primary
            )
        }
     }

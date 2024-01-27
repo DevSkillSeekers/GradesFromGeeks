@@ -20,10 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.solutionteam.design_system.components.ContainerType
-import com.solutionteam.design_system.theme.DisabledColor
-import com.solutionteam.design_system.theme.MainColor
-import com.solutionteam.design_system.theme.MainFontColor
 import com.solutionteam.design_system.theme.Theme
 
 @Composable
@@ -31,47 +27,47 @@ fun GGOutLinedButton(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    style: TextStyle = Theme.typography.normalFont,
+    style: TextStyle = Theme.typography.titleMedium,
     type: ContainerType = ContainerType.BUTTON,
     enabled: Boolean = true,
     textPadding: PaddingValues = PaddingValues(16.dp),
     shape: Shape = RoundedCornerShape(16.dp),
-    contentColor: Color = MainFontColor,
-    border: BorderStroke = BorderStroke(1.dp, color = MainColor),
+    contentColor: Color = Theme.colors.primaryShadesDark,
+    border: BorderStroke = BorderStroke(1.dp, color = Theme.colors.primary),
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     val buttonBorderColor by animateColorAsState(
-        if (enabled) MainColor else DisabledColor, label = ""
+            if (enabled) Theme.colors.primary else Theme.colors.disabled, label = ""
     )
 
     val buttonContentColor by animateColorAsState(
-        if (enabled) contentColor else DisabledColor, label = ""
+            if (enabled) contentColor else Theme.colors.disabled, label = ""
     )
     val height = if (type == ContainerType.CHIP) 36.dp else 48.dp
 
     Surface(
-        modifier = modifier.height(height),
-        onClick = onClick,
-        shape = shape,
-        enabled = enabled,
-        color = Color.Transparent,
-        contentColor = buttonContentColor,
-        border = BorderStroke(border.width, buttonBorderColor)
+            modifier = modifier.height(height),
+            onClick = onClick,
+            shape = shape,
+            enabled = enabled,
+            color = Color.Transparent,
+            contentColor = buttonContentColor,
+            border = BorderStroke(border.width, buttonBorderColor)
     ) {
         Row(
-            Modifier
-                .defaultMinSize(
-                    minWidth = ButtonDefaults.MinWidth,
-                    minHeight = ButtonDefaults.MinHeight
-                ),
-            horizontalArrangement = horizontalArrangement,
-            verticalAlignment = Alignment.CenterVertically,
+                Modifier
+                    .defaultMinSize(
+                            minWidth = ButtonDefaults.MinWidth,
+                            minHeight = ButtonDefaults.MinHeight
+                    ),
+                horizontalArrangement = horizontalArrangement,
+                verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = title,
-                style = style,
-                color = buttonContentColor ,
-                modifier = Modifier.padding(textPadding)
+                    text = title,
+                    style = style,
+                    color = buttonContentColor,
+                    modifier = Modifier.padding(textPadding)
             )
         }
     }
