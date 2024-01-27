@@ -25,6 +25,8 @@ val Gray_1 = Color(0xFF68686C)
 val Gray_2 = Color(0xFFBDBDBF)
 val Gray_3 = Color(0xFFD2D2D3)
 
+val Gold = Color(0xFFFFAC33)
+
 val DisabledColor = Color(0xFF9CA6CD)
 
 
