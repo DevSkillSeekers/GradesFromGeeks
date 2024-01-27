@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.google.firebase.FirebaseApp
-import com.solutionteam.design_system.theme.MindfulMentorTheme
+import com.solutionteam.design_system.theme.GGTheme
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.presentation.main.App
 
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
         super.onCreate(savedInstanceState)
         setContent {
-            MindfulMentorTheme {
+            GGTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Theme.colors.background

@@ -32,7 +32,7 @@ fun GGButton(
     textPadding: PaddingValues = PaddingValues(16.dp),
     shape: Shape = RoundedCornerShape(16.dp),
     containerColor: Color = Theme.colors.primary,
-    contentColor: Color = Theme.colors.primaryShadesDark,
+    contentColor: Color = Theme.colors.primaryShadesLight,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     val buttonColor by animateColorAsState(

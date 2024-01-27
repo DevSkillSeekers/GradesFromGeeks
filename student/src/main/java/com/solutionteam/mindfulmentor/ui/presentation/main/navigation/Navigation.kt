@@ -12,6 +12,7 @@ import com.solutionteam.mindfulmentor.ui.presentation.home.HomeScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.MainScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph.MainNavGraph
+import com.solutionteam.mindfulmentor.ui.presentation.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchScreen
 
@@ -96,5 +97,12 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Downloads.route
     ) {
         DownloadsScreen()
+    }
+}
+fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.OnBoarding.route
+    ) {
+        OnBoardingScreen()
     }
 }
