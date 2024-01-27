@@ -1,34 +1,31 @@
 package com.solutionteam.mindfulmentor.ui.presentation.home
 
+import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
-import kotlinx.coroutines.delay
 
 class HomeViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    private val repository: MindfulMentorRepository
 ) : BaseViewModel<HomeUIState, HomeUIEffect>(HomeUIState()) {
 
     init {
-        onMakeRequest()
+        getMentors()
     }
 
-    private fun onMakeRequest() {
+    private fun getMentors() {
         updateState { it.copy(isLoading = true) }
-
         tryToExecute(
-            {
-                delay(1900)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
-            },
-            { onSuccess() },
+            repository::getMentors,
+            ::onSuccessMentors,
             ::onError
         )
     }
 
 
-    private fun onSuccess() {
+    private fun onSuccessMentors(mentor: List<Mentor>) {
         updateState {
             it.copy(
+                mentors = mentor.toUiState(),
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
