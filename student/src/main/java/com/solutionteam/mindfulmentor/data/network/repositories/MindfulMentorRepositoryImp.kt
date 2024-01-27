@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
 
@@ -14,7 +15,11 @@ class MindfulMentorRepositoryImp(
     }
 
     override suspend fun getSubject(): List<Subject> {
-        return generateListOfSubjects()
+        return generateSubjects()
+    }
+
+    override suspend fun getUniversities(): List<University> {
+        return generateUniversities()
     }
 
 
@@ -27,7 +32,7 @@ class MindfulMentorRepositoryImp(
                 Mentor(
                     id = "$i",
                     name = "First Last$i",
-                    imageUrl = getImage(),
+                    imageUrl = getProfileImage(),
                     rate = (0..10).random().toDouble(),
                     numberReviewers = (1..500).random(),
                 )
@@ -37,7 +42,7 @@ class MindfulMentorRepositoryImp(
     }
 
 
-    private fun getImage(): String {
+    private fun getProfileImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
@@ -48,7 +53,7 @@ class MindfulMentorRepositoryImp(
         return list.shuffled().first()
     }
 
-    fun generateListOfSubjects(): List<Subject> {
+    private fun generateSubjects(): List<Subject> {
         return listOf(
             Subject(id = "1", name = "Design Pattern"),
             Subject(id = "2", name = "Data Structures"),
@@ -61,6 +66,34 @@ class MindfulMentorRepositoryImp(
             Subject(id = "9", name = "Machine Learning"),
             Subject(id = "10", name = "Computer Networks")
         )
+    }
+
+    private fun generateUniversities(): List<University> {
+        val list = mutableListOf<University>()
+        for (i in 0..10) {
+            list.add(
+                University(
+                    id = "$i",
+                    name = "First Last$i",
+                    imageUrl = getImage(),
+                    address = "Seattle, Washington"
+                )
+            )
+        }
+        return list
+    }
+
+    private fun getImage(): String {
+        val list = listOf(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQANtG6UPPvIwDcLr4wpV4pt3ixtkv8eHjlKg&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY-Fzwk77TGkO86UCbElFcSkqwx1DcSI_bwQ&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsxt4TE55zRBBGspJT4FAm_pi1ZfDbLXGPUA&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY9goD6bOsmy-JWoW-4u44Dp8tyR2WwpKlSw&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq6qXvZ7aaZxvL2diHXHJ47C8J7NDJ2SLXaQ&usqp=CAU",
+        )
+
+        return list.shuffled().first()
     }
 
     //endregion
