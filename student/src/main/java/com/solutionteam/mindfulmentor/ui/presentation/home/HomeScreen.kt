@@ -79,21 +79,14 @@ private fun HomeContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Theme.colors.background)
-            .padding(
-                top = WindowInsets.systemBars
-                    .asPaddingValues()
-                    .calculateTopPadding()
-            ),
+            .background(Theme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
 
         ) {
 
         HomeAppBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
+            modifier = Modifier.fillMaxWidth(),
             onNotificationClicked = {}
         )
 
