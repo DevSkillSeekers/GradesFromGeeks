@@ -76,7 +76,7 @@ fun GGMentor(
                     tint = Gold
                 )
                 Text(
-                    text = "${rate}/10 - (${numberReviewers})",
+                    text = "${rate}/10  -  (${numberReviewers})",
                     color = Theme.colors.primary,
                     style = Theme.typography.labelLarge
                 )
