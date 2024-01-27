@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.solutionteam.design_system.components.GGMentor
+import com.solutionteam.design_system.components.GGSubject
 import com.solutionteam.design_system.components.GGTitleWithSeeAll
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
@@ -51,7 +57,7 @@ fun HomeScreen(
         state = state
     )
 
-    LaunchedEffect(key1 = state.isSuccess) {
+    LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
             onEffect(effect, context)
         }
@@ -84,26 +90,50 @@ private fun HomeContent(
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
-            Column(
-                modifier = Modifier
+            Column(modifier = Modifier.fillMaxSize()) {
 
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-            ) {
                 GGTitleWithSeeAll(
-                    modifier = Modifier.padding(bottom = 4.dp),
+                    modifier = Modifier
+                        .padding(bottom = 4.dp)
+                        .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.mentors),
                     onClick = {}
                 )
+
                 state.mentors.take(3).forEach { mentor ->
                     GGMentor(
-                        modifier = Modifier.padding(vertical = 4.dp),
+                        modifier = Modifier
+                            .padding(vertical = 4.dp)
+                            .padding(horizontal = 16.dp),
                         name = mentor.name,
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
                         onClick = {}
                     )
+                }
+
+                GGTitleWithSeeAll(
+                    modifier = Modifier
+                        .padding(top = 16.dp, bottom = 10.dp)
+                        .padding(horizontal = 16.dp),
+                    title = stringResource(id = R.string.subjects),
+                    onClick = {}
+                )
+
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp)
+                ) {
+                    items(state.subjects) { subject ->
+                        GGSubject(
+                            modifier = Modifier.width(100.dp),
+                            name = subject.name,
+                            onClick = {}
+                        )
+                    }
                 }
 
             }

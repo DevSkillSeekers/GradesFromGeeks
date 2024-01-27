@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.presentation.home
 
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
 
@@ -9,11 +10,16 @@ class HomeViewModel(
 ) : BaseViewModel<HomeUIState, HomeUIEffect>(HomeUIState()) {
 
     init {
+        getData()
+    }
+
+    private fun getData() {
+        updateState { it.copy(isLoading = true) }
         getMentors()
+        getSubjects()
     }
 
     private fun getMentors() {
-        updateState { it.copy(isLoading = true) }
         tryToExecute(
             repository::getMentors,
             ::onSuccessMentors,
@@ -21,24 +27,28 @@ class HomeViewModel(
         )
     }
 
-
     private fun onSuccessMentors(mentor: List<Mentor>) {
-        updateState {
-            it.copy(
-                mentors = mentor.toUiState(),
-                isSuccess = true,
-                isError = false,
-                isLoading = false,
-            )
-        }
+        updateState { it.copy(mentors = mentor.toUiState(), isLoading = false) }
     }
+
+    private fun getSubjects() {
+        tryToExecute(
+            repository::getSubject,
+            ::onSuccessSubject,
+            ::onError
+        )
+    }
+
+    private fun onSuccessSubject(subjects: List<Subject>) {
+        updateState { it.copy(subjects = subjects.take(6).toSubjectUiState(), isLoading = false) }
+    }
+
 
     private fun onError() {
         updateState {
             HomeUIState(
                 isError = true,
                 isLoading = false,
-                isSuccess = false
             )
         }
         sendNewEffect(HomeUIEffect.HomeError)
