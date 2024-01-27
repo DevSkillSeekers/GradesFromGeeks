@@ -6,18 +6,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -34,6 +36,7 @@ import com.solutionteam.design_system.components.GGUniversity
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.home.component.ChatBot
+import com.solutionteam.mindfulmentor.ui.presentation.home.component.HomeAppBar
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -72,14 +75,27 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 private fun HomeContent(
     state: HomeUIState
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Theme.colors.background),
+            .background(Theme.colors.background)
+            .padding(
+                top = WindowInsets.systemBars
+                    .asPaddingValues()
+                    .calculateTopPadding()
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
+        verticalArrangement = Arrangement.Center,
+
+        ) {
+
+        HomeAppBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            onNotificationClicked = {}
+        )
 
         if (state.isLoading) {
             CircularProgressIndicator()
