@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1007947332922",
+    "project_id": "mindfulmentor-56615",
+    "storage_bucket": "mindfulmentor-56615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007947332922:android:dd2b88c072e50eef2d2403",
+        "android_client_info": {
+          "package_name": "com.solutionteam.mindfulmentor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgLxoaAexfdIJOcc8e3Z9Y-XxkvKiIXNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
