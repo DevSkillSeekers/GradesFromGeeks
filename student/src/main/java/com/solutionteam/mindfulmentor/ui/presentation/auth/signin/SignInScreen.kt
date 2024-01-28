@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin
 
 import android.app.Activity.RESULT_OK
 import android.widget.Toast

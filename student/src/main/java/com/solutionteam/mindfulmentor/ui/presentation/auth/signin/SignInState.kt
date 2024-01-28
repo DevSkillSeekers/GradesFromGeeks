@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin
 
 data class SignInState(
     val isSignInSuccessful: Boolean = false,
