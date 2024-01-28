@@ -16,7 +16,7 @@ import com.solutionteam.mindfulmentor.utils.Utils
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun TextWithLink(
+fun TextWithClick(
     fullText: String,
     linkText: String,
     url: String,
@@ -33,7 +33,7 @@ fun TextWithLink(
     ) {
         ClickableText(
             modifier = modifier,
-            style = style.copy(textAlign = TextAlign.Center),
+            style = style.copy(textAlign = TextAlign.Center).copy(color = Theme.colors.secondaryShadesDark),
             text = annotatedLinkString,
             onClick = {
                 annotatedLinkString
@@ -41,6 +41,31 @@ fun TextWithLink(
                     .firstOrNull()?.let { annotation ->
                         uriHandler.openUri(annotation.item.url)
                     }
+            }
+        )
+    }
+}
+@Composable
+fun TextWithClick(
+    onClick:()->Unit,
+    fullText: String,
+    linkText: String,
+    modifier: Modifier = Modifier,
+    url: String="",
+    color: Color = Theme.colors.primary,
+    style: TextStyle = Theme.typography.labelLarge,
+) {
+    val annotatedLinkString = Utils.textWithLink(fullText, linkText, url, color)
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        ClickableText(
+            modifier = modifier,
+            style = style.copy(textAlign = TextAlign.Center),
+            text = annotatedLinkString,
+            onClick = {
+                onClick()
             }
         )
     }

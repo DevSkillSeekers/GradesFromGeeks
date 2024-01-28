@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.presentation.auth.composables.TextWithLink
+import com.solutionteam.mindfulmentor.ui.presentation.auth.composables.TextWithClick
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -90,10 +90,10 @@ fun WelcomeScreenContent(
                 containerColor = Theme.colors.card,
                 contentColor = Theme.colors.primaryShadesDark
             )
-            TextWithLink(fullText = stringResource(R.string.services_text),
+            TextWithClick(fullText = stringResource(R.string.services_text),
                 linkText = stringResource(R.string.services_text_link),
                 url = stringResource(R.string.google_link),
-                modifier = Modifier.padding(bottom = 47.dp) )
+                modifier = Modifier.padding(bottom = 47.dp, start = 39.dp, end = 39.dp) )
 
         }
     }
