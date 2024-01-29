@@ -11,10 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.components.GGTextChipStyle
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.home.MeetingUiState
 import com.solutionteam.mindfulmentor.utils.formatHoursMinutes
 import com.solutionteam.mindfulmentor.utils.formatTimestamp
@@ -58,9 +60,9 @@ fun InComingMeeting(
                 .fillMaxWidth()
                 .padding(top = 4.dp),
             title = if (meeting.enableJoin) {
-                "Join now"
+                stringResource(id = R.string.join_now)
             } else {
-                "Join after..(${meeting.reminder.formatHoursMinutes()})"
+                stringResource(R.string.join_after) + "(${meeting.reminder.formatHoursMinutes()})"
             },
             enabled = meeting.enableJoin,
             onClick = onJoinClicked

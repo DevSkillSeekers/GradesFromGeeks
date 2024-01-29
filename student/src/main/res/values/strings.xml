@@ -14,6 +14,8 @@
     <string name="Get_ready_for_a_lot_of_summaries_description">Many summaries and explanations in all academic subjects from various universities.</string>
     <string name="Ask_experts_directly_and_get_answers">Ask experts directly\nand get answers.</string>
     <string name="Ask_experts_directly_and_get_answers_description">Directly engage with senior students for personalized insights and clarity. Ask and learn.</string>
+    <string name="join_now">Join now</string>
+    <string name="join_after">"Join after..</string>
 
     <!-- search section -->
     <string name="search_title">Search</string>
