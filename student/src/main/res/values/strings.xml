@@ -7,6 +7,13 @@
     <string name="subjects">Subjects</string>
     <string name="universities">Universities</string>
     <string name="welcome_chatbot">How can I help you?</string>
+    <string name="Grades_From_Geek">Grades From Geek’s</string>
+    <string name="Raise_your_grades_with_a_group_of_geeks">Raise your grades\n with a group of geeks</string>
+    <string name="Raise_your_grades_with_a_group_of_geeks_description">You’re taking the first step in changing your life. Let us guide you through it.</string>
+    <string name="Get_ready_for_a_lot_of_summaries">Get ready for\na lot of summaries.</string>
+    <string name="Get_ready_for_a_lot_of_summaries_description">Many summaries and explanations in all academic subjects from various universities.</string>
+    <string name="Ask_experts_directly_and_get_answers">Ask experts directly\nand get answers.</string>
+    <string name="Ask_experts_directly_and_get_answers_description">Directly engage with senior students for personalized insights and clarity. Ask and learn.</string>
 
     <!-- search section -->
     <string name="search_title">Search</string>
@@ -19,4 +26,6 @@
     <string name="services_text"><![CDATA[By continuing you argree Habeet’s Terms of Services & Privacy Policy]]></string>
     <string name="services_text_link"><![CDATA[Terms of Services & Privacy Policy]]></string>
     <string name="google_link">https://google.com</string>
+    <string name="let_do_it">Let’s do it</string>
+
 </resources>

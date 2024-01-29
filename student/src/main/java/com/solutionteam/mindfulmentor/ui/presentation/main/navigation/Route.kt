@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 
 const val navigationRouteLogin = "login"
+const val navigationRouteOnBoarding = "onboarding"
 
 
 const val navigationRouteMain = "main"
@@ -38,6 +39,7 @@ sealed class Screen(
 
     object Login : Screen(navigationRouteLogin)
 
+    object OnBoarding : Screen(navigationRouteOnBoarding)
 
     object Main : Screen(navigationRouteMain)
     object Home : Screen(

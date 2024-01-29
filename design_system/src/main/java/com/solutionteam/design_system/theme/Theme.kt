@@ -37,7 +37,7 @@ object Theme {
 
 
 @Composable
-fun MindfulMentorTheme(
+fun GGTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

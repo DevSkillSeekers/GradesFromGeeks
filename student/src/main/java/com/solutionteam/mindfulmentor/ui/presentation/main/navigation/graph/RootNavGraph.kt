@@ -6,9 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
-import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.homeScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.loginNavGraph
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.mainNavGraph
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.onboardingScreen
 
 @Composable
 fun RootNavGraph(
@@ -23,6 +23,7 @@ fun RootNavGraph(
         modifier = modifier,
     ) {
 
+        onboardingScreen(onNavigateTo = navController::navigateTo)
         loginNavGraph (onNavigateToRoot = navController::navigateTo)
         mainNavGraph (onNavigateToRoot = navController::navigateTo)
     }
