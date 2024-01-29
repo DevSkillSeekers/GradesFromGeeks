@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solutionteam.design_system.components.GGBackTopAppBar
@@ -95,7 +94,7 @@ private fun LoginContent(
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
-                GGTextField(label = "UserName", text = "", onValueChange = {})
+                GGTextField(label = "User Name", text = "", onValueChange = {})
                 GGTextField(
                     label = "Your PassWord",
                     text = "", onValueChange = {},
@@ -138,9 +137,3 @@ private fun LoginContent(
     }
 }
 
-@Preview
-@Composable
-fun PreviewWelcome() {
-    val uiState = LoginUIState()
-    LoginContent(uiState.copy(isLoading = false), {})
-}
