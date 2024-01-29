@@ -1,7 +1,5 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth.login
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,14 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solutionteam.design_system.components.GGBackTopAppBar
@@ -29,45 +26,20 @@ import com.solutionteam.design_system.components.GGTextField
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.auth.composables.TextWithClick
-import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel(),
+fun SignInScreen(
+    viewModel: SignInViewModel = koinViewModel(),
     navigateTo: () -> Unit
 ) {
-
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
-    val context = LocalContext.current
-
-
-    LoginContent(
-        state = state,
-        navigateTo = navigateTo
-    )
-
-    LaunchedEffect(key1 = state.isSuccess) {
-        viewModel.effect.collectLatest {
-            onEffect(effect, context)
-        }
-    }
 }
-
-
-private fun onEffect(effect: LoginUIEffect?, context: Context) {
-
-    when (effect) {
-        LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        else -> {}
-    }
-}
-
 
 @Composable
-private fun LoginContent(
-    state: LoginUIState,
+fun SignInScreenContent(
+    state: SignInState,
     navigateTo: () -> Unit
 ) {
     Column(
@@ -82,30 +54,34 @@ private fun LoginContent(
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
+
                 Text(
-                    text = "log in",
+                    text = "Sign UP",
                     style = Theme.typography.titleLarge,
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
+                GGTextField(label = "Email", text = "", onValueChange = {})
                 GGTextField(label = "User Name", text = "", onValueChange = {})
                 GGTextField(
                     label = "Your PassWord",
                     text = "", onValueChange = {},
                     keyboardType = KeyboardType.Password
                 )
-                GGButton(title = "Log In", onClick = navigateTo, modifier = Modifier.fillMaxWidth())
+                GGButton(title = "Continue", onClick = navigateTo, modifier = Modifier.fillMaxWidth())
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
                     Text(
                         text = "- Or -",
                         style = Theme.typography.titleSmall,
@@ -131,9 +107,14 @@ private fun LoginContent(
                     )
                 }
             }
-
         }
 
     }
 }
 
+@Preview
+@Composable
+fun PreviewSignInScreen() {
+    val state = SignInState()
+    SignInScreenContent(state.copy(isLoading =  false), {})
+}
