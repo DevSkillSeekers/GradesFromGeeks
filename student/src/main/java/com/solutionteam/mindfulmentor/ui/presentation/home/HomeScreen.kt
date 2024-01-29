@@ -6,37 +6,41 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.components.GGMentor
 import com.solutionteam.design_system.components.GGSubject
+import com.solutionteam.design_system.components.GGTextChipStyle
 import com.solutionteam.design_system.components.GGTitleWithSeeAll
 import com.solutionteam.design_system.components.GGUniversity
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.home.component.ChatBot
 import com.solutionteam.mindfulmentor.ui.presentation.home.component.HomeAppBar
+import com.solutionteam.mindfulmentor.ui.presentation.home.component.InComingMeeting
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -49,14 +53,18 @@ fun HomeScreen(
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-
-    HomeContent(
-        state = state
-    )
+    HomeContent(state = state)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
             onEffect(effect, context)
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        while (state.upComingMeetings.isNotEmpty()) {
+            viewModel.updateMeeting()
+            delay(60_000)
         }
     }
 }
@@ -72,9 +80,7 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 
 
 @Composable
-private fun HomeContent(
-    state: HomeUIState
-) {
+private fun HomeContent(state: HomeUIState) {
 
     Column(
         modifier = Modifier
@@ -82,8 +88,7 @@ private fun HomeContent(
             .background(Theme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-
-        ) {
+    ) {
 
         HomeAppBar(
             modifier = Modifier.fillMaxWidth(),
@@ -105,6 +110,16 @@ private fun HomeContent(
                         .padding(16.dp),
                     onClick = {}
                 )
+
+                state.upComingMeetings.forEach { meeting ->
+                    InComingMeeting(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        meeting = meeting,
+                        onJoinClicked = {}
+                    )
+                }
 
                 GGTitleWithSeeAll(
                     modifier = Modifier
@@ -178,11 +193,11 @@ private fun HomeContent(
                         )
                     }
                 }
-
             }
         }
     }
 }
+
 
 
 
