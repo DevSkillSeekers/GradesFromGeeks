@@ -6,6 +6,7 @@ import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
+import com.solutionteam.mindfulmentor.utils.isLessThanXMinutes
 
 class HomeViewModel(
     private val repository: MindfulMentorRepository
@@ -92,11 +93,15 @@ class HomeViewModel(
                     if (reminder < -10) {
                         null
                     } else {
-                        meeting.copy(reminder = reminder)
+                        meeting.copy(
+                            reminder = reminder,
+                            enableJoin = meeting.time.isLessThanXMinutes()
+                        )
                     }
                 }
             )
         }
     }
+
 
 }
