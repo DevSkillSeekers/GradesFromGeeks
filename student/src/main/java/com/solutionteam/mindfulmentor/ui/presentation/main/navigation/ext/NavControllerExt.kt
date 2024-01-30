@@ -1,14 +1,12 @@
 package com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext
 
-import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
 
 
-fun NavController.navigateTo(
-    screen: Screen
-) {
+fun NavController.navigateTo(screen: Screen) {
 
     val currentRoute: String? = this.currentBackStackEntry?.destination?.route
 
@@ -28,6 +26,7 @@ fun NavController.navigateTo(
         popUpTo(graph.findStartDestination().id) {
             saveState = true
         }
+
         // Avoid multiple copies of the same destination when
         // reselecting the same item
         launchSingleTop = true
@@ -35,9 +34,10 @@ fun NavController.navigateTo(
         restoreState = screen.restoreState
 
         //Clearing back stack up to certain screen if required
-        if (screen.clearBackStack && !currentRoute.isNullOrEmpty())
+        if (screen.clearBackStack && !currentRoute.isNullOrEmpty()) {
             popUpTo(currentRoute) {
                 inclusive = true
             }
+        }
     }
 }

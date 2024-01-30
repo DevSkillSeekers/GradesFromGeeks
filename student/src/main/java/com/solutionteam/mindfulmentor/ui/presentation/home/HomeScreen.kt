@@ -6,20 +6,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -37,33 +33,40 @@ import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.home.component.ChatBot
 import com.solutionteam.mindfulmentor.ui.presentation.home.component.HomeAppBar
+import com.solutionteam.mindfulmentor.ui.presentation.home.component.InComingMeeting
+import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllType
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
+    navigateTo: (SeeAllType) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-
-    HomeContent(
-        state = state
-    )
+    HomeContent(state = state, navigateToSeeAll = navigateTo)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
             onEffect(effect, context)
         }
     }
+
+    LaunchedEffect(Unit) {
+        while (state.upComingMeetings.isNotEmpty()) {
+            viewModel.updateMeeting()
+            delay(60_000)
+        }
+    }
 }
 
 
 private fun onEffect(effect: HomeUIEffect?, context: Context) {
-
     when (effect) {
         HomeUIEffect.HomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         else -> {}
@@ -73,18 +76,16 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 
 @Composable
 private fun HomeContent(
-    state: HomeUIState
+    state: HomeUIState,
+    navigateToSeeAll: (SeeAllType) -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Theme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-
-        ) {
-
+    ) {
         HomeAppBar(
             modifier = Modifier.fillMaxWidth(),
             onNotificationClicked = {}
@@ -106,12 +107,23 @@ private fun HomeContent(
                     onClick = {}
                 )
 
+                state.upComingMeetings.forEach { meeting ->
+                    InComingMeeting(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        meeting = meeting,
+                        onJoinClicked = {}
+                    )
+                }
+
                 GGTitleWithSeeAll(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.mentors),
-                    onClick = {}
+                    showSeeAll = state.mentors.showSeeAll(),
+                    onClick = { navigateToSeeAll(SeeAllType.Mentors) }
                 )
 
                 state.mentors.take(3).forEach { mentor ->
@@ -132,6 +144,7 @@ private fun HomeContent(
                         .padding(top = 16.dp, bottom = 10.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.subjects),
+                    showSeeAll = state.subjects.showSeeAll(),
                     onClick = {}
                 )
 
@@ -156,7 +169,8 @@ private fun HomeContent(
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.universities),
-                        onClick = {}
+                        showSeeAll = state.university.showSeeAll(),
+                        onClick = { navigateToSeeAll(SeeAllType.Universities) }
                     )
                 }
 
@@ -178,12 +192,9 @@ private fun HomeContent(
                         )
                     }
                 }
-
             }
         }
     }
 }
-
-
 
 
