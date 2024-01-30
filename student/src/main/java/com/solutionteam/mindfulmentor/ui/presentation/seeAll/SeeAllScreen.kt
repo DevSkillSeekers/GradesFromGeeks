@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.presentation.seeAll
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.qualifier
+import kotlin.math.log
 
 @Composable
 fun SeeAllScreen(
@@ -109,7 +111,7 @@ private fun SeeAllContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = navigateTo
+                        onClick = { navigateTo() }
                     )
                 }
 

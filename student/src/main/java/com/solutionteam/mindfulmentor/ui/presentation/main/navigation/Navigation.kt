@@ -1,6 +1,5 @@
 package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
@@ -80,10 +79,9 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.also(onNavigateTo)
                     HomeUIEffect.NavigateToNotification -> {}
                     is HomeUIEffect.NavigateToSeeAll -> {
-                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.name))
+                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
                     }
-
                     HomeUIEffect.NavigateToUniversityProfile -> {}
                     else -> {}
                 }
@@ -131,7 +129,7 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
         val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
         SeeAllScreen(
             type = value,
-            navigateTo = { Screen.Mentor.also(onNavigateTo) },
+            navigateTo = { Screen.Mentor.withClearBackStack().also(onNavigateTo) },
             navigateBack = onNavigateBack
         )
     }
@@ -143,7 +141,7 @@ fun NavGraphBuilder.mentorNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigat
     ) {
 
         MentorScreen(
-            onNavigateTo = { Screen.Main.withClearBackStack().also(onNavigateToRoot) },
+            onNavigateTo = {  },
             navigateBack = onNavigateBack
         )
     }

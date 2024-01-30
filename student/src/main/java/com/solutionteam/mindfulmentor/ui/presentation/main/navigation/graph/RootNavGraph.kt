@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
