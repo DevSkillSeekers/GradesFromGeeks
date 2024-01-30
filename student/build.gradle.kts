@@ -108,4 +108,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
     api(project(":design_system"))
+
+    //SplashScreen Api
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }

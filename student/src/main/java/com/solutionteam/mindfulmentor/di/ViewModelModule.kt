@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.di
 
 import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginViewModel
+import com.solutionteam.mindfulmentor.ui.presentation.auth.welcome.WelcomeViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileViewModel
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModelOf(::ProfileViewModel)
     viewModelOf(::DownloadsViewModel)
     viewModelOf(::SeeAllViewModel)
+    viewModelOf(::WelcomeViewModel)
 }

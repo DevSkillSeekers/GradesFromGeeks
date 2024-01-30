@@ -38,7 +38,8 @@ fun GGTextField(
     text: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    style: TextStyle = Theme.typography.titleMedium,
+    labelStyle: TextStyle = Theme.typography.bodyLarge,
+    textStyle: TextStyle = Theme.typography.bodyLarge,
     textFieldModifier: Modifier = Modifier
         .fillMaxWidth()
         .height(56.dp),
@@ -58,8 +59,8 @@ fun GGTextField(
         Text(
             text = label,
             modifier = Modifier.padding(bottom = 8.dp),
-            style = style,
-            color = Theme.colors.primaryShadesDark
+            style = labelStyle,
+            color = Theme.colors.secondaryShadesDark
         )
 
         OutlinedTextField(
@@ -68,13 +69,13 @@ fun GGTextField(
             placeholder = {
                 Text(
                     hint,
-                    style = style,
+                    style = textStyle,
                     color = Theme.colors.primaryShadesDark.copy(alpha = 0.6f)
                 )
             },
             onValueChange = onValueChange,
             shape = shapeRadius,
-            textStyle = style.copy(color = Theme.colors.primaryShadesDark),
+            textStyle = textStyle.copy(color = Theme.colors.primaryShadesDark),
             singleLine = singleLine,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             trailingIcon = if (keyboardType == KeyboardType.Password) {

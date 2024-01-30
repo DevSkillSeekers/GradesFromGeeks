@@ -25,5 +25,9 @@
 
 
     <string name="web_client_id">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
+    <string name="services_text"><![CDATA[By continuing you argree Habeet’s Terms of Services & Privacy Policy]]></string>
+    <string name="services_text_link"><![CDATA[Terms of Services & Privacy Policy]]></string>
+    <string name="google_link">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
+
 </resources>
