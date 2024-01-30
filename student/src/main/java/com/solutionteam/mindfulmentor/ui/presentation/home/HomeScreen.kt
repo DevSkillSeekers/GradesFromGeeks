@@ -42,14 +42,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
-    navigateTo: (SeeAllType) -> Unit
+    navigateTo: (HomeUIEffect) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-    HomeContent(state = state, navigateToSeeAll = navigateTo)
+    HomeContent(state = state, onNavigateTo = navigateTo)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
@@ -77,7 +77,7 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 @Composable
 private fun HomeContent(
     state: HomeUIState,
-    navigateToSeeAll: (SeeAllType) -> Unit,
+    onNavigateTo: (HomeUIEffect) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -123,7 +123,7 @@ private fun HomeContent(
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.mentors),
                     showSeeAll = state.mentors.showSeeAll(),
-                    onClick = { navigateToSeeAll(SeeAllType.Mentors) }
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) }
                 )
 
                 state.mentors.take(3).forEach { mentor ->
@@ -135,7 +135,7 @@ private fun HomeContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = {}
+                        onClick = {onNavigateTo(HomeUIEffect.NavigateToMentorProfile)}
                     )
                 }
 
@@ -170,7 +170,7 @@ private fun HomeContent(
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.universities),
                         showSeeAll = state.university.showSeeAll(),
-                        onClick = { navigateToSeeAll(SeeAllType.Universities) }
+                        onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) }
                     )
                 }
 

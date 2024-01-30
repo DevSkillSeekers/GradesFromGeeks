@@ -16,7 +16,8 @@ data class SeeAllUIState(
 enum class SeeAllType(val value: String) {
     Mentors("Mentors"),
     Universities("Universities"),
-    NoThing("")
+    NoThing(""),
+
 }
 
 fun String.toSeeAllType(): SeeAllType {

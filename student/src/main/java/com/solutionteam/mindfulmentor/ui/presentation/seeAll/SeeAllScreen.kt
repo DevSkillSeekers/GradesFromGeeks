@@ -47,7 +47,8 @@ fun SeeAllScreen(
 
     SeeAllContent(
         state = state,
-        onBack = navigateBack
+        onBack = navigateBack,
+        navigateTo = navigateTo
     )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
@@ -70,7 +71,8 @@ private fun onEffect(effect: SeeAllUIEffect?, context: Context) {
 @Composable
 private fun SeeAllContent(
     state: SeeAllUIState,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navigateTo: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -107,7 +109,7 @@ private fun SeeAllContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = {}
+                        onClick = navigateTo
                     )
                 }
 

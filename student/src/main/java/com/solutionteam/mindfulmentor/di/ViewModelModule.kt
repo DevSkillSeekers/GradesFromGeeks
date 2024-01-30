@@ -7,6 +7,7 @@ import com.solutionteam.mindfulmentor.ui.presentation.home.HomeViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllViewModel
+import com.solutionteam.mindfulmentor.ui.presentation.mentor.MentorViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModelOf(::DownloadsViewModel)
     viewModelOf(::SeeAllViewModel)
     viewModelOf(::WelcomeViewModel)
+    viewModelOf(::MentorViewModel)
 }

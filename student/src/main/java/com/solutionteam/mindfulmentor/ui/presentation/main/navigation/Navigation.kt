@@ -1,5 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
@@ -10,9 +11,11 @@ import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginScreen
 import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeScreen
+import com.solutionteam.mindfulmentor.ui.presentation.home.HomeUIEffect
 import com.solutionteam.mindfulmentor.ui.presentation.main.MainScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph.MainNavGraph
+import com.solutionteam.mindfulmentor.ui.presentation.mentor.MentorScreen
 import com.solutionteam.mindfulmentor.ui.presentation.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchScreen
@@ -71,9 +74,19 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(route = Screen.Home.route) {
         HomeScreen(
-            navigateTo = {
-                Screen.SeeAll.args = bundleOf(Pair("type", it.value))
-                Screen.SeeAll.also(onNavigateTo)
+            navigateTo = { navigate ->
+                when (navigate) {
+                    HomeUIEffect.NavigateToChatBooks -> {}
+                    HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.also(onNavigateTo)
+                    HomeUIEffect.NavigateToNotification -> {}
+                    is HomeUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.name))
+                        Screen.SeeAll.also(onNavigateTo)
+                    }
+
+                    HomeUIEffect.NavigateToUniversityProfile -> {}
+                    else -> {}
+                }
             }
         )
     }
@@ -118,7 +131,19 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
         val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
         SeeAllScreen(
             type = value,
-            navigateTo = {},
+            navigateTo = { Screen.Mentor.also(onNavigateTo) },
+            navigateBack = onNavigateBack
+        )
+    }
+}
+
+fun NavGraphBuilder.mentorNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Mentor.route
+    ) {
+
+        MentorScreen(
+            onNavigateTo = { Screen.Main.withClearBackStack().also(onNavigateToRoot) },
             navigateBack = onNavigateBack
         )
     }

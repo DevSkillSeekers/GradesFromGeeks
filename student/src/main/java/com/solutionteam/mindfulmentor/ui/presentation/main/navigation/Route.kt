@@ -11,8 +11,6 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.core.os.bundleOf
-import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllType
 
 
 const val navigationRouteLogin = "login"
@@ -21,10 +19,13 @@ const val navigationRouteSeeAll = "seeAll"
 
 
 const val navigationRouteMain = "main"
+
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
 const val navigationRouteDownloads = "downloads"
+
+const val navigationRouteMentor = "mentor"
 
 
 sealed class Screen(
@@ -42,34 +43,38 @@ sealed class Screen(
         routePath = path
     }
 
-    object Login : Screen(navigationRouteLogin)
+    data object Login : Screen(navigationRouteLogin)
 
-    object OnBoarding : Screen(navigationRouteOnBoarding)
+    data object OnBoarding : Screen(navigationRouteOnBoarding)
 
-    object SeeAll : Screen(navigationRouteSeeAll)
+    data object SeeAll : Screen(navigationRouteSeeAll)
 
-    object Main : Screen(navigationRouteMain)
-    object Home : Screen(
+    data object Main : Screen(navigationRouteMain)
+    data object Home : Screen(
         route = navigationRouteHome,
         selectedIcon = Icons.Rounded.Home,
         unselectedIcon = Icons.Outlined.Home
     )
 
-    object Search : Screen(
+    data object Search : Screen(
         route = navigationRouteSearch,
         selectedIcon = Icons.Rounded.Search,
         unselectedIcon = Icons.Outlined.Search
     )
 
-    object Profile : Screen(
+    data object Profile : Screen(
         route = navigationRouteProfile,
         selectedIcon = Icons.Rounded.Person,
         unselectedIcon = Icons.Outlined.Person
     )
 
-    object Downloads : Screen(
+    data object Downloads : Screen(
         route = navigationRouteDownloads,
         selectedIcon = Icons.Rounded.Build,
         unselectedIcon = Icons.Outlined.Build
+    )
+
+    data object Mentor : Screen(
+        route = navigationRouteMentor
     )
 }
