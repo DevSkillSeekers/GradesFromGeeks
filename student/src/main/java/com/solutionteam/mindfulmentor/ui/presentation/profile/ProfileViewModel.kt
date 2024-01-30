@@ -2,50 +2,22 @@ package com.solutionteam.mindfulmentor.ui.presentation.profile
 
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
-import kotlinx.coroutines.delay
 
 class ProfileViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
 ) : BaseViewModel<ProfileUIState, ProfileUIEffect>(ProfileUIState()) {
 
     init {
-        onMakeRequest()
+        getData()
     }
 
-    private fun onMakeRequest() {
-        updateState { it.copy(isLoading = true) }
-
-        tryToExecute(
-            {
-                delay(1900)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
-            },
-            { onSuccess() },
-            ::onError
-        )
-    }
-
-
-    private fun onSuccess() {
+    private fun getData() {
         updateState {
             it.copy(
-                isSuccess = true,
-                isError = false,
-                isLoading = false,
+                profileUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
+                name = "Asia Sama"
             )
         }
     }
-
-    private fun onError() {
-        updateState {
-            ProfileUIState(
-                isError = true,
-                isLoading = false,
-                isSuccess = false
-            )
-        }
-        sendNewEffect(ProfileUIEffect.ProfileError)
-    }
-
 
 }
