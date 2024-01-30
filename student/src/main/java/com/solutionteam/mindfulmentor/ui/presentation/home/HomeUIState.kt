@@ -49,6 +49,10 @@ data class MeetingUiState(
     val enableJoin: Boolean = false,
 )
 
+fun List<Any>.showSeeAll(): Boolean {
+    return this.size > 3
+}
+
 //region Mappers
 
 fun Mentor.toUiState() = MentorUiState(

@@ -69,7 +69,7 @@ fun HomeScreen(
 private fun onEffect(effect: HomeUIEffect?, context: Context) {
     when (effect) {
         HomeUIEffect.HomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        null -> {}
+        else -> {}
     }
 }
 
@@ -122,6 +122,7 @@ private fun HomeContent(
                         .padding(bottom = 4.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.mentors),
+                    showSeeAll = state.mentors.showSeeAll(),
                     onClick = { navigateToSeeAll(SeeAllType.Mentors) }
                 )
 
@@ -143,6 +144,7 @@ private fun HomeContent(
                         .padding(top = 16.dp, bottom = 10.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.subjects),
+                    showSeeAll = state.subjects.showSeeAll(),
                     onClick = {}
                 )
 
@@ -167,6 +169,7 @@ private fun HomeContent(
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.universities),
+                        showSeeAll = state.university.showSeeAll(),
                         onClick = { navigateToSeeAll(SeeAllType.Universities) }
                     )
                 }
