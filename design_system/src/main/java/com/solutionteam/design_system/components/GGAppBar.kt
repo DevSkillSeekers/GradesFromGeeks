@@ -25,7 +25,8 @@ import com.solutionteam.design_system.theme.Theme
 fun GGAppBar(
     title: String,
     modifier: Modifier = Modifier,
-    onBack: () -> Unit
+    showNavigationIcon: Boolean = true,
+    onBack: (() -> Unit)? = null
 ) {
     TopAppBar(
         modifier = modifier.shadow(1.dp),
@@ -37,14 +38,16 @@ fun GGAppBar(
             )
         },
         navigationIcon = {
-            Icon(
-                modifier = Modifier
-                    .noRippleEffect { onBack() }
-                    .padding(horizontal = 8.dp),
-                painter = painterResource(id = R.drawable.back_arrow),
-                contentDescription = null,
-                tint = Theme.colors.primaryShadesDark
-            )
+            if (showNavigationIcon) {
+                Icon(
+                    modifier = Modifier
+                        .noRippleEffect(onBack)
+                        .padding(horizontal = 8.dp),
+                    painter = painterResource(id = R.drawable.back_arrow),
+                    contentDescription = null,
+                    tint = Theme.colors.primaryShadesDark
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Theme.colors.background

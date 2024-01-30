@@ -7,11 +7,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Modifier.noRippleEffect(onClick: () -> Unit) = clickable(
+fun Modifier.noRippleEffect(onClick: (() -> Unit)?) = clickable(
     interactionSource = remember { MutableInteractionSource() },
     indication = null
 ) {
-    onClick()
+    onClick?.let { onClick() }
 }
 
 
