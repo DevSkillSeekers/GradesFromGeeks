@@ -35,31 +35,26 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    navigateTo: () -> Unit
+    navigateTo: (LoginUIEffect) -> Unit
 ) {
-
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
-
-
     LoginContent(
         state = state,
-        navigateTo = navigateTo
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context,navigateTo)
         }
     }
 }
 
-
-private fun onEffect(effect: LoginUIEffect?, context: Context) {
-
+private fun onEffect(effect: LoginUIEffect?, context: Context,navigateTo: (LoginUIEffect) -> Unit) {
     when (effect) {
-        LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        is LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        is LoginUIEffect.OnClickLogin -> navigateTo(LoginUIEffect.OnClickLogin)
         else -> {}
     }
 }
@@ -68,7 +63,6 @@ private fun onEffect(effect: LoginUIEffect?, context: Context) {
 @Composable
 private fun LoginContent(
     state: LoginUIState,
-    navigateTo: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -78,10 +72,10 @@ private fun LoginContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGBackTopAppBar({})
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
+            GGBackTopAppBar({})
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -100,7 +94,7 @@ private fun LoginContent(
                     text = "", onValueChange = {},
                     keyboardType = KeyboardType.Password
                 )
-                GGButton(title = "Log In", onClick = navigateTo, modifier = Modifier.fillMaxWidth())
+                GGButton(title = "Log In", onClick = {}, modifier = Modifier.fillMaxWidth())
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),

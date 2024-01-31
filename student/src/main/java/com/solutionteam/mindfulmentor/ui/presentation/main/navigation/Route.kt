@@ -14,8 +14,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
-
-
+const val navigationRouteWelcome = "welcome"
+const val navigationRouteSignIn = "sign_in"
+const val navigationRouteAdditionalInfo = "additional_info"
 const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
@@ -39,6 +40,9 @@ sealed class Screen(
 
     object Login : Screen(navigationRouteLogin)
 
+    object Welcome : Screen(navigationRouteWelcome)
+    object SignIn : Screen(navigationRouteSignIn)
+    object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     object OnBoarding : Screen(navigationRouteOnBoarding)
 
     object Main : Screen(navigationRouteMain)

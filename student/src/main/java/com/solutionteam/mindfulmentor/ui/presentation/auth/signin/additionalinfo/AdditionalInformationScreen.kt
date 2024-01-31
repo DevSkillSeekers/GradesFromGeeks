@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth.signin
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin.additionalinfo
 
 import android.app.Activity.RESULT_OK
 import android.widget.Toast
@@ -32,6 +32,8 @@ import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.components.GGDropdownMenu
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.data.network.repositories.GoogleAuthUiClient
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInState
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -78,6 +80,7 @@ fun AdditionalInformationScreen(
                     ).build()
                 )
             }
+            navigateTo()
         }
     )
 
@@ -93,8 +96,9 @@ fun AdditionalInformationScreen(
 @Composable
 fun AdditionalInformationScreenContent(
     state: SignInState,
-    onSignInClick: () -> Unit
-) {
+    onSignInClick: () -> Unit,
+
+    ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val context = LocalContext.current
     LaunchedEffect(key1 = state.signInError) {

@@ -7,6 +7,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginScreen
+import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginUIEffect
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.additionalinfo.AdditionalInformationScreen
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.maininfo.SignInScreen
+import com.solutionteam.mindfulmentor.ui.presentation.auth.welcome.WelcomeScreen
+import com.solutionteam.mindfulmentor.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.MainScreen
@@ -22,11 +27,13 @@ fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit) {
         route = Screen.Login.route
     ) {
 
-        LoginScreen(
-            navigateTo = {
-                Screen.Main.withClearBackStack().also(onNavigateToRoot)
+        LoginScreen(){
+            when (it) {
+                LoginUIEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateToRoot)
+                LoginUIEffect.OnClickBack -> {}
+                else -> {}
             }
-        )
+        }
     }
 }
 
@@ -76,6 +83,41 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
+fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Welcome.route
+    )
+    {
+        WelcomeScreen() {
+            when (it) {
+                WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack().also(onNavigateTo)
+                else -> {}
+            }
+        }
+    }
+}
+
+fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.SignIn.route
+    ) {
+        SignInScreen( navigateTo = {
+            Screen.AdditionalInfo.withClearBackStack().also(onNavigateTo)
+        })
+    }
+}
+
+fun NavGraphBuilder.additionalInfo(onNavigateTo: (Screen) -> Unit){
+    composable(
+        route = Screen.AdditionalInfo.route
+    ){
+        AdditionalInformationScreen {
+            Screen.Main.withClearBackStack().also(onNavigateTo)
+        }
+    }
+}
+
 fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Search.route
@@ -99,6 +141,7 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
         DownloadsScreen()
     }
 }
+
 fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.OnBoarding.route
