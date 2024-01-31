@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.core.os.bundleOf
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -20,6 +21,8 @@ import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph.Main
 import com.solutionteam.mindfulmentor.ui.presentation.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchScreen
+import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllScreen
+import com.solutionteam.mindfulmentor.ui.presentation.seeAll.toSeeAllType
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -44,9 +47,7 @@ fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigate
 
 
 fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
-    composable(
-        route = Screen.Main.route
-    ) {
+    composable(route = Screen.Main.route) {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -79,12 +80,14 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 
 }
 
-
 fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Home.route
-    ) {
-        HomeScreen()
+    composable(route = Screen.Home.route) {
+        HomeScreen(
+            navigateTo = {
+                Screen.SeeAll.args = bundleOf(Pair("type", it.value))
+                Screen.SeeAll.also(onNavigateTo)
+            }
+        )
     }
 }
 
@@ -158,5 +161,18 @@ fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.OnBoarding.route
     ) {
         OnBoardingScreen()
+    }
+}
+
+fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    this.composable(
+        route = Screen.SeeAll.route
+    ) {
+        val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
+        SeeAllScreen(
+            type = value,
+            navigateTo = {},
+            navigateBack = onNavigateBack
+        )
     }
 }

@@ -1,5 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.presentation.main.navigation
 
+import android.os.Bundle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Home
@@ -10,10 +11,15 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.core.os.bundleOf
+import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllType
 
 
 const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
+const val navigationRouteSeeAll = "seeAll"
+
+
 const val navigationRouteWelcome = "welcome"
 const val navigationRouteSignIn = "sign_in"
 const val navigationRouteAdditionalInfo = "additional_info"
@@ -30,7 +36,8 @@ sealed class Screen(
     var clearBackStack: Boolean = false,
     val restoreState: Boolean = true,
     val selectedIcon: ImageVector? = null,
-    val unselectedIcon: ImageVector? = null
+    val unselectedIcon: ImageVector? = null,
+    var args: Bundle? = null
 ) {
     fun withClearBackStack() = apply { clearBackStack = true }
 
@@ -44,6 +51,8 @@ sealed class Screen(
     object SignIn : Screen(navigationRouteSignIn)
     object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     object OnBoarding : Screen(navigationRouteOnBoarding)
+
+    object SeeAll : Screen(navigationRouteSeeAll)
 
     object Main : Screen(navigationRouteMain)
     object Home : Screen(

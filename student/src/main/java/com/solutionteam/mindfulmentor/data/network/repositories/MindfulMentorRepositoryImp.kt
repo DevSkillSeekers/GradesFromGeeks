@@ -1,5 +1,6 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
+import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
@@ -22,6 +23,10 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
+    override suspend fun getUpComingMeetings(): List<Meeting> {
+        return generateMeeting()
+    }
+
 
     //region Fake Data
 
@@ -40,7 +45,6 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
-
 
     private fun getProfileImage(): String {
         val list = listOf(
@@ -96,5 +100,26 @@ class MindfulMentorRepositoryImp(
         return list.shuffled().first()
     }
 
+
+    private fun generateMeeting(): List<Meeting> {
+        val meetings = mutableListOf<Meeting>()
+        val mentors = generatorMentor()
+        val subject = generateSubjects()
+        for (i in 0..5) {
+            val mentorIndex = (0..mentors.lastIndex).random()
+            val subjectIndex = (0..subject.lastIndex).random()
+
+            meetings.add(
+                Meeting(
+                    id = "$i",
+                    mentor = mentors[mentorIndex],
+                    subject = subject[subjectIndex].name,
+                    notes = "This meet to recap data structure from ch2 to ch 5",
+                    time = System.currentTimeMillis() + i * (30 * 60 * 1000)
+                )
+            )
+        }
+        return meetings
+    }
     //endregion
 }

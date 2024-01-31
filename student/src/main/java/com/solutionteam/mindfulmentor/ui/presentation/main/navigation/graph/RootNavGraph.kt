@@ -9,6 +9,7 @@ import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.additional
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.loginNavGraph
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.mainNavGraph
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.onSeeAllScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.onboardingScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.signInScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.welcomeScreen
@@ -25,7 +26,10 @@ fun RootNavGraph(
         startDestination = startDestination.route,
         modifier = modifier,
     ) {
-
+        onSeeAllScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
         onboardingScreen(onNavigateTo = navController::navigateTo)
         loginNavGraph(
             onNavigateToRoot = navController::navigateTo,

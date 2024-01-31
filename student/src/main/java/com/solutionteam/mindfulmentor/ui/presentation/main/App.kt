@@ -10,10 +10,6 @@ import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.graph.Root
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun App() {
-        val navController = rememberNavController()
-
-        RootNavGraph(
-                navController = navController,
-                startDestination = Screen.OnBoarding
-        )
+    val navController = rememberNavController()
+    RootNavGraph(navController = navController, startDestination = Screen.Main)
 }
