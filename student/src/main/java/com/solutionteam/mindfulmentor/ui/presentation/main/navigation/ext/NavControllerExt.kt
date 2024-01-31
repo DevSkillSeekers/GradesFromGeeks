@@ -36,7 +36,7 @@ fun NavController.navigateTo(screen: Screen) {
         //Clearing back stack up to certain screen if required
         if (screen.clearBackStack && !currentRoute.isNullOrEmpty()) {
             popUpTo(currentRoute) {
-                inclusive = true
+                inclusive = false
             }
         }
     }

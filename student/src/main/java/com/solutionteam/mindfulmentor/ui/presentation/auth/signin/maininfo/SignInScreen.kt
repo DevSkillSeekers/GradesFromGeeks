@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth.signin
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin.maininfo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solutionteam.design_system.components.GGBackTopAppBar
@@ -26,20 +25,28 @@ import com.solutionteam.design_system.components.GGTextField
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.auth.composables.TextWithClick
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInState
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = koinViewModel(),
+    onNavigateBack:()->Unit ,
     navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
+    SignInScreenContent(
+        state = state,
+        onNavigateBack = onNavigateBack,
+        navigateTo = navigateTo )
 }
 
 @Composable
 fun SignInScreenContent(
     state: SignInState,
+    onNavigateBack:()->Unit,
     navigateTo: () -> Unit
 ) {
     Column(
@@ -50,11 +57,12 @@ fun SignInScreenContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGBackTopAppBar({})
+
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
 
+            GGBackTopAppBar(onNavigateBack)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -110,11 +118,4 @@ fun SignInScreenContent(
         }
 
     }
-}
-
-@Preview
-@Composable
-fun PreviewSignInScreen() {
-    val state = SignInState()
-    SignInScreenContent(state.copy(isLoading =  false), {})
 }

@@ -20,6 +20,9 @@ const val navigationRouteOnBoarding = "onboarding"
 const val navigationRouteSeeAll = "seeAll"
 
 
+const val navigationRouteWelcome = "welcome"
+const val navigationRouteSignIn = "sign_in"
+const val navigationRouteAdditionalInfo = "additional_info"
 const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
@@ -44,6 +47,9 @@ sealed class Screen(
 
     object Login : Screen(navigationRouteLogin)
 
+    object Welcome : Screen(navigationRouteWelcome)
+    object SignIn : Screen(navigationRouteSignIn)
+    object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     object OnBoarding : Screen(navigationRouteOnBoarding)
 
     object SeeAll : Screen(navigationRouteSeeAll)
@@ -59,12 +65,14 @@ sealed class Screen(
         route = navigationRouteSearch,
         selectedIcon = Icons.Rounded.Search,
         unselectedIcon = Icons.Outlined.Search
+
     )
 
     object Profile : Screen(
         route = navigationRouteProfile,
         selectedIcon = Icons.Rounded.Person,
         unselectedIcon = Icons.Outlined.Person
+
     )
 
     object Downloads : Screen(
