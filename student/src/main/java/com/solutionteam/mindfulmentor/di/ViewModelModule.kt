@@ -6,10 +6,7 @@ import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsViewMod
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileViewModel
-import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsViewModel
-import com.solutionteam.mindfulmentor.ui.presentation.auth.welcome.WelcomeViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInViewModel
-import com.solutionteam.mindfulmentor.ui.presentation.search.SearchViewModel
 import com.solutionteam.mindfulmentor.ui.presentation.seeAll.SeeAllViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module

@@ -38,7 +38,7 @@ fun GGButton(
     val buttonColor by animateColorAsState(
             if (enabled) containerColor else Theme.colors.disabled, label = ""
     )
-    val height = if (type == ContainerType.CHIP) 36.dp else 56.dp
+    val height = if (type == ContainerType.CHIP) 36.dp else 50.dp
 
     Surface(
             modifier = modifier.height(height),
