@@ -1,13 +1,19 @@
 package com.solutionteam.mindfulmentor.ui.presentation.chat
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,7 +34,7 @@ import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.presentation.chat.composable.ListOfChat
+import com.solutionteam.mindfulmentor.ui.presentation.chat.composable.MessageCard
 import com.solutionteam.mindfulmentor.ui.presentation.chat.composable.SendTextField
 import com.thechance.ui.composable.Loading
 import org.koin.androidx.compose.koinViewModel
@@ -56,6 +62,7 @@ fun ChatBotScreen(
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ChatBotContent(
     state: ChatUiState,
@@ -106,14 +113,28 @@ private fun ChatBotContent(
                 contentScale = ContentScale.Crop,
         )
         Column(
-                modifier = Modifier.fillMaxSize().padding(top = it. calculateTopPadding(),bottom = it.calculateBottomPadding()),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = it. calculateTopPadding(), bottom = it.calculateBottomPadding()),
                 verticalArrangement = Arrangement.SpaceBetween
         ) {
             Spacer(Modifier.height(1.dp))
             if (state.isLoading) {
                 Loading()
             }
-            ListOfChat(state =state)
+            LazyColumn(
+                    state = rememberLazyListState(),
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(vertical = 24.dp),
+            ) {
+                items(
+                        items = state.messages,
+
+                        ) {
+                    MessageCard(it, Modifier.animateItemPlacement())
+                }
+            }
         }
     }
 
@@ -125,4 +146,7 @@ private fun ChatBotContent(
 
 fun <T> List<T>.lastIndexOrZero() : Int {
     return if (this.isEmpty()) 0 else this.size - 1
+}
+fun LazyListState.isScrolledToTheEnd(): Boolean {
+    return layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 3
 }
