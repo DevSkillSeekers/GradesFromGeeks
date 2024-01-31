@@ -32,16 +32,21 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = koinViewModel(),
+    onNavigateBack:()->Unit ,
     navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
-    SignInScreenContent(state = state, navigateTo )
+    SignInScreenContent(
+        state = state,
+        onNavigateBack = onNavigateBack,
+        navigateTo = navigateTo )
 }
 
 @Composable
 fun SignInScreenContent(
     state: SignInState,
+    onNavigateBack:()->Unit,
     navigateTo: () -> Unit
 ) {
     Column(
@@ -52,11 +57,12 @@ fun SignInScreenContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGBackTopAppBar({  })
+
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
 
+            GGBackTopAppBar(onNavigateBack)
             Column(
                 modifier = Modifier
                     .fillMaxSize()

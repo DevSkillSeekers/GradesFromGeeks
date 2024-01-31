@@ -22,18 +22,23 @@ import com.solutionteam.mindfulmentor.ui.presentation.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.presentation.search.SearchScreen
 
 
-fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit) {
+fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Login.route
     ) {
 
-        LoginScreen(){
-            when (it) {
-                LoginUIEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateToRoot)
-                LoginUIEffect.OnClickBack -> {}
-                else -> {}
-            }
-        }
+        LoginScreen(
+            navigateTo = {
+                when (it) {
+                    LoginUIEffect.OnClickLogin -> Screen.Login.withClearBackStack()
+                        .also(onNavigateToRoot)
+
+                    else -> {}
+                }
+            },
+            onNavigateBack = { onNavigateBack() }
+        )
+
     }
 }
 
@@ -91,30 +96,36 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
         WelcomeScreen() {
             when (it) {
                 WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
-                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack().also(onNavigateTo)
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
+                    .also(onNavigateTo)
+
                 else -> {}
             }
         }
     }
 }
 
-fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit,onNavigateBack: () -> Unit) {
     composable(
         route = Screen.SignIn.route
     ) {
-        SignInScreen( navigateTo = {
-            Screen.AdditionalInfo.withClearBackStack().also(onNavigateTo)
-        })
+        SignInScreen(
+            navigateTo = {
+                Screen.AdditionalInfo.withClearBackStack().also(onNavigateTo)
+            },
+            onNavigateBack = {onNavigateBack()}
+        )
     }
 }
 
-fun NavGraphBuilder.additionalInfo(onNavigateTo: (Screen) -> Unit){
+fun NavGraphBuilder.additionalInfo(onNavigateTo: (Screen) -> Unit,onNavigateBack: () -> Unit) {
     composable(
         route = Screen.AdditionalInfo.route
-    ){
-        AdditionalInformationScreen {
-            Screen.Main.withClearBackStack().also(onNavigateTo)
-        }
+    ) {
+        AdditionalInformationScreen (
+            navigateTo = { Screen.Main.withClearBackStack().also(onNavigateTo) },
+            onNavigateBack = onNavigateBack
+        )
     }
 }
 

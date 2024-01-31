@@ -41,6 +41,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AdditionalInformationScreen(
     viewModel: SignInViewModel = koinViewModel(),
+    onNavigateBack: () -> Unit,
     navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -81,7 +82,8 @@ fun AdditionalInformationScreen(
                 )
             }
             navigateTo()
-        }
+        },
+        onNavigateBack = onNavigateBack
     )
 
     LaunchedEffect(key1 = state.isSignInSuccessful) {
@@ -97,7 +99,7 @@ fun AdditionalInformationScreen(
 fun AdditionalInformationScreenContent(
     state: SignInState,
     onSignInClick: () -> Unit,
-
+    onNavigateBack: () -> Unit
     ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val context = LocalContext.current
@@ -119,7 +121,7 @@ fun AdditionalInformationScreenContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGBackTopAppBar({})
+        GGBackTopAppBar(onNavigateBack)
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {

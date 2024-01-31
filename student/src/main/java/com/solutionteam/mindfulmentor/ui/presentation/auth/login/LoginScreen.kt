@@ -35,13 +35,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    navigateTo: (LoginUIEffect) -> Unit
+    navigateTo: (LoginUIEffect) -> Unit,
+    onNavigateBack : () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
     LoginContent(
         state = state,
+        onNavigateBack
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -63,6 +65,7 @@ private fun onEffect(effect: LoginUIEffect?, context: Context,navigateTo: (Login
 @Composable
 private fun LoginContent(
     state: LoginUIState,
+    onNavigateBack: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -75,7 +78,7 @@ private fun LoginContent(
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
-            GGBackTopAppBar({})
+            GGBackTopAppBar(onNavigateBack)
             Column(
                 modifier = Modifier
                     .fillMaxSize()

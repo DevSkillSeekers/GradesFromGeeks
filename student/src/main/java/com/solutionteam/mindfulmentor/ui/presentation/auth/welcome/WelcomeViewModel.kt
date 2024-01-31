@@ -5,7 +5,7 @@ import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
 
 class WelcomeViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-):BaseViewModel<WelcomeUiState,WelcomeUiEffect>(WelcomeUiState()),WelcomeScreenInteractionListener {
+):BaseViewModel<WelcomeUiState,WelcomeUiEffect>(WelcomeUiState()){
     init {
         onSuccess()
     }
@@ -20,10 +20,10 @@ class WelcomeViewModel(
             )
         }
     }
-    override fun onClickLogin(){
+     fun onClickLogin(){
         sendNewEffect(WelcomeUiEffect.OnClickLogin)
     }
-    override fun onClickSignIn(){
+     fun onClickSignIn(){
         sendNewEffect(WelcomeUiEffect.OnClickSignIn)
     }
 
