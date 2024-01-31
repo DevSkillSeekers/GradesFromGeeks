@@ -1,7 +1,5 @@
-package com.solutionteam.mindfulmentor.ui.presentation.auth.login
+package com.solutionteam.mindfulmentor.ui.presentation.auth.signin.maininfo
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,12 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -29,43 +25,29 @@ import com.solutionteam.design_system.components.GGTextField
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.presentation.auth.composables.TextWithClick
-import kotlinx.coroutines.flow.collectLatest
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInState
+import com.solutionteam.mindfulmentor.ui.presentation.auth.signin.SignInViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel(),
-    navigateTo: (LoginUIEffect) -> Unit,
-    onNavigateBack : () -> Unit,
+fun SignInScreen(
+    viewModel: SignInViewModel = koinViewModel(),
+    onNavigateBack:()->Unit ,
+    navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
-    val context = LocalContext.current
-    LoginContent(
+    SignInScreenContent(
         state = state,
-        onNavigateBack
-    )
-
-    LaunchedEffect(key1 = state.isSuccess) {
-        viewModel.effect.collectLatest {
-            onEffect(effect, context,navigateTo)
-        }
-    }
+        onNavigateBack = onNavigateBack,
+        navigateTo = navigateTo )
 }
-
-private fun onEffect(effect: LoginUIEffect?, context: Context,navigateTo: (LoginUIEffect) -> Unit) {
-    when (effect) {
-        is LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        is LoginUIEffect.OnClickLogin -> navigateTo(LoginUIEffect.OnClickLogin)
-        else -> {}
-    }
-}
-
 
 @Composable
-private fun LoginContent(
-    state: LoginUIState,
-    onNavigateBack: () -> Unit
+fun SignInScreenContent(
+    state: SignInState,
+    onNavigateBack:()->Unit,
+    navigateTo: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -75,9 +57,11 @@ private fun LoginContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
+
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
+
             GGBackTopAppBar(onNavigateBack)
             Column(
                 modifier = Modifier
@@ -85,24 +69,27 @@ private fun LoginContent(
                     .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
+
                 Text(
-                    text = "log in",
+                    text = "Sign UP",
                     style = Theme.typography.titleLarge,
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
+                GGTextField(label = "Email", text = "", onValueChange = {})
                 GGTextField(label = "User Name", text = "", onValueChange = {})
                 GGTextField(
                     label = "Your PassWord",
                     text = "", onValueChange = {},
                     keyboardType = KeyboardType.Password
                 )
-                GGButton(title = "Log In", onClick = {}, modifier = Modifier.fillMaxWidth())
+                GGButton(title = "Continue", onClick = navigateTo, modifier = Modifier.fillMaxWidth())
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
                     Text(
                         text = "- Or -",
                         style = Theme.typography.titleSmall,
@@ -128,9 +115,7 @@ private fun LoginContent(
                     )
                 }
             }
-
         }
 
     }
 }
-

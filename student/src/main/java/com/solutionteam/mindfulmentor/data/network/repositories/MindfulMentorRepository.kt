@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
+import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
@@ -21,6 +22,12 @@ interface MindfulMentorRepository {
 
     //region Universities
     suspend fun getUniversities(): List<University>
+
+    //endregion
+
+
+    //region Meetings
+    suspend fun getUpComingMeetings(): List<Meeting>
 
     //endregion
 

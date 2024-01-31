@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 
 class LoginViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
+) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()),LoginInteractionListener {
 
     init {
         onMakeRequest()
@@ -45,6 +45,14 @@ class LoginViewModel(
             )
         }
         sendNewEffect(LoginUIEffect.LoginError)
+    }
+
+    override fun onClickLogin() {
+        sendNewEffect(LoginUIEffect.OnClickLogin)
+    }
+
+    override fun onClickBack() {
+        sendNewEffect(LoginUIEffect.OnClickBack)
     }
 
 

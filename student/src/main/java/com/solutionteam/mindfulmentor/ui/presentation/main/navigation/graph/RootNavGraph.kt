@@ -5,11 +5,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.Screen
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.additionalInfo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.chatBotScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.loginNavGraph
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.mainNavGraph
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.onSeeAllScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.onboardingScreen
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.signInScreen
+import com.solutionteam.mindfulmentor.ui.presentation.main.navigation.welcomeScreen
 
 @Composable
 fun RootNavGraph(
@@ -23,10 +27,25 @@ fun RootNavGraph(
         startDestination = startDestination.route,
         modifier = modifier,
     ) {
-
+        onSeeAllScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
         chatBotScreen(onNavigateTo = navController::navigateTo)
         onboardingScreen(onNavigateTo = navController::navigateTo)
-        loginNavGraph (onNavigateToRoot = navController::navigateTo)
-        mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        loginNavGraph(
+            onNavigateToRoot = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        mainNavGraph(onNavigateToRoot = navController::navigateTo)
+        welcomeScreen(onNavigateTo = navController::navigateTo)
+        signInScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        additionalInfo(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
     }
 }

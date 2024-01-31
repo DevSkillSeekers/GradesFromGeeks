@@ -119,4 +119,8 @@ dependencies {
     implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
 
     api(project(":design_system"))
+
+    //SplashScreen Api
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }

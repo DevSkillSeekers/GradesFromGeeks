@@ -26,11 +26,11 @@ fun GGButton(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    style: TextStyle = Theme.typography.labelMedium,
+    style: TextStyle = Theme.typography.bodyLarge,
     type: ContainerType = ContainerType.BUTTON,
     enabled: Boolean = true,
     textPadding: PaddingValues = PaddingValues(16.dp),
-    shape: Shape = RoundedCornerShape(16.dp),
+    shape: Shape = RoundedCornerShape(100.dp),
     containerColor: Color = Theme.colors.primary,
     contentColor: Color = Theme.colors.primaryShadesLight,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
@@ -38,7 +38,7 @@ fun GGButton(
     val buttonColor by animateColorAsState(
             if (enabled) containerColor else Theme.colors.disabled, label = ""
     )
-    val height = if (type == ContainerType.CHIP) 36.dp else 48.dp
+    val height = if (type == ContainerType.CHIP) 36.dp else 50.dp
 
     Surface(
             modifier = modifier.height(height),
