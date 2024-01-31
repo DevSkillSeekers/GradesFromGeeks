@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.google.firebase.FirebaseApp
@@ -21,11 +24,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GGTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = Theme.colors.background
-                ) {
-                    App()
+                Scaffold {
+                    Surface(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(
+                                        bottom = it.calculateBottomPadding(),
+                                        top = it.calculateTopPadding()
+                                ),
+                            color = Theme.colors.background,
+                            content = { App() }
+                    )
                 }
             }
         }
