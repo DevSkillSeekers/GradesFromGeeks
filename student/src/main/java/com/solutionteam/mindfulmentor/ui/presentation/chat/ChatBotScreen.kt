@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
@@ -49,7 +50,12 @@ fun ChatBotScreen(
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
-
+    LaunchedEffect(key1 = Lifecycle.State.RESUMED) {
+        viewModel.setRoles(
+                user = context.getString(R.string.userRole),
+                model = context.getString(R.string.modelRole)
+        )
+    }
     ChatBotContent(
             state = state,
             messageText = state.message,
@@ -115,7 +121,7 @@ private fun ChatBotContent(
         Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = it. calculateTopPadding(), bottom = it.calculateBottomPadding()),
+                    .padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding()),
                 verticalArrangement = Arrangement.SpaceBetween
         ) {
             Spacer(Modifier.height(1.dp))
@@ -146,7 +152,4 @@ private fun ChatBotContent(
 
 fun <T> List<T>.lastIndexOrZero() : Int {
     return if (this.isEmpty()) 0 else this.size - 1
-}
-fun LazyListState.isScrolledToTheEnd(): Boolean {
-    return layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 3
 }

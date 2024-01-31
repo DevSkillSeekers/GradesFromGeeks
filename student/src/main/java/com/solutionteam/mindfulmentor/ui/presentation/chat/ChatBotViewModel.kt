@@ -17,6 +17,9 @@ class ChatBotViewModel(
     private val mentorRepository: MindfulMentorRepository
 ) : BaseViewModel<ChatUiState, ChatUIEffect>(ChatUiState()) {
 
+    fun setRoles(user:String, model: String) {
+        updateState { it.copy(userRole = user, modelRole = model) }
+    }
     private fun getData(msg: String) {
         val chat = mentorRepository.generateContent(
                 userContent = state.value.userRole, modelContent = state.value.modelRole
@@ -30,14 +33,14 @@ class ChatBotViewModel(
                 .onStart { updateState { it.copy(canNotSendMessage = true) } }
                 .onCompletion {
                     updateState { it.copy(canNotSendMessage = false) }
-                    chat.history.add(content(role = "user") { text(msg) })
-                    chat.history.add(content(role = "model") { text(completeText.toString()) })
                 }.catch { e ->
                     updateState { it.copy(canNotSendMessage = true) }
                     Log.e("ChatBotViewModel", "getData: ${e.message}")
-//                        sendNewEffect(ChatUIEffect.Error(e.message ?: ""))
+                        sendNewEffect(ChatUIEffect.Error)
                 }
                 .collectLatest { reply ->
+                    chat.history.add(content(role = "user") { text(msg) })
+                    chat.history.add(content(role = "model") { text(completeText.toString()) })
                     val old = messages.last().message + " " + reply
                     messages.removeLast()
                     messages.add(MessageUIState(isMe = false, message = old))
