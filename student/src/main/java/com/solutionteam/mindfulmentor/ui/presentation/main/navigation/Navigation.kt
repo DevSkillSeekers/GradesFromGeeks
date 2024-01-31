@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mindfulmentor.ui.presentation.auth.login.LoginScreen
+import com.solutionteam.mindfulmentor.ui.presentation.chat.ChatBotScreen
 import com.solutionteam.mindfulmentor.ui.presentation.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.presentation.home.HomeScreen
 import com.solutionteam.mindfulmentor.ui.presentation.main.MainScreen
@@ -104,5 +105,12 @@ fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.OnBoarding.route
     ) {
         OnBoardingScreen()
+    }
+}
+fun NavGraphBuilder.chatBotScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.ChatBot.route
+    ) {
+        ChatBotScreen()
     }
 }
