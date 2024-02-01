@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,16 +17,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -44,7 +50,8 @@ import org.koin.androidx.compose.koinViewModel
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun ChatBotScreen(
-    viewModel: ChatBotViewModel = koinViewModel()
+    viewModel: ChatBotViewModel = koinViewModel(),
+    onNavigateBack:()->Unit ,
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -61,14 +68,12 @@ fun ChatBotScreen(
             messageText = state.message,
             onValueChanged = viewModel::onChanceMessage,
             sendMessage = viewModel::onSendClicked,
-            onCLickBack = {
-//                navController.popBackStack()
-            },
+            onCLickBack = onNavigateBack,
     )
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun ChatBotContent(
     state: ChatUiState,
@@ -80,16 +85,16 @@ private fun ChatBotContent(
     val listState = rememberLazyListState()
 
     Scaffold(
-
             topBar = {
-                GGAppBar(
+                TopAppBar(
+                        modifier = Modifier.shadow(1.dp),
                         title = {
                             Text(
                                     text = "Chat Bot",
                                     style = Theme.typography.labelLarge,
                             )
                         },
-                        leadingIcon = {
+                        navigationIcon = {
                             IconButton(onClick = { onCLickBack() }) {
                                 Icon(
                                         painterResource(com.solutionteam.design_system.R.drawable.arrow),
@@ -100,10 +105,38 @@ private fun ChatBotContent(
                                             .rotate(180f)
                                 )
                             }
-                        }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = Theme.colors.background
+                        )
                 )
-            },
-            bottomBar = {
+            }
+    ) {padding->
+        Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+
+                ) {
+            Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = painterResource(id = R.drawable.background_chat_screen),
+                    contentDescription = "background chat screen",
+                    contentScale = ContentScale.Crop,
+            )
+            Column(
+                    verticalArrangement = Arrangement.Center
+            ) {
+                LazyColumn(
+                        state = rememberLazyListState(),
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.Bottom,
+                        contentPadding = PaddingValues(vertical = 24.dp),
+                ) {
+                    items(items = state.messages) {
+                        MessageCard(it, Modifier.animateItemPlacement())
+                    }
+                }
                 SendTextField(
                         text = messageText,
                         onValueChanged = onValueChanged,
@@ -111,37 +144,8 @@ private fun ChatBotContent(
                         canMessage = state.canNotSendMessage
                 )
             }
-    ) {
-        Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = R.drawable.background_chat_screen),
-                contentDescription = "background chat screen",
-                contentScale = ContentScale.Crop,
-        )
-        Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding()),
-                verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Spacer(Modifier.height(1.dp))
-            if (state.isLoading) {
-                Loading()
-            }
-            LazyColumn(
-                    state = rememberLazyListState(),
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(vertical = 24.dp),
-            ) {
-                items(
-                        items = state.messages,
-
-                        ) {
-                    MessageCard(it, Modifier.animateItemPlacement())
-                }
-            }
         }
+
     }
 
     LaunchedEffect(key1 = true) {
