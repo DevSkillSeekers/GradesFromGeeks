@@ -28,6 +28,8 @@ import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.MentorProfileDetails
+import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.MentorSummeryNumbers
+import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.SubjectComposable
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -118,7 +120,7 @@ private fun MentorContent(
                             }
                     )
 
-                    Box(
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight()
@@ -126,12 +128,16 @@ private fun MentorContent(
                                 Theme.colors.background,
                                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                             )
+                            .padding(top = 24.dp)
                             .constrainAs(profileCorner) {
                                 top.linkTo(imageWithShadow.bottom, margin = (-24).dp)
                                 start.linkTo(imageWithShadow.start)
                                 end.linkTo(imageWithShadow.end)
                             },
                     ) {
+
+                        MentorSummeryNumbers()
+                        SubjectComposable()
 
                     }
 

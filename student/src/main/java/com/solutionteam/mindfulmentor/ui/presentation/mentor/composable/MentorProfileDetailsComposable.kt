@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,8 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.solutionteam.design_system.R
+import com.solutionteam.design_system.theme.Gold
 import com.solutionteam.design_system.theme.Theme
 
 @Composable
@@ -51,11 +55,23 @@ fun MentorProfileDetails(
                 style = Theme.typography.titleLarge,
                 color = Theme.colors.background
             )
-            Text(
-                text = "10/10 - (10000)",
-                style = Theme.typography.labelLarge,
-                color = Theme.colors.background
-            )
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.star),
+                    contentDescription = "star",
+                    tint = Gold
+                )
+                Text(
+                    text = "${10}/10  -  (${100000})",
+                    style = Theme.typography.labelLarge,
+                    color = Theme.colors.background
+                )
+            }
+
             Text(
                 text = "Harvard University",
                 style = Theme.typography.bodyMedium,
