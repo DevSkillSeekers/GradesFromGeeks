@@ -1,5 +1,6 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
+import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
@@ -29,6 +30,9 @@ interface MindfulMentorRepository {
     suspend fun getUpComingMeetings(): List<Meeting>
 
     //endregion
+
+    //region gimmien ai
+    fun generateContent(userContent: String, modelContent: String): Chat
 
 
 }

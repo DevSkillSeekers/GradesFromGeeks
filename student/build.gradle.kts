@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,6 +12,8 @@ plugins {
 android {
     namespace = "com.solutionteam.mindfulmentor"
     compileSdk = 34
+    val localProperties =  Properties()
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
         applicationId = "com.solutionteam.mindfulmentor"
@@ -21,6 +26,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "API_KEY", "\"${localProperties.getProperty ("ApiKey")}\"")
+
     }
 
     buildTypes {
@@ -41,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -107,9 +115,15 @@ dependencies {
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
+    //Gimien AI
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
+
     api(project(":design_system"))
 
     //SplashScreen Api
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //constraint layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
 }
