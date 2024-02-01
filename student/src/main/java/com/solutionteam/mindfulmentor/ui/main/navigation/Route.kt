@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
+const val navigationRouteChatBot = "chatBot"
 const val navigationRouteSeeAll = "seeAll"
 
 
@@ -52,6 +53,7 @@ sealed class Screen(
     data object Welcome : Screen(navigationRouteWelcome)
     data object SignIn : Screen(navigationRouteSignIn)
     data object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
+    data object ChatBot : Screen(navigationRouteChatBot)
 
     data object SeeAll : Screen(navigationRouteSeeAll)
 

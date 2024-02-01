@@ -42,7 +42,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
-    navigateTo: (HomeUIEffect) -> Unit
+    navigateTo: (HomeUIEffect) -> Unit,
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -104,7 +104,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = {}
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
                 )
 
                 state.upComingMeetings.forEach { meeting ->

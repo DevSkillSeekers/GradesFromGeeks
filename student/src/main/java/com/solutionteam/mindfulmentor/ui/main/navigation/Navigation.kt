@@ -13,6 +13,7 @@ import com.solutionteam.mindfulmentor.ui.auth.signin.additionalinfo.AdditionalIn
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeUiEffect
+import com.solutionteam.mindfulmentor.ui.chat.ChatBotScreen
 import com.solutionteam.mindfulmentor.ui.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.home.HomeScreen
 import com.solutionteam.mindfulmentor.ui.home.HomeUIEffect
@@ -87,7 +88,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
         HomeScreen(
             navigateTo = { navigate ->
                 when (navigate) {
-                    HomeUIEffect.NavigateToChatBooks -> {}
+                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
                     HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.also(onNavigateTo)
                     HomeUIEffect.NavigateToNotification -> {}
                     is HomeUIEffect.NavigateToSeeAll -> {
@@ -97,7 +98,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     HomeUIEffect.NavigateToUniversityProfile -> {}
                     else -> {}
                 }
-            }
+            },
         )
     }
 }
@@ -172,6 +173,13 @@ fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.OnBoarding.route
     ) {
         OnBoardingScreen()
+    }
+}
+fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.ChatBot.route
+    ) {
+        ChatBotScreen(onNavigateBack =  onNavigateBack)
     }
 }
 

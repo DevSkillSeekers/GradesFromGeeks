@@ -1,15 +1,22 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
+import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
+import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
 
 class MindfulMentorRepositoryImp(
-    private val mindfulMentorDao: MindfulMentorDao
+    private val mindfulMentorDao: MindfulMentorDao,
+    private val geminiApi: GeminiApi
 ) : BaseRepository(), MindfulMentorRepository {
+
+    override fun generateContent(userContent: String, modelContent: String): Chat {
+        return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
+    }
 
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()

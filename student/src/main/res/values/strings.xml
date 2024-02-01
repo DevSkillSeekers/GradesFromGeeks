@@ -30,4 +30,6 @@
     <string name="google_link">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
 
+    <string name="userRole">When asked any question that is not related to universities , please say: “I don’t know.”</string>
+    <string name="modelRole">Plz ask me about something related on universities just, so I can answer you.</string>
 </resources>

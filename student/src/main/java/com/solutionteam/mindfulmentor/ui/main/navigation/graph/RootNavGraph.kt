@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mindfulmentor.ui.main.navigation.Screen
 import com.solutionteam.mindfulmentor.ui.main.navigation.additionalInfo
+import com.solutionteam.mindfulmentor.ui.main.navigation.chatBotScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.main.navigation.loginNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.mainNavGraph
@@ -31,6 +32,7 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+        chatBotScreen(onNavigateBack = navController::navigateUp)
         onboardingScreen(onNavigateTo = navController::navigateTo)
         loginNavGraph(
             onNavigateToRoot = navController::navigateTo,
