@@ -31,7 +31,7 @@ fun NavController.navigateTo(screen: Screen) {
         // reselecting the same item
         launchSingleTop = true
         // Restore state when reselecting a previously selected item
-        restoreState = screen.restoreState
+        restoreState = true
 
         //Clearing back stack up to certain screen if required
         if (screen.clearBackStack && !currentRoute.isNullOrEmpty()) {
