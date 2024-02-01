@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat
+package com.solutionteam.mindfulmentor.ui.chat
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -7,14 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,13 +32,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
-import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.presentation.chat.composable.MessageCard
-import com.solutionteam.mindfulmentor.ui.presentation.chat.composable.SendTextField
-import com.thechance.ui.composable.Loading
+import com.solutionteam.mindfulmentor.ui.chat.composable.MessageCard
+import com.solutionteam.mindfulmentor.ui.chat.composable.SendTextField
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -51,7 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ChatBotScreen(
     viewModel: ChatBotViewModel = koinViewModel(),
-    onNavigateBack:()->Unit ,
+    onNavigateBack:()->Unit,
 ) {
 
     val state by viewModel.state.collectAsState()

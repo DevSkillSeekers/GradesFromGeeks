@@ -1,4 +1,4 @@
-package com.thechance.ui.composable
+package com.solutionteam.mindfulmentor.ui.chat.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer

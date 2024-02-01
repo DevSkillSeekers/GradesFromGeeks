@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat.composable
+package com.solutionteam.mindfulmentor.ui.chat.composable
 
 import android.os.Build
 import android.text.Html
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.theme.Theme
-import com.solutionteam.mindfulmentor.ui.presentation.chat.MessageUIState
+import com.solutionteam.mindfulmentor.ui.chat.MessageUIState
 
 @Composable
 fun MessageCard(

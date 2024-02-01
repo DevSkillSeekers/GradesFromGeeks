@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat
+package com.solutionteam.mindfulmentor.ui.chat
 
 
 data class ChatUiState(

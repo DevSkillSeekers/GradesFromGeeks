@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat
+package com.solutionteam.mindfulmentor.ui.chat
 
 sealed interface ChatUIEffect {
     object Error : ChatUIEffect

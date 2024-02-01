@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat.composable
+package com.solutionteam.mindfulmentor.ui.chat.composable
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

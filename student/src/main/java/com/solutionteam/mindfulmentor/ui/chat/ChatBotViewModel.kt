@@ -1,10 +1,11 @@
-package com.solutionteam.mindfulmentor.ui.presentation.chat
+package com.solutionteam.mindfulmentor.ui.chat
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.type.content
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
-import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
+import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
+
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
