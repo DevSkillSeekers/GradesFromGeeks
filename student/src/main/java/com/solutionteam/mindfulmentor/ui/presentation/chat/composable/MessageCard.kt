@@ -25,7 +25,7 @@ fun MessageCard(
     Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 4.dp)
                 .then(modifier),
             contentAlignment = if (message.isMe) Alignment.CenterEnd else Alignment.CenterStart,
     ) {

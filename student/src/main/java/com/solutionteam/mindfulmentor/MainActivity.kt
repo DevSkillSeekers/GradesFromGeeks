@@ -26,18 +26,12 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             GGTheme {
-                Scaffold {
                     Surface(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(
-                                        bottom = it.calculateBottomPadding(),
-                                        top = it.calculateTopPadding()
-                                ),
+                                .fillMaxSize(),
                             color = Theme.colors.background,
                             content = { App() }
                     )
-                }
             }
         }
     }
