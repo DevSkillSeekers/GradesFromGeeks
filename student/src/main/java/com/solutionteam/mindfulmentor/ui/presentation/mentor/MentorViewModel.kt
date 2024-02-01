@@ -17,7 +17,7 @@ class MentorViewModel(
 
         tryToExecute(
             {
-                delay(1900)
+                delay(1000)
                 updateState { it.copy(isLoading = false, isSuccess = true) }
             },
             { onSuccess() },
