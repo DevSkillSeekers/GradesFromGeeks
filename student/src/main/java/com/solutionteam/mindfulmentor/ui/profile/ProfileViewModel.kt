@@ -1,7 +1,7 @@
-package com.solutionteam.mindfulmentor.ui.presentation.profile
+package com.solutionteam.mindfulmentor.ui.profile
 
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
-import com.solutionteam.mindfulmentor.ui.presentation.base.BaseViewModel
+import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 
 class ProfileViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
@@ -20,4 +20,18 @@ class ProfileViewModel(
         }
     }
 
+
+    //region Theme
+    fun onDismissThemeRequest() {
+        updateState { it.copy(showBottomSheetThem = false) }
+    }
+
+    fun onThemeClicked() {
+        updateState { it.copy(showBottomSheetThem = true) }
+    }
+
+    fun onThemeChanged(isDark: Boolean) {
+        updateState { it.copy(isDarkTheme = isDark) }
+    }
+    //endregion
 }

@@ -51,7 +51,7 @@ fun GGAppBar(
             if (showNavigationIcon) {
                 Icon(
                     modifier = Modifier
-                        .noRippleEffect { onBack() }
+                        .noRippleEffect(onBack)
                         .padding(horizontal = 8.dp),
                     painter = painterResource(id = R.drawable.back_arrow),
                     contentDescription = null,
