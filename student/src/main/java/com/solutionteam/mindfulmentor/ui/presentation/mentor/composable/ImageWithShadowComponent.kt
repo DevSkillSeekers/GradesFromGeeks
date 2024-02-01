@@ -45,8 +45,8 @@ fun ImageWithShadowComponent(
         Icon(
             modifier = Modifier
                 .noRippleEffect { onBack() }
-                .padding(vertical = 8.dp)
-                .size(40.dp),
+                .padding(16.dp)
+                .size(24.dp),
             painter = painterResource(id = R.drawable.back_arrow),
             contentDescription = "back",
             tint = Theme.colors.background

@@ -18,7 +18,7 @@ import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun SubjectComposable() {
-    val selectedSubject = remember { mutableStateOf("") }
+    val selectedSubject = remember { mutableStateOf(subjectList.first()) }
 
     Column(
         modifier = Modifier.padding(vertical = 16.dp)

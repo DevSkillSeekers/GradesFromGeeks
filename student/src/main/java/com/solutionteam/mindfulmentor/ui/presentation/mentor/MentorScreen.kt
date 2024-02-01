@@ -29,6 +29,7 @@ import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.MentorProfileDetails
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.MentorSummeryNumbers
+import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.presentation.mentor.composable.SubjectComposable
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -138,7 +139,7 @@ private fun MentorContent(
 
                         MentorSummeryNumbers()
                         SubjectComposable()
-
+                        MentorTabBar()
                     }
 
                 }

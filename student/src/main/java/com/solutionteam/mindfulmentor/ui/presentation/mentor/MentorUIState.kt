@@ -5,3 +5,11 @@ data class MentorUIState(
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
 )
+
+
+data class SummeryDetailsUIState(
+    val chapterNumber: String,
+    val chapterDescription: String,
+    val piedPrice: String,
+)
+
