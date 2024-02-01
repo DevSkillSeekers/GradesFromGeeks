@@ -23,15 +23,29 @@ class ProfileViewModel(
 
     //region Theme
     fun onDismissThemeRequest() {
-        updateState { it.copy(showBottomSheetThem = false) }
+        updateState { it.copy(showBottomSheetTheme = false) }
     }
 
     fun onThemeClicked() {
-        updateState { it.copy(showBottomSheetThem = true) }
+        updateState { it.copy(showBottomSheetTheme = true, showBottomSheetLanguage = false) }
     }
 
     fun onThemeChanged(isDark: Boolean) {
         updateState { it.copy(isDarkTheme = isDark) }
+    }
+    //endregion
+
+    //region Language
+    fun onLanguageClicked() {
+        updateState { it.copy(showBottomSheetTheme = false, showBottomSheetLanguage = true) }
+    }
+
+    fun onDismissLanguageRequest() {
+        updateState { it.copy(showBottomSheetLanguage = false) }
+    }
+
+    fun onLanguageChanged(selectedLanguage: Language) {
+        updateState { it.copy(currentLanguage = selectedLanguage) }
     }
     //endregion
 }
