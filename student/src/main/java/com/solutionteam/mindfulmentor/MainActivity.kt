@@ -15,7 +15,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.FirebaseApp
 import com.solutionteam.design_system.theme.GGTheme
 import com.solutionteam.design_system.theme.Theme
-import com.solutionteam.mindfulmentor.ui.presentation.main.App
+import com.solutionteam.mindfulmentor.ui.main.App
 
 class MainActivity : ComponentActivity() {
 
