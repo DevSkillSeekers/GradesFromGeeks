@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,6 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
@@ -31,35 +35,33 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun WelcomeScreen(
     viewModel: WelcomeViewModel = koinViewModel(),
-    navigateTo: () -> Unit
+    navigateTo: (WelcomeUiEffect?) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-    WelcomeScreenContent(state, navigateTo)
+    WelcomeScreenContent(
+        state = state,
+        onClickLogin = viewModel::onClickLogin,
+        onClickSignIn = viewModel::onClickSignIn,
+    )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context, navigateTo)
         }
     }
 }
 
-private fun onEffect(effect: WelcomeUiEffect?, context: Context) {
-
-    when (effect) {
-        WelcomeUiEffect.WelcomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        else -> {}
-    }
-}
-
 @Composable
-fun WelcomeScreenContent(
+private fun WelcomeScreenContent(
     state: WelcomeUiState,
-    navigateTo: () -> Unit
+    onClickSignIn: () -> Unit,
+    onClickLogin: () -> Unit,
 ) {
     if (state.isLoading) {
+
         CircularProgressIndicator()
     } else {
         Column(
@@ -76,32 +78,41 @@ fun WelcomeScreenContent(
                     modifier = Modifier.fillMaxSize()
                 )
             }
-            GGButton(title = "Sign Up",
-                onClick = { /*TODO*/ },
+            GGButton(
+                title = "Sign Up",
+                onClick = onClickSignIn,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
             )
-            GGButton(title = "Log In",
-                onClick = { /*TODO*/ },
+            GGButton(
+                title = "Log In",
+                onClick = onClickLogin,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
                 containerColor = Theme.colors.card,
                 contentColor = Theme.colors.primaryShadesDark
             )
-            TextWithClick(fullText = stringResource(R.string.services_text),
+            TextWithClick(
+                fullText = stringResource(R.string.services_text),
                 linkText = stringResource(R.string.services_text_link),
                 url = stringResource(R.string.google_link),
-                modifier = Modifier.padding(bottom = 47.dp, start = 39.dp, end = 39.dp) )
+                modifier = Modifier.padding(bottom = 47.dp, start = 39.dp, end = 39.dp)
+            )
 
         }
     }
 }
 
-@Preview
-@Composable
-fun PreviewWelcome() {
-    val uiState = WelcomeUiState()
-    WelcomeScreenContent(uiState.copy(isLoading = false), {})
+private fun onEffect(
+    effect: WelcomeUiEffect?,
+    context: Context, navigateTo: (WelcomeUiEffect?) -> Unit
+) {
+    when (effect) {
+        is WelcomeUiEffect.WelcomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        is WelcomeUiEffect.OnClickLogin -> navigateTo(WelcomeUiEffect.OnClickLogin)
+        is WelcomeUiEffect.OnClickSignIn -> navigateTo(WelcomeUiEffect.OnClickSignIn)
+        else -> {}
+    }
 }
