@@ -31,7 +31,7 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
-        chatBotScreen(onNavigateTo = navController::navigateTo)
+        chatBotScreen(onNavigateBack = navController::navigateUp)
         onboardingScreen(onNavigateTo = navController::navigateTo)
         loginNavGraph(
             onNavigateToRoot = navController::navigateTo,
