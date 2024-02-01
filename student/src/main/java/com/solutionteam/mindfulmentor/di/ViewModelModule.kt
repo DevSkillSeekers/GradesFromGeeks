@@ -9,7 +9,7 @@ import com.solutionteam.mindfulmentor.ui.profile.ProfileViewModel
 import com.solutionteam.mindfulmentor.ui.auth.signin.SignInViewModel
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllViewModel
 import com.solutionteam.mindfulmentor.ui.mentor.MentorViewModel
-import com.solutionteam.mindfulmentor.ui.presentation.chat.ChatBotViewModel
+import com.solutionteam.mindfulmentor.ui.chat.ChatBotViewModel
 
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module

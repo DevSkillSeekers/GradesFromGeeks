@@ -43,14 +43,13 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
     navigateTo: (HomeUIEffect) -> Unit,
-    navigateToChatBot: () -> Unit,
 ) {
 
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-    HomeContent(state = state, onNavigateTo = navigateTo,navigateToChatBot=navigateToChatBot)
+    HomeContent(state = state, onNavigateTo = navigateTo)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
@@ -79,7 +78,6 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 private fun HomeContent(
     state: HomeUIState,
     onNavigateTo: (HomeUIEffect) -> Unit,
-    navigateToChatBot: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -106,7 +104,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = navigateToChatBot
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
                 )
 
                 state.upComingMeetings.forEach { meeting ->

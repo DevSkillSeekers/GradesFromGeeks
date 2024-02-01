@@ -13,10 +13,9 @@ import com.solutionteam.mindfulmentor.ui.auth.signin.additionalinfo.AdditionalIn
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeUiEffect
-import com.solutionteam.mindfulmentor.ui.presentation.chat.ChatBotScreen
+import com.solutionteam.mindfulmentor.ui.chat.ChatBotScreen
 import com.solutionteam.mindfulmentor.ui.downloads.DownloadsScreen
 import com.solutionteam.mindfulmentor.ui.home.HomeScreen
-import com.solutionteam.mindfulmentor.ui.presentation.home.HomeUIEffect
 import com.solutionteam.mindfulmentor.ui.home.HomeUIEffect
 import com.solutionteam.mindfulmentor.ui.main.MainScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.ext.navigateTo
@@ -89,7 +88,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
         HomeScreen(
             navigateTo = { navigate ->
                 when (navigate) {
-                    HomeUIEffect.NavigateToChatBooks -> {}
+                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
                     HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.also(onNavigateTo)
                     HomeUIEffect.NavigateToNotification -> {}
                     is HomeUIEffect.NavigateToSeeAll -> {
@@ -100,8 +99,6 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     else -> {}
                 }
             },
-                navigateToChatBot = { Screen.ChatBot.withClearBackStack().also(onNavigateTo) }
-
         )
     }
 }
