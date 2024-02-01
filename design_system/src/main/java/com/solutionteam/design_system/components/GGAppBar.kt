@@ -61,32 +61,3 @@ fun GGAppBar(
         )
     )
 }
-
-@Composable
-fun GGAppBar(
-    title: @Composable() (() -> Unit?)? = null,
-    trailingIcon: @Composable (RowScope.() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-    leadingIcon: (@Composable () -> Unit),
-) {
-    Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(PrimaryShadesLight)
-                .padding(15.dp)
-                .then(modifier),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(5.dp)
-    ) {
-        leadingIcon()
-        title?.invoke()
-        Spacer(modifier = Modifier.weight(1f))
-        trailingIcon?.invoke(this)
-    }
-
-    Divider(
-            thickness = 1.dp,
-            color = Color.LightGray.copy(alpha = .3f),
-            modifier = Modifier.fillMaxWidth()
-    )
-}
