@@ -53,7 +53,7 @@ fun MentorTabBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight()
+            .fillMaxHeight(.7f)
             .background(color = Theme.colors.background)
     ) {
         TabRow(
@@ -217,6 +217,46 @@ val fakeSummeryList = listOf(
     ),
     SummeryDetailsUIState(
         chapterNumber = "Chapter 2",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = ""
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 3",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = "10$"
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 4",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = ""
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 5",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = "5$"
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 6",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = ""
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 3",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = "10$"
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 4",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = ""
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 5",
+        chapterDescription = "15 page (pdf)",
+        piedPrice = "5$"
+    ),
+    SummeryDetailsUIState(
+        chapterNumber = "Chapter 6",
         chapterDescription = "15 page (pdf)",
         piedPrice = ""
     ),
