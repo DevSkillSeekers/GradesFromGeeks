@@ -1,5 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.profile
 
+import androidx.compose.ui.unit.LayoutDirection
+
 data class ProfileUIState(
 
     val profileUrl: String = "",
@@ -9,23 +11,19 @@ data class ProfileUIState(
     val isDarkTheme: Boolean = false,
 
     val showBottomSheetLanguage: Boolean = false,
-    val languages: List<Language> = getLanguage(),
-    val currentLanguage: Language = getLanguage().first(),
+    val languages: List<Language> = Language.entries,
+    val currentLanguage: Language = Language.ENGLISH,
 
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
 )
 
-data class Language(
-    val name: String = "",
-    val abbreviation: String = ""
-)
-
-
-private fun getLanguage(): List<Language> {
-    return listOf(
-        Language(name = "English", abbreviation = "en"),
-        Language(name = "عربي", abbreviation = "ar"),
-    )
+enum class Language(
+    val value: String, val abbreviation: String, val layoutDirection: LayoutDirection
+) {
+    ENGLISH(value = "English", "en", layoutDirection = LayoutDirection.Ltr),
+    ARABIC(value = "عربي", "ar", layoutDirection = LayoutDirection.Rtl)
 }
+
+

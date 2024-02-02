@@ -1,7 +1,10 @@
 package com.solutionteam.mindfulmentor.ui.profile
 
 import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,9 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,16 +33,14 @@ import com.solutionteam.mindfulmentor.ui.profile.component.LanguageBottomSheet
 import com.solutionteam.mindfulmentor.ui.profile.component.ThemeBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun ProfileScreen(
-    viewModel: ProfileViewModel = koinViewModel()
-) {
-
+fun ProfileScreen(viewModel: ProfileViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
-
 
     ProfileContent(
         state = state,
@@ -50,7 +49,10 @@ fun ProfileScreen(
         onThemeChanged = viewModel::onThemeChanged,
         onLanguageClicked = viewModel::onLanguageClicked,
         onDismissLanguageRequest = viewModel::onDismissLanguageRequest,
-        onLanguageChanged= viewModel::onLanguageChanged
+        onLanguageChanged = {
+            updateLanguage(context = context, language = it.abbreviation)
+            viewModel.onLanguageChanged(it)
+        }
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -77,7 +79,7 @@ private fun ProfileContent(
     onThemeChanged: (Boolean) -> Unit,
     onLanguageClicked: () -> Unit,
     onDismissLanguageRequest: () -> Unit,
-    onLanguageChanged:(Language)->Unit
+    onLanguageChanged: (Language) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -161,7 +163,10 @@ private fun ProfileContent(
     }
 }
 
-
-
-
-
+private fun updateLanguage(context: Context, language: String) {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = Configuration()
+    config.locale = locale
+    context.resources.updateConfiguration(config, context.resources.displayMetrics)
+}

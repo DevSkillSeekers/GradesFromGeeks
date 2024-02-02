@@ -57,7 +57,6 @@ private fun SegmentOfLanguage(
     modifier: Modifier = Modifier,
     onItemSelection: (Language) -> Unit,
 ) {
-//    val index = remember { mutableIntStateOf(0) }
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -80,32 +79,11 @@ private fun SegmentOfLanguage(
             ) {
                 Text(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    text = item.name,
+                    text = item.value,
                     color = if (item.abbreviation == language.abbreviation) Theme.colors.secondary else Theme.colors.primaryShadesDark,
                     style = mindfulMentorTypography.bodyLarge
-
                 )
             }
         }
-
-        /* Box(contentAlignment = Alignment.Center,
-             modifier = Modifier
-                 .weight(1f)
-                 .wrapContentHeight()
-                 .clip(shape = RoundedCornerShape(100.dp))
-                 .background(
-                     color = if (index.intValue == 1) Theme.colors.primary else Theme.colors.card
-                 )
-                 .noRippleEffect {
-                     index.intValue = 1
-                     onItemSelection(index.intValue)
-                 }) {
-             Text(
-                 modifier = Modifier.padding(vertical = 12.dp),
-                 text = items.last().name,
-                 color = if (index.intValue == 1) Theme.colors.secondary else Theme.colors.primaryShadesDark,
-                 style = mindfulMentorTypography.bodyLarge
-             )
-         }*/
     }
 }

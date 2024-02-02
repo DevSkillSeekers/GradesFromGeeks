@@ -1,7 +1,11 @@
 package com.solutionteam.mindfulmentor.ui.profile
 
+import androidx.lifecycle.viewModelScope
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
@@ -9,6 +13,7 @@ class ProfileViewModel(
 
     init {
         getData()
+        getLanguage()
     }
 
     private fun getData() {
@@ -36,6 +41,14 @@ class ProfileViewModel(
     //endregion
 
     //region Language
+    private fun getLanguage() {
+        viewModelScope.launch {
+            mindfulMentorRepository.getLanguage().distinctUntilChanged().collectLatest { lang ->
+                updateState { it.copy(currentLanguage = lang) }
+            }
+        }
+    }
+
     fun onLanguageClicked() {
         updateState { it.copy(showBottomSheetTheme = false, showBottomSheetLanguage = true) }
     }
@@ -45,7 +58,8 @@ class ProfileViewModel(
     }
 
     fun onLanguageChanged(selectedLanguage: Language) {
-        updateState { it.copy(currentLanguage = selectedLanguage) }
+        mindfulMentorRepository.saveLanguage(selectedLanguage)
+        updateState { it.copy(currentLanguage = selectedLanguage, showBottomSheetLanguage = false) }
     }
     //endregion
 }
