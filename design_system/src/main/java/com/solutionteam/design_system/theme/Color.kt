@@ -7,6 +7,10 @@ val SecondaryLight = Color(0xFFDDEDFF)
 val BackgroundLight = Color(0xFFF6F7F7)
 val CardLight = Color(0xFFFFFFFF)
 
+val SecondaryDark = Color(0x9904030A)
+val BackgroundDark = Color(0x6104030A)
+val CardDark = Color(0xFF1C1C1E)
+
 val PrimaryShadesLight = Color(0xDEFFFFFF)
 val SecondaryShadesLight = Color(0x99FFFFFF)
 val TernaryShadesLight = Color(0x61FFFFFF)
@@ -66,9 +70,9 @@ val LightColors = Colors(
 
 val DarkColors = Colors(
         primary = PrimaryLight,
-        secondary = SecondaryLight,
-        background = BackgroundLight,
-        card = CardLight,
+        secondary = SecondaryDark,
+        background = BackgroundDark,
+        card = CardDark,
         disabled = DisabledColor,
         primaryShadesLight = PrimaryShadesLight,
         secondaryShadesLight = SecondaryShadesLight,

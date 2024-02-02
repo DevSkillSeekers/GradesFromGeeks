@@ -1,51 +1,75 @@
 package com.solutionteam.mindfulmentor.ui.profile
 
+import androidx.lifecycle.viewModelScope
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
 ) : BaseViewModel<ProfileUIState, ProfileUIEffect>(ProfileUIState()) {
 
     init {
-        onMakeRequest()
+        getData()
+        getLanguage()
+        getTheme()
     }
 
-    private fun onMakeRequest() {
-        updateState { it.copy(isLoading = true) }
-
-        tryToExecute(
-            {
-                delay(1900)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
-            },
-            { onSuccess() },
-            ::onError
-        )
-    }
-
-
-    private fun onSuccess() {
+    private fun getData() {
         updateState {
             it.copy(
-                isSuccess = true,
-                isError = false,
-                isLoading = false,
+                profileUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
+                name = "Asia Sama"
             )
         }
     }
 
-    private fun onError() {
-        updateState {
-            ProfileUIState(
-                isError = true,
-                isLoading = false,
-                isSuccess = false
-            )
+
+    //region Theme
+    private fun getTheme() {
+        viewModelScope.launch {
+            mindfulMentorRepository.getTheme().distinctUntilChanged().collectLatest { isDark ->
+                updateState { it.copy(isDarkTheme = isDark) }
+            }
         }
-        sendNewEffect(ProfileUIEffect.ProfileError)
     }
 
+    fun onDismissThemeRequest() {
+        updateState { it.copy(showBottomSheetTheme = false) }
+    }
 
+    fun onThemeClicked() {
+        updateState { it.copy(showBottomSheetTheme = true, showBottomSheetLanguage = false) }
+    }
+
+    fun onThemeChanged(isDark: Boolean) {
+        mindfulMentorRepository.setTheme(isDark)
+        updateState { it.copy(isDarkTheme = isDark) }
+    }
+    //endregion
+
+    //region Language
+    private fun getLanguage() {
+        viewModelScope.launch {
+            mindfulMentorRepository.getLanguage().distinctUntilChanged().collectLatest { lang ->
+                updateState { it.copy(currentLanguage = lang) }
+            }
+        }
+    }
+
+    fun onLanguageClicked() {
+        updateState { it.copy(showBottomSheetTheme = false, showBottomSheetLanguage = true) }
+    }
+
+    fun onDismissLanguageRequest() {
+        updateState { it.copy(showBottomSheetLanguage = false) }
+    }
+
+    fun onLanguageChanged(selectedLanguage: Language) {
+        mindfulMentorRepository.saveLanguage(selectedLanguage)
+        updateState { it.copy(currentLanguage = selectedLanguage, showBottomSheetLanguage = false) }
+    }
+    //endregion
 }

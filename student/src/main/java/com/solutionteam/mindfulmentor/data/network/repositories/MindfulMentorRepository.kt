@@ -5,6 +5,8 @@ import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
+import com.solutionteam.mindfulmentor.ui.profile.Language
+import kotlinx.coroutines.flow.Flow
 
 interface MindfulMentorRepository {
 
@@ -26,7 +28,6 @@ interface MindfulMentorRepository {
     //endregion
 
 
-    //region Meetings
     suspend fun getUpComingMeetings(): List<Meeting>
 
     //endregion
@@ -34,5 +35,12 @@ interface MindfulMentorRepository {
     //region gimmien ai
     fun generateContent(userContent: String, modelContent: String): Chat
 
+
+    //region Language and Theme
+    fun saveLanguage(language: Language)
+    fun getLanguage(): Flow<Language>
+    fun setTheme(isDark: Boolean)
+    fun getTheme(): Flow<Boolean>
+    //endregion
 
 }

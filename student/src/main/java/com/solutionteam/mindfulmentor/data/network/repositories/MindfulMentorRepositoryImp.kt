@@ -8,6 +8,9 @@ import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
 import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.ui.profile.Language
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class MindfulMentorRepositoryImp(
     private val mindfulMentorDao: MindfulMentorDao,
@@ -34,6 +37,32 @@ class MindfulMentorRepositoryImp(
         return generateMeeting()
     }
 
+
+    //region Language
+    //FOR TEST ONLY
+    private val appLanguage: MutableStateFlow<Language> = MutableStateFlow(Language.ENGLISH)
+    private val appTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    override fun saveLanguage(language: Language) {
+        //ToDo: save language inDB
+        appLanguage.tryEmit(language)
+    }
+
+    override fun getLanguage(): Flow<Language> {
+        //ToDo: get saved language in DB
+        return appLanguage
+    }
+
+    override fun setTheme(isDark: Boolean) {
+        //ToDo: get saved Theme in DB
+        appTheme.tryEmit(isDark)
+    }
+
+    override fun getTheme(): Flow<Boolean> {
+        //ToDo: get saved language in DB
+        return appTheme
+    }
+    //endregion
 
     //region Fake Data
 
