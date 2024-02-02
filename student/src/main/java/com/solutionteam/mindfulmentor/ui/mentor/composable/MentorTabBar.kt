@@ -80,7 +80,7 @@ fun MentorTabBar() {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .background(color = Theme.colors.background)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp).padding(bottom = 16.dp)
 
         ) {
             tabs.forEachIndexed { index, title ->
