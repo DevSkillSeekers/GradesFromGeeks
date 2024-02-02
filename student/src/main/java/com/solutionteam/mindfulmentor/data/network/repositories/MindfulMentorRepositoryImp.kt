@@ -41,6 +41,8 @@ class MindfulMentorRepositoryImp(
     //region Language
     //FOR TEST ONLY
     private val appLanguage: MutableStateFlow<Language> = MutableStateFlow(Language.ENGLISH)
+    private val appTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     override fun saveLanguage(language: Language) {
         //ToDo: save language inDB
         appLanguage.tryEmit(language)
@@ -49,6 +51,16 @@ class MindfulMentorRepositoryImp(
     override fun getLanguage(): Flow<Language> {
         //ToDo: get saved language in DB
         return appLanguage
+    }
+
+    override fun setTheme(isDark: Boolean) {
+        //ToDo: get saved Theme in DB
+        appTheme.tryEmit(isDark)
+    }
+
+    override fun getTheme(): Flow<Boolean> {
+        //ToDo: get saved language in DB
+        return appTheme
     }
     //endregion
 

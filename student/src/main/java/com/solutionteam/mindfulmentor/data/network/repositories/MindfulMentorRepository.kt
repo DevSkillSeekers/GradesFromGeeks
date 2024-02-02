@@ -36,10 +36,11 @@ interface MindfulMentorRepository {
     fun generateContent(userContent: String, modelContent: String): Chat
 
 
-    //region Language
+    //region Language and Theme
     fun saveLanguage(language: Language)
-
     fun getLanguage(): Flow<Language>
+    fun setTheme(isDark: Boolean)
+    fun getTheme(): Flow<Boolean>
     //endregion
 
 }

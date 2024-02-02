@@ -26,6 +26,8 @@
     <string name="language">اللغة</string>
     <string name="logout">تسجيل الخروج</string>
     <string name="app_language">لغة التطبيق</string>
+    <string name="choose_theme">اختار سمه</string>
+
 
     <string name="services_text"><![CDATA[من خلال الاستمرار، أنت توافق على شروط خدمة Habeet وسياسة الخصوصية]]></string>
     <string name="services_text_link"><![CDATA[شروط الخدمة وسياسة الخصوصية]]></string>

@@ -18,13 +18,26 @@ class AppViewModel(private val repository: MindfulMentorRepository) : ViewModel(
     private val _language: MutableStateFlow<Language> = MutableStateFlow(Language.ENGLISH)
     val language: StateFlow<Language> = _language.asStateFlow()
 
+    private val _theme: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val theme: StateFlow<Boolean> = _theme.asStateFlow()
+
     init {
         getLanguage()
+        getTheme()
     }
+
     private fun getLanguage() {
         viewModelScope.launch {
             repository.getLanguage().distinctUntilChanged().collectLatest { lang ->
                 _language.update { lang }
+            }
+        }
+    }
+
+    private fun getTheme() {
+        viewModelScope.launch {
+            repository.getTheme().distinctUntilChanged().collectLatest { isDark ->
+                _theme.update { isDark }
             }
         }
     }

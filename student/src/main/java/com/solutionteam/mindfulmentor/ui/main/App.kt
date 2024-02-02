@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.compose.rememberNavController
+import com.solutionteam.design_system.theme.GGTheme
 import com.solutionteam.mindfulmentor.ui.main.navigation.Screen
 import com.solutionteam.mindfulmentor.ui.main.navigation.graph.RootNavGraph
 import org.koin.androidx.compose.koinViewModel
@@ -16,9 +17,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun App(viewModel: AppViewModel = koinViewModel()) {
     val language by viewModel.language.collectAsState()
+    val theme by viewModel.theme.collectAsState()
 
-    CompositionLocalProvider(LocalLayoutDirection provides language.layoutDirection) {
-        val navController = rememberNavController()
-        RootNavGraph(navController = navController, startDestination = Screen.Main)
+    GGTheme(isDarkTheme = theme) {
+        CompositionLocalProvider(
+            LocalLayoutDirection provides language.layoutDirection
+        ) {
+            val navController = rememberNavController()
+            RootNavGraph(navController = navController, startDestination = Screen.Main)
+        }
     }
 }

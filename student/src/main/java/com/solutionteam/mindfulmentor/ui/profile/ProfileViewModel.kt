@@ -14,6 +14,7 @@ class ProfileViewModel(
     init {
         getData()
         getLanguage()
+        getTheme()
     }
 
     private fun getData() {
@@ -27,6 +28,14 @@ class ProfileViewModel(
 
 
     //region Theme
+    private fun getTheme() {
+        viewModelScope.launch {
+            mindfulMentorRepository.getTheme().distinctUntilChanged().collectLatest { isDark ->
+                updateState { it.copy(isDarkTheme = isDark) }
+            }
+        }
+    }
+
     fun onDismissThemeRequest() {
         updateState { it.copy(showBottomSheetTheme = false) }
     }
@@ -36,6 +45,7 @@ class ProfileViewModel(
     }
 
     fun onThemeChanged(isDark: Boolean) {
+        mindfulMentorRepository.setTheme(isDark)
         updateState { it.copy(isDarkTheme = isDark) }
     }
     //endregion

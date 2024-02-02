@@ -7,15 +7,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGBottomSheet
 import com.solutionteam.design_system.modifier.noRippleEffect
@@ -23,7 +21,6 @@ import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.design_system.theme.mindfulMentorTypography
 import com.solutionteam.mindfulmentor.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeBottomSheet(
     isDarkTheme: Boolean,
@@ -37,7 +34,7 @@ fun ThemeBottomSheet(
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp),
-            text = "Choose your theme",
+            text = stringResource(id = R.string.choose_theme),
             style = mindfulMentorTypography.titleSmall,
             color = Theme.colors.primaryShadesDark
         )
