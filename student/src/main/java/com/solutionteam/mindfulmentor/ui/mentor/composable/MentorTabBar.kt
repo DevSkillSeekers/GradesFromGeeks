@@ -6,7 +6,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,11 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -53,7 +50,7 @@ fun MentorTabBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(.7f)
+            .fillMaxHeight()
             .background(color = Theme.colors.background)
     ) {
         TabRow(
@@ -83,7 +80,7 @@ fun MentorTabBar() {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .background(color = Theme.colors.background)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp).padding(bottom = 16.dp)
 
         ) {
             tabs.forEachIndexed { index, title ->
@@ -112,18 +109,19 @@ fun MentorTabBar() {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SummeryScreen() {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    FlowRow(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
-        contentPadding = PaddingValues(16.dp),
+            .fillMaxHeight()
+            .background(color = Theme.colors.background),
+        maxItemsInEachRow = 2,
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
     ) {
-        items(fakeSummeryList) {
+        fakeSummeryList.forEach {
             SummeryItems(
                 chapterNumber = it.chapterNumber,
                 chapterDescription = it.chapterDescription,
@@ -146,12 +144,14 @@ fun SummeryItems(
                 color = Theme.colors.secondary,
                 shape = RoundedCornerShape(16.dp)
             )
+            .wrapContentSize()
             .padding(8.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_document),
             contentDescription = "",
             modifier = Modifier
+                .wrapContentSize()
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
@@ -169,7 +169,7 @@ fun SummeryItems(
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(.45f)
                 .padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -284,15 +284,13 @@ val fakeSummeryList = listOf(
 
 @Composable
 fun MeetingScreen() {
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxHeight()
+            .background(color = Theme.colors.background),
     ) {
-        items(fakeSummeryList) {
+        fakeSummeryList.forEach { _ ->
             MeetingItem()
         }
     }
@@ -303,6 +301,8 @@ fun MeetingItem() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .background(
                 color = Theme.colors.card,
                 shape = RoundedCornerShape(16.dp)
