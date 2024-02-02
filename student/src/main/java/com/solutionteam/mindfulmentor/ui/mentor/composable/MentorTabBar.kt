@@ -50,7 +50,7 @@ fun MentorTabBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(.7f)
+            .fillMaxHeight()
             .background(color = Theme.colors.background)
     ) {
         TabRow(
@@ -115,7 +115,8 @@ fun SummeryScreen() {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(.8f),
+            .fillMaxHeight()
+            .background(color = Theme.colors.background),
         maxItemsInEachRow = 2,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.SpaceAround,
@@ -283,10 +284,11 @@ val fakeSummeryList = listOf(
 
 @Composable
 fun MeetingScreen() {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .fillMaxHeight()
+            .background(color = Theme.colors.background),
     ) {
         fakeSummeryList.forEach { _ ->
             MeetingItem()
@@ -299,6 +301,8 @@ fun MeetingItem() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .background(
                 color = Theme.colors.card,
                 shape = RoundedCornerShape(16.dp)
