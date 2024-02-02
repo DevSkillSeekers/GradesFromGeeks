@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.main.navigation
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -92,6 +93,7 @@ private fun RowScope.AppBottomBarItem(
         icon = if (selected) selectedIcon else icon,
         modifier = modifier,
         enabled = enabled,
+        interactionSource = MutableInteractionSource(),
         label = {
             Divider(
                 thickness = 3.dp,
