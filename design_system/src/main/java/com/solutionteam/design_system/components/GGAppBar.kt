@@ -35,7 +35,8 @@ fun GGAppBar(
     modifier: Modifier = Modifier,
     color: Color = Theme.colors.background,
     iconColor: Color = Theme.colors.primaryShadesDark,
-    onBack: () -> Unit
+    showNavigationIcon: Boolean = true,
+    onBack: (() -> Unit)? = null
 ) {
     TopAppBar(
         modifier = modifier.shadow(1.dp),
@@ -47,14 +48,16 @@ fun GGAppBar(
             )
         },
         navigationIcon = {
-            Icon(
-                modifier = Modifier
-                    .noRippleEffect { onBack() }
-                    .padding(horizontal = 8.dp),
-                painter = painterResource(id = R.drawable.back_arrow),
-                contentDescription = null,
-                tint = iconColor
-            )
+            if (showNavigationIcon) {
+                Icon(
+                    modifier = Modifier
+                        .noRippleEffect(onBack)
+                        .padding(horizontal = 8.dp),
+                    painter = painterResource(id = R.drawable.back_arrow),
+                    contentDescription = null,
+                    tint = iconColor
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = color

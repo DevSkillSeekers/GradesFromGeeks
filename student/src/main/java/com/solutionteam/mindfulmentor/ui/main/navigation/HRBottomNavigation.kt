@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.main.navigation
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,6 +15,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -46,11 +48,11 @@ fun HRBottomNavigation(
                     onClick = { onNavigateTo(screen) },
                     icon = {
                         Icon(
-                            imageVector = if (selected) {
-                                screen.selectedIcon
+                            painter = if (selected) {
+                               painterResource(id = screen.selectedIcon ?: 0)
                             } else {
-                                screen.unselectedIcon
-                            } ?: Icons.Default.Warning,
+                               painterResource(id = screen.unselectedIcon ?: 0)
+                            },
                             contentDescription = null,
                             modifier = Modifier.size(32.dp)
                         )
@@ -91,6 +93,7 @@ private fun RowScope.AppBottomBarItem(
         icon = if (selected) selectedIcon else icon,
         modifier = modifier,
         enabled = enabled,
+        interactionSource = MutableInteractionSource(),
         label = {
             Divider(
                 thickness = 3.dp,

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Grades From Geeks</string>
+    <string name="app_name" translatable="false">Grades From Geeks</string>
 
     <!-- home section -->
     <string name="home_title">Home</string>
@@ -22,14 +22,22 @@
 
     <!-- profile section -->
     <string name="profile_title">Profile</string>
+    <string name="preferences">Preferences</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="app_language">App Language</string>
+    <string name="choose_theme">Choose your theme</string>
 
-
-    <string name="web_client_id">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
+    <string name="web_client_id" translatable="false">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
     <string name="services_text"><![CDATA[By continuing you argree Habeet’s Terms of Services & Privacy Policy]]></string>
     <string name="services_text_link"><![CDATA[Terms of Services & Privacy Policy]]></string>
-    <string name="google_link">https://google.com</string>
+    <string name="google_link" translatable="false">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
 
     <string name="userRole">When asked any question that is not related to universities , please say: “I don’t know.”</string>
     <string name="modelRole">Plz ask me about something related on universities just, so I can answer you.</string>
+
+    <!-- download section -->
+    <string name="download_title">Download</string>
 </resources>

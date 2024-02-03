@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- home section -->
+    <string name="home_title">الرئيسية</string>
+    <string name="mentors">المرشدين</string>
+    <string name="subjects">المواد</string>
+    <string name="universities">الجامعات</string>
+    <string name="welcome_chatbot">كيف يمكنني مساعدتك؟</string>
+    <string name="Grades_From_Geek">علامات من الأذكياء</string>
+    <string name="Raise_your_grades_with_a_group_of_geeks">ارفع درجاتك\nمع مجموعة من الأذكياء</string>
+    <string name="Raise_your_grades_with_a_group_of_geeks_description">أنت تخطو الخطوة الأولى في تغيير حياتك. دعنا نرشدك خلالها.</string>
+    <string name="Get_ready_for_a_lot_of_summaries">استعد للكثير من الملخصات.</string>
+    <string name="Get_ready_for_a_lot_of_summaries_description">العديد من الملخصات والشروحات في جميع المواد الأكاديمية من مختلف الجامعات.</string>
+    <string name="Ask_experts_directly_and_get_answers">اسأل الخبراء مباشرة\nواحصل على إجابات.</string>
+    <string name="Ask_experts_directly_and_get_answers_description">تواصل مباشرة مع الطلاب الكبار للحصول على رؤى شخصية ووضوح. اسأل وتعلم.</string>
+    <string name="join_now">انضم الآن</string>
+    <string name="join_after">"انضم بعد..</string>
+
+    <!-- search section -->
+    <string name="search_title">البحث</string>
+
+    <!-- profile section -->
+    <string name="profile_title">الملف الشخصي</string>
+    <string name="preferences">التفضيلات</string>
+    <string name="theme">السمة</string>
+    <string name="language">اللغة</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="app_language">لغة التطبيق</string>
+    <string name="choose_theme">اختار سمه</string>
+
+
+    <string name="services_text"><![CDATA[من خلال الاستمرار، أنت توافق على شروط خدمة Habeet وسياسة الخصوصية]]></string>
+    <string name="services_text_link"><![CDATA[شروط الخدمة وسياسة الخصوصية]]></string>
+    <string name="let_do_it">لنقم بها</string>
+
+    <string name="userRole">عندما يُطلب أي سؤال غير متعلق بالجامعات، يرجى قول: "لا أعلم".</string>
+    <string name="modelRole">يرجى سؤالي حول شيء يتعلق بالجامعات فقط، حتى أستطيع الإجابة عليك.</string>
+</resources>
+

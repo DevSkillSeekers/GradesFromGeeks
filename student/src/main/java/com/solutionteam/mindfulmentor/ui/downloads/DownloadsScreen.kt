@@ -2,11 +2,16 @@ package com.solutionteam.mindfulmentor.ui.downloads
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -14,7 +19,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorSummeryNumbers
+import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
+import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -54,22 +66,37 @@ private fun SearchContent(
     state: DownloadsUIState
 ) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+    Scaffold(
+        topBar = {
+            GGAppBar(
+                title = stringResource(id = R.string.download_title),
+                showNavigationIcon = false
+            )
+        },
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = padding.calculateTopPadding())
+                .background(Theme.colors.background)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
 
-       if (state.isLoading){
-           CircularProgressIndicator()
-       }else{
-           Text(
-                   text = "Downloads screen",
-                   style = Theme.typography.labelMedium,
-                   color = Theme.colors.primary
-           )
-       }
+            if (state.isLoading) {
+                CircularProgressIndicator()
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp)
+                ) {
+                    MentorSummeryNumbers()
+                    SubjectComposable()
+                    MentorTabBar()
+                }
+            }
+        }
     }
-
 }
