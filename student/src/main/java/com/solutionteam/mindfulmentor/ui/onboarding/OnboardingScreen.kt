@@ -17,13 +17,16 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.home.HomeUIEffect
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    navigateTo: () -> Unit= {}
+) {
     val pageState = rememberPagerState(
             initialPage = 0,
             pageCount = { sliderDataList.size })
@@ -53,8 +56,7 @@ fun OnBoardingScreen() {
                     .padding(start = 24.dp),
                 pagerState = pageState,
         )
-        GGButton(
-                title = stringResource(id = R.string.let_do_it), onClick = { /*TODO*/ },
+        GGButton(title = stringResource(id = R.string.let_do_it), onClick =navigateTo,
                 modifier = Modifier.padding(start = 24.dp),
                 textPadding = PaddingValues(horizontal = 32.dp)
         )
