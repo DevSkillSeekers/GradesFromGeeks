@@ -5,8 +5,12 @@ import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
+import kotlinx.coroutines.flow.Flow
 
 interface MindfulMentorRepository {
+    suspend fun getIsFirstTimeUseApp(): Boolean
+    suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean)
+
 
     //region Mentor
     suspend fun getMentors(): List<Mentor>
