@@ -37,7 +37,6 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
                     RootNavGraph(navController = navController, startDestination = Screen.Main)
                 }
             }
-            RootNavGraph(navController = navController, startDestination = Screen.Main)
         }
     }
 
