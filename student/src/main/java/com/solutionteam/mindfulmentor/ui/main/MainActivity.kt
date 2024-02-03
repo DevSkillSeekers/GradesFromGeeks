@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor
+package com.solutionteam.mindfulmentor.ui.main
 
 import android.os.Build
 import android.os.Bundle

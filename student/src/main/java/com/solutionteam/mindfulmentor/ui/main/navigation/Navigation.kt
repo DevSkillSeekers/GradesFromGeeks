@@ -172,7 +172,9 @@ fun NavGraphBuilder.onboardingScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.OnBoarding.route
     ) {
-        OnBoardingScreen()
+        OnBoardingScreen(
+            navigateTo = { Screen.Welcome.withClearBackStack().also(onNavigateTo) }
+        )
     }
 }
 fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {

@@ -11,6 +11,6 @@ fun appModule() = module {
         NetworkModule,
         RepositoryModule,
         viewModelModule,
-
+        DataStoreModule
     )
 }

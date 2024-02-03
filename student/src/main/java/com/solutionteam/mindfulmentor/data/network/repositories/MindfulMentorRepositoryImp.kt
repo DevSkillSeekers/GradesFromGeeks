@@ -5,6 +5,7 @@ import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
+import com.solutionteam.mindfulmentor.data.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
 import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
@@ -14,11 +15,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class MindfulMentorRepositoryImp(
     private val mindfulMentorDao: MindfulMentorDao,
-    private val geminiApi: GeminiApi
+    private val geminiApi: GeminiApi,
+    private val authorizationPreferences: UserPreferences
 ) : BaseRepository(), MindfulMentorRepository {
 
     override fun generateContent(userContent: String, modelContent: String): Chat {
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
+    }
+
+
+    override suspend fun getIsFirstTimeUseApp(): Boolean {
+        return authorizationPreferences.getIsFirstTimeUseApp()?:true
+    }
+
+    override suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean) {
+     return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
     }
 
     override suspend fun getMentors(): List<Mentor> {
