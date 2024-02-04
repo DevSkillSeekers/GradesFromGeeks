@@ -18,9 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.theme.Gray_1
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 
 @Composable
-fun MentorSummeryNumbers() {
+fun ContentCountCard(
+    contentCountList: List<ContentCountUIState>,
+) {
     Box(modifier = Modifier.padding(horizontal = 24.dp)) {
         Row(
             modifier = Modifier
@@ -33,31 +36,22 @@ fun MentorSummeryNumbers() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MentorItems(
-                number = "80",
-                description = "Summery"
-            )
-            Divider(
-                modifier = Modifier
-                    .width(0.5.dp)
-                    .height(32.dp),
-                color = Gray_1
-            )
-            MentorItems(
-                number = "27",
-                description = "Videos"
-            )
-            Divider(
-                modifier = Modifier
-                    .width(0.5.dp)
-                    .height(32.dp),
-                color = Gray_1
-            )
-            MentorItems(
-                number = "23",
-                description = "Meeting"
-            )
 
+            contentCountList.forEachIndexed { index, contentCountUIState ->
+                MentorItems(
+                    number = contentCountUIState.count,
+                    description = contentCountUIState.contentName
+                )
+
+                if (index != contentCountList.size - 1) {
+                    Divider(
+                        modifier = Modifier
+                            .height(24.dp)
+                            .width(1.dp),
+                        color = Gray_1
+                    )
+                }
+            }
         }
     }
 }

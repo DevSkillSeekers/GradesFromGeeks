@@ -29,9 +29,10 @@ import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorProfileDetails
-import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorSummeryNumbers
+import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -145,7 +146,13 @@ private fun MentorContent(
                             },
                     ) {
 
-                        MentorSummeryNumbers()
+                        ContentCountCard(
+                            contentCountList = listOf(
+                                ContentCountUIState("20", "Summaries"),
+                                ContentCountUIState("30", "Videos"),
+                                ContentCountUIState("10", "Meetings")
+                            )
+                        )
                         SubjectComposable()
                         MentorTabBar(
                             nameTabs = listOf("Summaries", "Videos", "Meetings")
