@@ -158,7 +158,9 @@ private fun HomeContent(
                         GGSubject(
                             modifier = Modifier.width(100.dp),
                             name = subject.name,
-                            onClick = {}
+                            onClick = {
+                                onNavigateTo(HomeUIEffect.NavigateToSubject)
+                            }
                         )
                     }
                 }

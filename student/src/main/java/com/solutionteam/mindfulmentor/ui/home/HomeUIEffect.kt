@@ -14,4 +14,6 @@ sealed interface HomeUIEffect {
 
     data object NavigateToChatBooks : HomeUIEffect
 
+    data object NavigateToSubject : HomeUIEffect
+
 }

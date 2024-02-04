@@ -12,6 +12,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.MentorViewModel
 import com.solutionteam.mindfulmentor.ui.chat.ChatBotViewModel
 import com.solutionteam.mindfulmentor.ui.main.AppViewModel
 import com.solutionteam.mindfulmentor.ui.university.UniversityViewModel
+import com.solutionteam.mindfulmentor.ui.subject.SubjectViewModel
 
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
@@ -29,4 +30,5 @@ val viewModelModule = module {
     viewModelOf(::ChatBotViewModel)
     viewModelOf(::AppViewModel)
     viewModelOf(::UniversityViewModel)
+    viewModelOf(::SubjectViewModel)
 }

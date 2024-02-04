@@ -29,6 +29,8 @@ import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import com.solutionteam.mindfulmentor.ui.seeAll.toSeeAllType
+import com.solutionteam.mindfulmentor.ui.subject.SubjectScreen
+import com.solutionteam.mindfulmentor.ui.subject.SubjectUIEffect
 import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
 import com.solutionteam.mindfulmentor.ui.university.UniversityUIEffect
 
@@ -93,14 +95,15 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
         HomeScreen(
             navigateTo = { navigate ->
                 when (navigate) {
-                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
-                    HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.also(onNavigateTo)
+                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.withClearBackStack().also(onNavigateTo)
+                    HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
                     HomeUIEffect.NavigateToNotification -> {}
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
-                        Screen.SeeAll.also(onNavigateTo)
+                        Screen.SeeAll.withClearBackStack().also(onNavigateTo)
                     }
-                    HomeUIEffect.NavigateToUniversityProfile -> Screen.University.also(onNavigateTo)
+                    HomeUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack().also(onNavigateTo)
+                    HomeUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack().also(onNavigateTo)
                     else -> {}
                 }
             },
@@ -235,6 +238,30 @@ fun NavGraphBuilder.universityNavGraph(
                 when (it) {
                     UniversityUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
                     is UniversityUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))
+                        Screen.SeeAll.withClearBackStack().also(onNavigateTo)
+                    }
+                    else -> {}
+                }
+            },
+            navigateBack = onNavigateBack
+        )
+    }
+}
+
+fun NavGraphBuilder.subjectNavGraph(
+    onNavigateTo: (Screen) -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    composable(
+        route = Screen.Subject.route
+    ) {
+
+        SubjectScreen(
+            onNavigateTo = {
+                when (it) {
+                    SubjectUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
+                    is  SubjectUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))
                         Screen.SeeAll.withClearBackStack().also(onNavigateTo)
                     }

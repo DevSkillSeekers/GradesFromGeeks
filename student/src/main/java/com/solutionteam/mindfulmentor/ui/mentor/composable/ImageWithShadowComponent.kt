@@ -22,6 +22,7 @@ import com.solutionteam.design_system.theme.Theme
 fun ImageWithShadowComponent(
     modifier: Modifier,
     imageUrl: String,
+    shadowAlpha: Float = 0.9f,
     onBack: () -> Unit
 ) {
 
@@ -40,7 +41,7 @@ fun ImageWithShadowComponent(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Theme.colors.primary.copy(alpha = 0.9f))
+                .background(Theme.colors.primary.copy(alpha = shadowAlpha))
         )
 
         Icon(
