@@ -24,9 +24,10 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorSummeryNumbers
+import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -92,9 +93,17 @@ private fun SearchContent(
                         .fillMaxWidth()
                         .padding(top = 16.dp)
                 ) {
-                    MentorSummeryNumbers()
+                    ContentCountCard(
+                        contentCountList = listOf(
+                            ContentCountUIState("10", "Mentors"),
+                            ContentCountUIState("20", "Summaries"),
+                            ContentCountUIState("30", "Videos")
+                        )
+                    )
                     SubjectComposable()
-                    MentorTabBar()
+                    MentorTabBar(
+                        nameTabs = listOf("Summaries", "Videos", "Meetings")
+                    )
                 }
             }
         }

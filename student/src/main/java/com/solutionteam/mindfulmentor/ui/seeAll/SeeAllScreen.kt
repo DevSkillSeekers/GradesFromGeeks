@@ -118,7 +118,7 @@ private fun SeeAllContent(
                         name = university.name,
                         address = university.address,
                         imageUrl = university.imageUrl,
-                        onClick = {}
+                        onClick = {navigateTo()}
                     )
                 }
             }

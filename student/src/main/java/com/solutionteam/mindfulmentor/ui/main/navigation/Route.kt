@@ -1,16 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.main.navigation
 
 import android.os.Bundle
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.rounded.Build
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.solutionteam.mindfulmentor.R
 
 
@@ -31,6 +21,8 @@ const val navigationRouteProfile = "profile"
 const val navigationRouteDownloads = "downloads"
 
 const val navigationRouteMentor = "mentor"
+const val navigationRouteUniversity = "university"
+const val navigationRouteSubject = "Subject"
 
 
 sealed class Screen(
@@ -86,5 +78,13 @@ sealed class Screen(
 
     data object Mentor : Screen(
         route = navigationRouteMentor
+    )
+
+    data object University : Screen(
+        route = navigationRouteUniversity
+    )
+
+    data object Subject : Screen(
+        route = navigationRouteSubject
     )
 }

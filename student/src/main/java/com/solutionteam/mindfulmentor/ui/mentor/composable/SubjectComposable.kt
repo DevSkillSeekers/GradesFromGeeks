@@ -17,11 +17,13 @@ import com.solutionteam.design_system.components.GGSubject
 import com.solutionteam.design_system.theme.Theme
 
 @Composable
-fun SubjectComposable() {
+fun SubjectComposable(
+    modifier: Modifier = Modifier.padding(vertical = 16.dp)
+) {
     val selectedSubject = remember { mutableStateOf(subjectList.first()) }
 
     Column(
-        modifier = Modifier.padding(vertical = 16.dp)
+        modifier = modifier
     ) {
         Text(
             text = "Subject",
