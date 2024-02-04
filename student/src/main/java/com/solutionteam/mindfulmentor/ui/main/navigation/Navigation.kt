@@ -1,5 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.main.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
@@ -26,6 +28,7 @@ import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.toSeeAllType
+import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -95,7 +98,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
                     }
-                    HomeUIEffect.NavigateToUniversityProfile -> {}
+                    HomeUIEffect.NavigateToUniversityProfile -> Screen.University.also(onNavigateTo)
                     else -> {}
                 }
             },
@@ -152,6 +155,7 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
@@ -204,7 +208,22 @@ fun NavGraphBuilder.mentorNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigat
     ) {
 
         MentorScreen(
-            onNavigateTo = {  },
+            onNavigateTo = { },
+            navigateBack = onNavigateBack
+        )
+    }
+}
+
+fun NavGraphBuilder.universityNavGraph(
+    onNavigateToRoot: (Screen) -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    composable(
+        route = Screen.University.route
+    ) {
+
+        UniversityScreen(
+            onNavigateTo = { },
             navigateBack = onNavigateBack
         )
     }

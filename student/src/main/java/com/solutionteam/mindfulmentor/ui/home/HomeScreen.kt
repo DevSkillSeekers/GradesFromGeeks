@@ -188,7 +188,9 @@ private fun HomeContent(
                             name = university.name,
                             address = university.address,
                             imageUrl = university.imageUrl,
-                            onClick = {}
+                            onClick = {
+                                onNavigateTo(HomeUIEffect.NavigateToUniversityProfile)
+                            }
                         )
                     }
                 }
