@@ -114,6 +114,7 @@ private fun MentorContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
+                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
                         onBack = onBack
                     )
 
