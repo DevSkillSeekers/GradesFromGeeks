@@ -24,14 +24,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.solutionteam.design_system.components.GGMentor
+import com.solutionteam.design_system.components.GGTitleWithSeeAll
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
-import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
+import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
+import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -174,7 +179,31 @@ private fun UniversityContent(
                                 ContentCountUIState("30", "Videos")
                             )
                         )
-                        SubjectComposable()
+                        SubjectComposable(
+                            modifier = Modifier.padding(top= 16.dp)
+                        )
+                        GGTitleWithSeeAll(
+                            modifier = Modifier
+                                .padding(bottom = 10.dp)
+                                .padding(horizontal = 16.dp),
+                            title = stringResource(id = R.string.mentors),
+                            showSeeAll = true,
+                            onClick = {}
+                        )
+
+                        mentor.forEach {
+                            GGMentor(
+                                modifier = Modifier
+                                    .padding(vertical = 4.dp)
+                                    .padding(horizontal = 8.dp),
+                                name = it.name,
+                                rate = it.rate,
+                                numberReviewers = it.numberReviewers,
+                                profileUrl = it.imageUrl,
+                                onClick = { }
+                            )
+
+                        }
                     }
 
                 }
@@ -182,3 +211,28 @@ private fun UniversityContent(
         }
     }
 }
+
+
+private val mentor = listOf(
+    Mentor(
+        id = "1",
+        name = "First Mentor",
+        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
+        rate = 4.5,
+        numberReviewers = 500,
+    ),
+    Mentor(
+        id = "2",
+        name = "Second Mentor",
+        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
+        rate = 4.5,
+        numberReviewers = 500,
+    ),
+    Mentor(
+        id = "3",
+        name = "Third Mentor",
+        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
+        rate = 4.5,
+        numberReviewers = 500,
+    )
+)
