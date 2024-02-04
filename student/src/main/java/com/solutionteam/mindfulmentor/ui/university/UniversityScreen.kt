@@ -38,13 +38,14 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UniversityScreen(
     viewModel: UniversityViewModel = koinViewModel(),
-    onNavigateTo: () -> Unit,
+    onNavigateTo: (UniversityUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
 
@@ -56,7 +57,9 @@ fun UniversityScreen(
 
     UniversityContent(
         state = state,
-        onBack = navigateBack
+        onBack = navigateBack,
+        navigateToSeeAll = { onNavigateTo(UniversityUIEffect.NavigateToSeeAll) },
+        navigateToMentorProfile = { onNavigateTo(UniversityUIEffect.NavigateToMentorProfile) }
     )
 
     val color = Theme.colors.primary
@@ -89,7 +92,9 @@ private fun onEffect(effect: UniversityUIEffect?, context: Context) {
 @Composable
 private fun UniversityContent(
     state: UniversityUIState,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navigateToSeeAll:() -> Unit,
+    navigateToMentorProfile: () -> Unit
 ) {
 
     Scaffold { padding ->
@@ -188,7 +193,7 @@ private fun UniversityContent(
                                 .padding(horizontal = 16.dp),
                             title = stringResource(id = R.string.mentors),
                             showSeeAll = true,
-                            onClick = {}
+                            onClick = navigateToSeeAll
                         )
 
                         mentor.forEach {
@@ -200,7 +205,7 @@ private fun UniversityContent(
                                 rate = it.rate,
                                 numberReviewers = it.numberReviewers,
                                 profileUrl = it.imageUrl,
-                                onClick = { }
+                                onClick = navigateToMentorProfile
                             )
 
                         }

@@ -30,6 +30,7 @@ import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import com.solutionteam.mindfulmentor.ui.seeAll.toSeeAllType
 import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
+import com.solutionteam.mindfulmentor.ui.university.UniversityUIEffect
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -222,7 +223,7 @@ fun NavGraphBuilder.mentorNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigat
 }
 
 fun NavGraphBuilder.universityNavGraph(
-    onNavigateToRoot: (Screen) -> Unit,
+    onNavigateTo: (Screen) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     composable(
@@ -230,7 +231,16 @@ fun NavGraphBuilder.universityNavGraph(
     ) {
 
         UniversityScreen(
-            onNavigateTo = { },
+            onNavigateTo = {
+                when (it) {
+                    UniversityUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
+                    is UniversityUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))
+                        Screen.SeeAll.withClearBackStack().also(onNavigateTo)
+                    }
+                    else -> {}
+                }
+            },
             navigateBack = onNavigateBack
         )
     }

@@ -54,7 +54,7 @@ fun RootNavGraph(
             onNavigateBack = navController::navigateUp
         )
         universityNavGraph(
-            onNavigateToRoot = navController::navigateTo,
+            onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
     }
