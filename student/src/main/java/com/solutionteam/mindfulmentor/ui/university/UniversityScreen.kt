@@ -31,7 +31,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
-import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorProfileDetails
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorSummeryNumbers
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
@@ -171,7 +170,9 @@ private fun UniversityContent(
 
                         MentorSummeryNumbers()
                         SubjectComposable()
-                        MentorTabBar()
+                        MentorTabBar(
+                            nameTabs = listOf("Mentors", "Summaries", "Videos")
+                        )
                     }
 
                 }

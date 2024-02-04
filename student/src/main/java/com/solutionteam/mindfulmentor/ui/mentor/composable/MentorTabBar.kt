@@ -42,10 +42,10 @@ import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 
 @Composable
-fun MentorTabBar() {
+fun MentorTabBar(
+    nameTabs: List<String>,
+) {
     var tabIndex by remember { mutableIntStateOf(0) }
-
-    val tabs = listOf("Summaries", "Videos", "Meetings")
 
     Column(
         modifier = Modifier
@@ -80,10 +80,11 @@ fun MentorTabBar() {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .background(color = Theme.colors.background)
-                .padding(horizontal = 16.dp).padding(bottom = 16.dp)
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 16.dp)
 
         ) {
-            tabs.forEachIndexed { index, title ->
+            nameTabs.forEachIndexed { index, title ->
                 Tab(
                     text = {
                         Text(

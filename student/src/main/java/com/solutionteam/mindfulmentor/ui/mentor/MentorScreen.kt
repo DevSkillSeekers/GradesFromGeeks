@@ -147,7 +147,9 @@ private fun MentorContent(
 
                         MentorSummeryNumbers()
                         SubjectComposable()
-                        MentorTabBar()
+                        MentorTabBar(
+                            nameTabs = listOf("Summaries", "Videos", "Meetings")
+                        )
                     }
 
                 }
