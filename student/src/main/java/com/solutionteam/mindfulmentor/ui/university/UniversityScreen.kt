@@ -107,29 +107,6 @@ private fun UniversityContent(
                 ) {
                     val (imageWithShadow, profileDetails, profileCorner) = createRefs()
 
-                    ImageWithShadowComponent(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .constrainAs(imageWithShadow) {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            },
-                        onBack = onBack
-                    )
-
-                    MentorProfileDetails(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .constrainAs(profileDetails) {
-                                top.linkTo(imageWithShadow.top, margin = 50.dp)
-                                start.linkTo(imageWithShadow.start, margin = 50.dp)
-                                end.linkTo(imageWithShadow.end)
-                                bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
-                            }
-                    )
-
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()

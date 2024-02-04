@@ -27,6 +27,7 @@ import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
+import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import com.solutionteam.mindfulmentor.ui.seeAll.toSeeAllType
 import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
 
@@ -196,7 +197,13 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
         val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
         SeeAllScreen(
             type = value,
-            navigateTo = { Screen.Mentor.withClearBackStack().also(onNavigateTo) },
+            navigateTo = {
+                when (value) {
+                    SeeAllType.Mentors -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
+                    SeeAllType.Universities -> Screen.University.withClearBackStack().also(onNavigateTo)
+                    else -> {}
+                }
+            },
             navigateBack = onNavigateBack
         )
     }
