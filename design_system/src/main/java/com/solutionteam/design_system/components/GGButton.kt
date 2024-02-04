@@ -29,7 +29,7 @@ fun GGButton(
     style: TextStyle = Theme.typography.bodyLarge,
     type: ContainerType = ContainerType.BUTTON,
     enabled: Boolean = true,
-    textPadding: PaddingValues = PaddingValues(16.dp),
+    textPadding: PaddingValues = PaddingValues(0.dp),
     shape: Shape = RoundedCornerShape(100.dp),
     containerColor: Color = Theme.colors.primary,
     contentColor: Color = Theme.colors.primaryShadesLight,
