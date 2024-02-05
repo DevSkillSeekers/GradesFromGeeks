@@ -40,4 +40,6 @@
 
     <!-- download section -->
     <string name="download_title">Download</string>
+    <string name="why_meeting">Add why you want this meet?</string>
+    <string name="book">Book</string>
 </resources>

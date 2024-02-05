@@ -17,6 +17,7 @@ fun GGTextChipStyle(
     value: String,
     modifier: Modifier = Modifier,
     backgroundColor: Color = Theme.colors.secondary,
+    textColor: Color = Theme.colors.primaryShadesDark,
     textStyle: TextStyle = Theme.typography.labelLarge,
     paddingValues: PaddingValues = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
 ) {
@@ -29,7 +30,7 @@ fun GGTextChipStyle(
             .padding(paddingValues),
         text = value,
         style = textStyle,
-        color = Theme.colors.primaryShadesDark,
+        color = textColor,
         maxLines = 1
     )
 }

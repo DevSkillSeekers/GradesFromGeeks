@@ -37,4 +37,38 @@ class IndividualMeetingViewModel(
         sendNewEffect(IndividualMeetingUIEffect.IndividualMeetingError)
     }
 
+
+    fun onTimeSelected(time: TimeUiState) {
+        updateState {
+            it.copy(
+                selectedTime = time,
+                showBottomSheet = true,
+                availableDates = it.availableDates.map { it.setSelectTime(time.id) }
+            )
+        }
+    }
+
+    fun onDismissRequest() {
+        updateState {
+            it.copy(
+                selectedTime = null,
+                showBottomSheet = false,
+                availableDates = it.availableDates.map { it.setSelectTime() })
+        }
+    }
+
+    fun onValueChange(newNote: String) {
+        updateState { it.copy(note = newNote) }
+    }
+
+    fun onBookClick() {
+        updateState {
+            it.copy(
+                selectedTime = null,
+                showBottomSheet = false,
+                availableDates = it.availableDates.map { it.setSelectTime() }
+            )
+        }
+    }
+
 }

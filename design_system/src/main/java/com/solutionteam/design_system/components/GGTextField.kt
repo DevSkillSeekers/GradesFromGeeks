@@ -34,10 +34,10 @@ import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun GGTextField(
-    label: String,
     text: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    label: String? = null,
     labelStyle: TextStyle = Theme.typography.bodyLarge,
     textStyle: TextStyle = Theme.typography.bodyLarge,
     textFieldModifier: Modifier = Modifier
@@ -56,12 +56,14 @@ fun GGTextField(
         modifier = modifier,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = label,
-            modifier = Modifier.padding(bottom = 8.dp),
-            style = labelStyle,
-            color = Theme.colors.secondaryShadesDark
-        )
+        label?.let {
+            Text(
+                text = label,
+                modifier = Modifier.padding(bottom = 8.dp),
+                style = labelStyle,
+                color = Theme.colors.secondaryShadesDark
+            )
+        }
 
         OutlinedTextField(
             modifier = textFieldModifier,
