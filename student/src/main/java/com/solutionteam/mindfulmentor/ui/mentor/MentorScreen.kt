@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -22,10 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.solutionteam.design_system.components.setStatusBarColor
+import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorProfileDetails
@@ -39,7 +42,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MentorScreen(
     viewModel: MentorViewModel = koinViewModel(),
-    onNavigateTo: () -> Unit,
+    onNavigateTo: (MentorUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
 
@@ -51,7 +54,8 @@ fun MentorScreen(
 
     MentorContent(
         state = state,
-        onBack = navigateBack
+        onBack = navigateBack,
+        navigateToScheduleMeeting = { onNavigateTo(MentorUIEffect.NavigateToScheduleMeeting) }
     )
 
     val color = Theme.colors.primary
@@ -81,8 +85,8 @@ private fun onEffect(effect: MentorUIEffect?, context: Context) {
 
 @Composable
 private fun MentorContent(
-    state: MentorUIState,
-    onBack: () -> Unit
+    state: MentorUIState, onBack: () -> Unit,
+    navigateToScheduleMeeting: () -> Unit
 ) {
 
     Scaffold { padding ->
@@ -119,16 +123,14 @@ private fun MentorContent(
                         onBack = onBack
                     )
 
-                    MentorProfileDetails(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .constrainAs(profileDetails) {
-                                top.linkTo(imageWithShadow.top, margin = 50.dp)
-                                start.linkTo(imageWithShadow.start, margin = 50.dp)
-                                end.linkTo(imageWithShadow.end)
-                                bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
-                            }
-                    )
+                    MentorProfileDetails(modifier = Modifier
+                        .fillMaxWidth()
+                        .constrainAs(profileDetails) {
+                            top.linkTo(imageWithShadow.top, margin = 50.dp)
+                            start.linkTo(imageWithShadow.start, margin = 50.dp)
+                            end.linkTo(imageWithShadow.end)
+                            bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
+                        })
 
                     Column(
                         modifier = Modifier
@@ -153,6 +155,22 @@ private fun MentorContent(
                                 ContentCountUIState("10", "Meetings")
                             )
                         )
+
+                        Text(
+                            text = "Schedule one to one Meeting",
+                            color = Theme.colors.secondary,
+                            textAlign = TextAlign.Center,
+                            style = Theme.typography.titleSmall,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .background(
+                                    color = Theme.colors.primary, shape = RoundedCornerShape(16.dp)
+                                )
+                                .padding(16.dp)
+                                .noRippleEffect(navigateToScheduleMeeting),
+                        )
+
                         SubjectComposable()
                         MentorTabBar(
                             nameTabs = listOf("Summaries", "Videos", "Meetings")
