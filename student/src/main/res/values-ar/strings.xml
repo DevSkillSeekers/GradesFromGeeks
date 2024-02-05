@@ -35,5 +35,9 @@
 
     <string name="userRole">عندما يُطلب أي سؤال غير متعلق بالجامعات، يرجى قول: "لا أعلم".</string>
     <string name="modelRole">يرجى سؤالي حول شيء يتعلق بالجامعات فقط، حتى أستطيع الإجابة عليك.</string>
+    <string name="download_title">التنزيلات</string>
+    <string name="nothing_to_show">لا يوجد شيئ لعرضه</string>
+    <string name="empty_search_description">اكتب شيئًا في مربع البحث لعرض النتائج</string>
+    <string name="search">ابحث عن جامعة، مادة، أو مرشد.</string>
 </resources>
 
