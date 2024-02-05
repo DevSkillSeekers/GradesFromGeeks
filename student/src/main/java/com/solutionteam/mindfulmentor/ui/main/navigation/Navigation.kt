@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -28,6 +29,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
+import com.solutionteam.mindfulmentor.ui.search.SearchUIEffect
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import com.solutionteam.mindfulmentor.ui.seeAll.toSeeAllType
@@ -167,7 +169,20 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Search.route
     ) {
-        SearchScreen()
+        SearchScreen(
+                navigateTo = { navigate ->
+                    when (navigate) {
+                        is SearchUIEffect.NavigateToSeeAll -> {
+                            Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
+                            Screen.SeeAll.withClearBackStack().also(onNavigateTo)
+                        }
+                        SearchUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
+                        SearchUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack().also(onNavigateTo)
+                        SearchUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack().also(onNavigateTo)
+                        else -> {}
+                    }
+                },
+        )
     }
 }
 

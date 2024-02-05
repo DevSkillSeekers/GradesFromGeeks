@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.local.UserPreferences
@@ -34,6 +35,19 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean) {
         return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
+    }
+
+    override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
+        return  if (keyword.isNotEmpty()) {
+            val result = SearchResult(
+                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
+                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+            )
+             result
+        } else {
+            SearchResult()
+        }
     }
 
     override suspend fun getMentors(): List<Mentor> {

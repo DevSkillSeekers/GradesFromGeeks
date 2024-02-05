@@ -56,7 +56,8 @@ fun HomeScreen(
         onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile) },
         onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
         onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
-        onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) }
+        onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
+        onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) }
     )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
@@ -90,7 +91,8 @@ private fun HomeContent(
     onNavigateToMentorProfile: () -> Unit,
     onNavigateToSubjectScreen: () -> Unit,
     onNavigateToUniversityProfile: () -> Unit,
-    onNavigateToSeeALLUniversities: () -> Unit
+    onNavigateToSeeALLUniversities: () -> Unit,
+    onNavigateToSeeALLSubjects: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -158,7 +160,7 @@ private fun HomeContent(
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.subjects),
                     showSeeAll = state.subjects.showSeeAll(),
-                    onClick = {}
+                    onClick = onNavigateToSeeALLSubjects
                 )
 
                 LazyRow(
