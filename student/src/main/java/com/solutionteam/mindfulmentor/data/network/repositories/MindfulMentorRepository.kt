@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
+import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
@@ -47,5 +48,7 @@ interface MindfulMentorRepository {
     fun setTheme(isDark: Boolean)
     fun getTheme(): Flow<Boolean>
     //endregion
+
+    fun getAvailableTimeForMentor(mentorId: String): List<Date>
 
 }

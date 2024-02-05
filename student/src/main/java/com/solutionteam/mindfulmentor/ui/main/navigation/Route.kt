@@ -8,6 +8,7 @@ const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
 const val navigationRouteChatBot = "chatBot"
 const val navigationRouteSeeAll = "seeAll"
+const val navigationRouteIndividualMeeting = "individualMeeting"
 
 
 const val navigationRouteWelcome = "welcome"
@@ -47,8 +48,8 @@ sealed class Screen(
     data object SignIn : Screen(navigationRouteSignIn)
     data object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     data object ChatBot : Screen(navigationRouteChatBot)
-
     data object SeeAll : Screen(navigationRouteSeeAll)
+    data object IndividualMeeting : Screen(navigationRouteIndividualMeeting)
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(
@@ -76,15 +77,9 @@ sealed class Screen(
         unselectedIcon = R.drawable.ic_download_unselected
     )
 
-    data object Mentor : Screen(
-        route = navigationRouteMentor
-    )
+    data object Mentor : Screen(route = navigationRouteMentor)
 
-    data object University : Screen(
-        route = navigationRouteUniversity
-    )
+    data object University : Screen(route = navigationRouteUniversity)
 
-    data object Subject : Screen(
-        route = navigationRouteSubject
-    )
+    data object Subject : Screen(route = navigationRouteSubject)
 }

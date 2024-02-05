@@ -47,5 +47,4 @@ class MentorViewModel(
         sendNewEffect(MentorUIEffect.MentorError)
     }
 
-
 }
