@@ -1,12 +1,12 @@
-package com.solutionteam.mindfulmentor.ui.mentor
+package com.solutionteam.mindfulmentor.ui.university
 
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
-class MentorViewModel(
+class UniversityViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<MentorUIState, MentorUIEffect>(MentorUIState()) {
+) : BaseViewModel<UniversityUIState, UniversityUIEffect>(UniversityUIState()) {
 
     init {
         onMakeRequest()
@@ -38,13 +38,14 @@ class MentorViewModel(
 
     private fun onError() {
         updateState {
-            MentorUIState(
+            UniversityUIState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false
             )
         }
-        sendNewEffect(MentorUIEffect.MentorError)
+        sendNewEffect(UniversityUIEffect.UniversityError)
     }
+
 
 }

@@ -84,7 +84,7 @@ private fun SeeAllContent(
             title = when (state.type) {
                 SeeAllType.Mentors -> stringResource(id = R.string.mentors)
                 SeeAllType.Universities -> stringResource(id = R.string.universities)
-                SeeAllType.NoThing -> ""
+                SeeAllType.Subjects -> stringResource(id = R.string.subjects)
             },
             onBack = onBack
         )
@@ -118,7 +118,7 @@ private fun SeeAllContent(
                         name = university.name,
                         address = university.address,
                         imageUrl = university.imageUrl,
-                        onClick = {}
+                        onClick = {navigateTo()}
                     )
                 }
             }

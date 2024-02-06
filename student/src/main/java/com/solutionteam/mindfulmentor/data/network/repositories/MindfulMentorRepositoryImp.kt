@@ -1,8 +1,10 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
+import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.local.UserPreferences
@@ -12,6 +14,9 @@ import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MindfulMentorRepositoryImp(
     private val mindfulMentorDao: MindfulMentorDao,
@@ -25,11 +30,24 @@ class MindfulMentorRepositoryImp(
 
 
     override suspend fun getIsFirstTimeUseApp(): Boolean {
-        return authorizationPreferences.getIsFirstTimeUseApp()?:true
+        return authorizationPreferences.getIsFirstTimeUseApp() ?: true
     }
 
     override suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean) {
-     return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
+        return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
+    }
+
+    override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
+        return  if (keyword.isNotEmpty()) {
+            val result = SearchResult(
+                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
+                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+            )
+             result
+        } else {
+            SearchResult()
+        }
     }
 
     override suspend fun getMentors(): List<Mentor> {
@@ -75,8 +93,11 @@ class MindfulMentorRepositoryImp(
     }
     //endregion
 
-    //region Fake Data
+    override fun getAvailableTimeForMentor(mentorId: String): List<Date> {
+        return getDates()
+    }
 
+    //region Fake Data
     private fun generatorMentor(): List<Mentor> {
         val list = mutableListOf<Mentor>()
         for (i in 0..10) {
@@ -168,5 +189,34 @@ class MindfulMentorRepositoryImp(
         }
         return meetings
     }
+
+    private fun getDates(): List<Date> {
+        val list = mutableListOf<Date>()
+        for (i in 0..10) {
+            val day = getFormattedDate(addDays = i)
+            val times = mutableListOf<Long>()
+            for (j in 0..20 step 2) {
+                times.add(getFormattedTime(j))
+            }
+            list.add(Date(day = day, times = times))
+        }
+        return list
+    }
+
+    private fun getFormattedDate(addDays: Int): String {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, addDays)
+
+        val dateFormat = SimpleDateFormat("EEE d, MMM yyyy", Locale.US)
+        return dateFormat.format(currentDate.time)
+    }
+
+    private fun getFormattedTime(addHours: Int): Long {
+        val currentTime = Calendar.getInstance()
+        currentTime.add(Calendar.HOUR_OF_DAY, addHours)
+        return currentTime.timeInMillis
+    }
+
     //endregion
+
 }

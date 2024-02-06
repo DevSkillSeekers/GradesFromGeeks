@@ -1,16 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.main.navigation
 
 import android.os.Bundle
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.rounded.Build
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.solutionteam.mindfulmentor.R
 
 
@@ -18,6 +8,7 @@ const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
 const val navigationRouteChatBot = "chatBot"
 const val navigationRouteSeeAll = "seeAll"
+const val navigationRouteIndividualMeeting = "individualMeeting"
 
 
 const val navigationRouteWelcome = "welcome"
@@ -31,6 +22,8 @@ const val navigationRouteProfile = "profile"
 const val navigationRouteDownloads = "downloads"
 
 const val navigationRouteMentor = "mentor"
+const val navigationRouteUniversity = "university"
+const val navigationRouteSubject = "Subject"
 
 
 sealed class Screen(
@@ -55,8 +48,8 @@ sealed class Screen(
     data object SignIn : Screen(navigationRouteSignIn)
     data object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     data object ChatBot : Screen(navigationRouteChatBot)
-
     data object SeeAll : Screen(navigationRouteSeeAll)
+    data object IndividualMeeting : Screen(navigationRouteIndividualMeeting)
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(
@@ -84,7 +77,9 @@ sealed class Screen(
         unselectedIcon = R.drawable.ic_download_unselected
     )
 
-    data object Mentor : Screen(
-        route = navigationRouteMentor
-    )
+    data object Mentor : Screen(route = navigationRouteMentor)
+
+    data object University : Screen(route = navigationRouteUniversity)
+
+    data object Subject : Screen(route = navigationRouteSubject)
 }

@@ -49,7 +49,16 @@ fun HomeScreen(
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-    HomeContent(state = state, onNavigateTo = navigateTo)
+    HomeContent(
+        state = state,
+        onNavigateToSeeAllMentors = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },
+        onNavigateToChatBot = { navigateTo(HomeUIEffect.NavigateToChatBooks) },
+        onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile) },
+        onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
+        onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
+        onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
+        onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) }
+    )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
@@ -77,7 +86,13 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 @Composable
 private fun HomeContent(
     state: HomeUIState,
-    onNavigateTo: (HomeUIEffect) -> Unit,
+    onNavigateToSeeAllMentors: () -> Unit,
+    onNavigateToChatBot: () -> Unit,
+    onNavigateToMentorProfile: () -> Unit,
+    onNavigateToSubjectScreen: () -> Unit,
+    onNavigateToUniversityProfile: () -> Unit,
+    onNavigateToSeeALLUniversities: () -> Unit,
+    onNavigateToSeeALLSubjects: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -104,7 +119,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
+                    onClick = onNavigateToChatBot
                 )
 
                 state.upComingMeetings.forEach { meeting ->
@@ -123,7 +138,7 @@ private fun HomeContent(
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.mentors),
                     showSeeAll = state.mentors.showSeeAll(),
-                    onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) }
+                    onClick = onNavigateToSeeAllMentors
                 )
 
                 state.mentors.take(3).forEach { mentor ->
@@ -135,7 +150,7 @@ private fun HomeContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = {onNavigateTo(HomeUIEffect.NavigateToMentorProfile)}
+                        onClick = onNavigateToMentorProfile
                     )
                 }
 
@@ -145,7 +160,7 @@ private fun HomeContent(
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.subjects),
                     showSeeAll = state.subjects.showSeeAll(),
-                    onClick = {}
+                    onClick = onNavigateToSeeALLSubjects
                 )
 
                 LazyRow(
@@ -158,7 +173,7 @@ private fun HomeContent(
                         GGSubject(
                             modifier = Modifier.width(100.dp),
                             name = subject.name,
-                            onClick = {}
+                            onClick = onNavigateToSubjectScreen
                         )
                     }
                 }
@@ -170,7 +185,7 @@ private fun HomeContent(
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.universities),
                         showSeeAll = state.university.showSeeAll(),
-                        onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) }
+                        onClick = onNavigateToSeeALLUniversities
                     )
                 }
 
@@ -188,7 +203,7 @@ private fun HomeContent(
                             name = university.name,
                             address = university.address,
                             imageUrl = university.imageUrl,
-                            onClick = {}
+                            onClick = onNavigateToUniversityProfile
                         )
                     }
                 }

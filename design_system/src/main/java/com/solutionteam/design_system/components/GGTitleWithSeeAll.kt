@@ -34,7 +34,7 @@ fun GGTitleWithSeeAll(
         Text(
             text = title,
             color = Theme.colors.primaryShadesDark,
-            style = Theme.typography.titleMedium,
+            style = Theme.typography.titleSmall,
         )
 
         Spacer(modifier = Modifier.weight(1f))

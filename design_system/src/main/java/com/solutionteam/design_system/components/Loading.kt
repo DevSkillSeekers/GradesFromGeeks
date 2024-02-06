@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.chat.composable
+package com.solutionteam.design_system.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +29,7 @@ fun Loading(
 
         Card(
             modifier = modifier.alpha(1f),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp ,),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp ,),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                     containerColor = Theme.colors.primaryShadesLight,),

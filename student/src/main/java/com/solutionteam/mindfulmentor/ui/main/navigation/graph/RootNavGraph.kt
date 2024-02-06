@@ -8,12 +8,15 @@ import com.solutionteam.mindfulmentor.ui.main.navigation.Screen
 import com.solutionteam.mindfulmentor.ui.main.navigation.additionalInfo
 import com.solutionteam.mindfulmentor.ui.main.navigation.chatBotScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.ext.navigateTo
+import com.solutionteam.mindfulmentor.ui.main.navigation.individualMeetingNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.loginNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.mainNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.mentorNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.onSeeAllScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.onboardingScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.signInScreen
+import com.solutionteam.mindfulmentor.ui.main.navigation.subjectNavGraph
+import com.solutionteam.mindfulmentor.ui.main.navigation.universityNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.welcomeScreen
 
 @Composable
@@ -48,9 +51,22 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+        individualMeetingNavGraph(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
         mentorNavGraph(
             onNavigateToRoot = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+        universityNavGraph(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        subjectNavGraph(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+
     }
 }

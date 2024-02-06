@@ -40,4 +40,9 @@
 
     <!-- download section -->
     <string name="download_title">Download</string>
+    <string name="nothing_to_show">Nothing to show</string>
+    <string name="empty_search_description">Write something in search box to show result</string>
+    <string name="search">Search for a university, subject, mentor</string>
+    <string name="why_meeting">Add why you want this meet?</string>
+    <string name="book">Book</string>
 </resources>

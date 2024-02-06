@@ -1,8 +1,10 @@
 package com.solutionteam.mindfulmentor.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
+import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
 import kotlinx.coroutines.flow.Flow
@@ -12,6 +14,7 @@ interface MindfulMentorRepository {
     suspend fun getIsFirstTimeUseApp(): Boolean
     suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean)
 
+    suspend fun getSearch(keyword: String,limit:Int): SearchResult
 
     //region Mentor
     suspend fun getMentors(): List<Mentor>
@@ -45,5 +48,7 @@ interface MindfulMentorRepository {
     fun setTheme(isDark: Boolean)
     fun getTheme(): Flow<Boolean>
     //endregion
+
+    fun getAvailableTimeForMentor(mentorId: String): List<Date>
 
 }

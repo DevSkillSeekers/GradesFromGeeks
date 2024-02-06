@@ -21,6 +21,8 @@ import com.solutionteam.design_system.theme.Theme
 @Composable
 fun ImageWithShadowComponent(
     modifier: Modifier,
+    imageUrl: String,
+    shadowAlpha: Float = 0.9f,
     onBack: () -> Unit
 ) {
 
@@ -29,7 +31,7 @@ fun ImageWithShadowComponent(
         contentAlignment = Alignment.TopStart
     ) {
         Image(
-            painter = rememberAsyncImagePainter(model = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU"),
+            painter = rememberAsyncImagePainter(model = imageUrl),
             contentDescription = "image_profile",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -39,7 +41,7 @@ fun ImageWithShadowComponent(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Theme.colors.primary.copy(alpha = 0.9f))
+                .background(Theme.colors.primary.copy(alpha = shadowAlpha))
         )
 
         Icon(
