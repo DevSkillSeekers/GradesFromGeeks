@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 
 class LoginViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()),LoginInteractionListener {
+) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
 
     init {
         onMakeRequest()
@@ -14,10 +14,9 @@ class LoginViewModel(
 
     private fun onMakeRequest() {
         updateState { it.copy(isLoading = true) }
-
         tryToExecute(
             {
-                delay(1900)
+                delay(1000)
                 updateState { it.copy(isLoading = false, isSuccess = true) }
             },
             { onSuccess() },
@@ -47,12 +46,16 @@ class LoginViewModel(
         sendNewEffect(LoginUIEffect.LoginError)
     }
 
-    override fun onClickLogin() {
-        sendNewEffect(LoginUIEffect.OnClickLogin)
+    fun onChangeUserName(userName: String) {
+        updateState { it.copy(userName = userName) }
     }
 
-    override fun onClickBack() {
-        sendNewEffect(LoginUIEffect.OnClickBack)
+    fun onChangePassword(password: String) {
+        updateState{ it.copy(password = password) }
+    }
+
+     fun onClickLogin() {
+        sendNewEffect(LoginUIEffect.OnClickLogin)
     }
 
 

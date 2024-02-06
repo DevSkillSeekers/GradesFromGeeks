@@ -5,13 +5,11 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mindfulmentor.ui.auth.login.LoginScreen
-import com.solutionteam.mindfulmentor.ui.auth.login.LoginUIEffect
 import com.solutionteam.mindfulmentor.ui.auth.signin.additionalinfo.AdditionalInformationScreen
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeScreen
@@ -43,15 +41,9 @@ fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigate
     composable(
         route = Screen.Login.route
     ) {
-
         LoginScreen(
             navigateTo = {
-                when (it) {
-                    LoginUIEffect.OnClickLogin -> Screen.Login.withClearBackStack()
-                        .also(onNavigateToRoot)
-
-                    else -> {}
-                }
+                Screen.Main.withClearBackStack().also(onNavigateToRoot)
             },
             onNavigateBack = { onNavigateBack() }
         )
@@ -170,18 +162,25 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Search.route
     ) {
         SearchScreen(
-                navigateTo = { navigate ->
-                    when (navigate) {
-                        is SearchUIEffect.NavigateToSeeAll -> {
-                            Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
-                            Screen.SeeAll.withClearBackStack().also(onNavigateTo)
-                        }
-                        SearchUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
-                        SearchUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack().also(onNavigateTo)
-                        SearchUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack().also(onNavigateTo)
-                        else -> {}
+            navigateTo = { navigate ->
+                when (navigate) {
+                    is SearchUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
+                        Screen.SeeAll.withClearBackStack().also(onNavigateTo)
                     }
-                },
+
+                    SearchUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
+                        .also(onNavigateTo)
+
+                    SearchUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack()
+                        .also(onNavigateTo)
+
+                    SearchUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
+                        .also(onNavigateTo)
+
+                    else -> {}
+                }
+            },
         )
     }
 }

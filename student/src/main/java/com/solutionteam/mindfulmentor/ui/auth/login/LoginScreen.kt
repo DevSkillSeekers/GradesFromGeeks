@@ -35,7 +35,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    navigateTo: (LoginUIEffect) -> Unit,
+    navigateTo: () -> Unit,
     onNavigateBack : () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -43,29 +43,26 @@ fun LoginScreen(
     val context = LocalContext.current
     LoginContent(
         state = state,
-        onNavigateBack
+        onNavigateBack = onNavigateBack,
+        navigateTo = navigateTo,
+        onUserNameChanged = viewModel::onChangeUserName,
+        onPasswordChanged = viewModel::onChangePassword
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context,navigateTo)
+            onEffect(effect, context)
         }
     }
 }
 
-private fun onEffect(effect: LoginUIEffect?, context: Context,navigateTo: (LoginUIEffect) -> Unit) {
-    when (effect) {
-        is LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        is LoginUIEffect.OnClickLogin -> navigateTo(LoginUIEffect.OnClickLogin)
-        else -> {}
-    }
-}
-
-
 @Composable
 private fun LoginContent(
     state: LoginUIState,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    navigateTo: () -> Unit,
+    onUserNameChanged:(String) -> Unit,
+    onPasswordChanged:(String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -80,9 +77,7 @@ private fun LoginContent(
         } else {
             GGBackTopAppBar(onNavigateBack)
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp),
+                modifier = Modifier.fillMaxSize().padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Text(
@@ -91,13 +86,18 @@ private fun LoginContent(
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
-                GGTextField(label = "User Name", text = "", onValueChange = {})
+                GGTextField(
+                    label = "User Name",
+                    text = state.userName,
+                    onValueChange = onUserNameChanged
+                )
                 GGTextField(
                     label = "Your PassWord",
-                    text = "", onValueChange = {},
+                    text = state.password,
+                    onValueChange = onPasswordChanged,
                     keyboardType = KeyboardType.Password
                 )
-                GGButton(title = "Log In", onClick = {}, modifier = Modifier.fillMaxWidth())
+                GGButton(title = "Log In", onClick = { navigateTo() }, modifier = Modifier.fillMaxWidth())
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -133,4 +133,9 @@ private fun LoginContent(
 
     }
 }
-
+private fun onEffect(effect: LoginUIEffect?, context: Context) {
+    when (effect) {
+        is LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        else -> {}
+    }
+}
