@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -28,6 +27,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.MentorScreen
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
+import com.solutionteam.mindfulmentor.ui.review.ReviewScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchUIEffect
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
@@ -199,7 +199,11 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Downloads.route
     ) {
-        DownloadsScreen()
+        DownloadsScreen(
+            onNavigateTo = {
+                Screen.Review.withClearBackStack().also(onNavigateTo)
+            }
+        )
     }
 }
 
@@ -325,6 +329,19 @@ fun NavGraphBuilder.individualMeetingNavGraph(
     ) {
         IndividualMeetingScreen(
             navigateTo = {},
+            navigateBack = onNavigateBack
+        )
+    }
+}
+
+fun NavGraphBuilder.reviewNavGraph(
+    onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit
+) {
+    composable(
+        route = Screen.Review.route
+    ) {
+        ReviewScreen(
+            onNavigateTo = {},
             navigateBack = onNavigateBack
         )
     }

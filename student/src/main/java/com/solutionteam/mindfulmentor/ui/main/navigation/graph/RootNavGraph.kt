@@ -14,6 +14,7 @@ import com.solutionteam.mindfulmentor.ui.main.navigation.mainNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.mentorNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.onSeeAllScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.onboardingScreen
+import com.solutionteam.mindfulmentor.ui.main.navigation.reviewNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.signInScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.subjectNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.universityNavGraph
@@ -64,6 +65,10 @@ fun RootNavGraph(
             onNavigateBack = navController::navigateUp
         )
         subjectNavGraph(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        reviewNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )

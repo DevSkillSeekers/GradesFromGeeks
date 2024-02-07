@@ -34,6 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DownloadsScreen(
     viewModel: DownloadsViewModel = koinViewModel(),
+    onNavigateTo: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -41,8 +42,9 @@ fun DownloadsScreen(
     val context = LocalContext.current
 
 
-    SearchContent(
-        state = state
+    DownloadContent(
+        state = state,
+        onNavigateToReviewScreen = onNavigateTo
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -63,8 +65,9 @@ private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 
 
 @Composable
-private fun SearchContent(
-    state: DownloadsUIState
+private fun DownloadContent(
+    state: DownloadsUIState,
+    onNavigateToReviewScreen: () -> Unit
 ) {
 
     Scaffold(
@@ -102,7 +105,8 @@ private fun SearchContent(
                     )
                     SubjectComposable()
                     MentorTabBar(
-                        nameTabs = listOf("Summaries", "Videos", "Meetings")
+                        nameTabs = listOf("Summaries", "Videos", "Meetings"),
+                        navigateToReviewScreen = onNavigateToReviewScreen
                     )
                 }
             }

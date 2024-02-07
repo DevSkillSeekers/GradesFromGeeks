@@ -44,6 +44,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 @Composable
 fun MentorTabBar(
     nameTabs: List<String>,
+    navigateToReviewScreen: () -> Unit = {}
 ) {
     var tabIndex by remember { mutableIntStateOf(0) }
 
@@ -105,7 +106,7 @@ fun MentorTabBar(
 
             1 -> SummeryScreen()
 
-            2 -> MeetingScreen()
+            2 -> MeetingScreen( navigateToReviewScreen = navigateToReviewScreen)
         }
     }
 }
@@ -284,7 +285,9 @@ val fakeSummeryList = listOf(
 )
 
 @Composable
-fun MeetingScreen() {
+fun MeetingScreen(
+    navigateToReviewScreen: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -292,13 +295,15 @@ fun MeetingScreen() {
             .background(color = Theme.colors.background),
     ) {
         fakeSummeryList.forEach { _ ->
-            MeetingItem()
+            MeetingItem(navigateToReviewScreen)
         }
     }
 }
 
 @Composable
-fun MeetingItem() {
+fun MeetingItem(
+    navigateToReviewScreen: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -343,7 +348,7 @@ fun MeetingItem() {
             modifier = Modifier.padding(8.dp)
         )
         
-        GGButton(title = "Book now", onClick = { /*TODO*/ }, modifier = Modifier
+        GGButton(title = "Book now", onClick = navigateToReviewScreen, modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth())
     }
