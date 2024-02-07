@@ -36,17 +36,23 @@ fun SignInScreen(
     navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsState(initial = null)
     SignInScreenContent(
         state = state,
         onNavigateBack = onNavigateBack,
-        navigateTo = navigateTo )
+        onChangeEmail = viewModel::onChangeEmail,
+        onChangeUserName = viewModel::onChangeUserName,
+        onChangePassword = viewModel::onChangePassword,
+        navigateTo = navigateTo
+    )
 }
 
 @Composable
 fun SignInScreenContent(
     state: SignInState,
     onNavigateBack:()->Unit,
+    onChangeEmail:(String)->Unit,
+    onChangeUserName:(String)->Unit,
+    onChangePassword:(String)->Unit,
     navigateTo: () -> Unit
 ) {
     Column(
@@ -56,7 +62,6 @@ fun SignInScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-
 
         if (state.isLoading) {
             CircularProgressIndicator()
@@ -76,46 +81,49 @@ fun SignInScreenContent(
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
-                GGTextField(label = "Email", text = "", onValueChange = {})
-                GGTextField(label = "User Name", text = "", onValueChange = {})
+                GGTextField(label = "Email", text = state.email, onValueChange = onChangeEmail)
+                GGTextField(label = "User Name", text = state.userName, onValueChange = onChangeUserName)
                 GGTextField(
                     label = "Your PassWord",
-                    text = "", onValueChange = {},
+                    text = state.password, onValueChange = onChangePassword,
                     keyboardType = KeyboardType.Password
                 )
                 GGButton(title = "Continue", onClick = navigateTo, modifier = Modifier.fillMaxWidth())
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Text(
-                        text = "- Or -",
-                        style = Theme.typography.titleSmall,
-                        color = Theme.colors.ternaryShadesDark
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(24.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.google),
-                            contentDescription = ""
-                        )
-                        Image(
-                            painter = painterResource(id = R.drawable.facebook),
-                            contentDescription = ""
-                        )
-                    }
-                    TextWithClick(
-                        fullText = "Don't have an account? signUp",
-                        linkText = "signUp",
-                        onClick = {}
-                    )
-                }
+                SignWithOtherWays()
             }
         }
 
+    }
+}
+@Composable
+fun SignWithOtherWays() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "- Or -",
+            style = Theme.typography.titleSmall,
+            color = Theme.colors.ternaryShadesDark
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.google),
+                contentDescription = ""
+            )
+            Image(
+                painter = painterResource(id = R.drawable.facebook),
+                contentDescription = ""
+            )
+        }
+        TextWithClick(
+            fullText = "Don't have an account? signUp",
+            linkText = "signUp",
+            onClick = {}
+        )
     }
 }

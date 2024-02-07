@@ -41,6 +41,22 @@ fun LoginScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(state) {
+        if (state.isSuccess) {
+            navigateTo()
+        }
+        if (state.errorMessage != null && state.isError) {
+            val result = snackbarHostState.showSnackbar(
+                message = state.errorMessage!!,
+                actionLabel = "Hide",
+                duration = SnackbarDuration.Short
+            )
+            if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
+                viewModel.clearErrorState()
+            }
+        }
+    }
     LoginContent(
         state = state,
         onNavigateBack = onNavigateBack,
@@ -107,55 +123,43 @@ private fun LoginContent(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                LaunchedEffect(state) {
-                    if (state.isSuccess) {
-                        navigateTo()
-                    }
-                    if (state.errorMessage != null && state.isError) {
-                        val result = snackbarHostState.showSnackbar(
-                            message = state.errorMessage,
-                            actionLabel = "Hide",
-                            duration = SnackbarDuration.Short
-                        )
-                        if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
-                            clearErrorState()
-                        }
-                    }
-                }
-
                 GGSnackbar(snackbarHostState = snackbarHostState)
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "- Or -",
-                        style = Theme.typography.titleSmall,
-                        color = Theme.colors.ternaryShadesDark
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(24.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.google),
-                            contentDescription = ""
-                        )
-                        Image(
-                            painter = painterResource(id = R.drawable.facebook),
-                            contentDescription = ""
-                        )
-                    }
-                    TextWithClick(
-                        fullText = "Don't have an account? signUp",
-                        linkText = "signUp",
-                        onClick = {}
-                    )
-                }
+                LoginByOtherWays()
+
             }
-
         }
+    }
+}
 
+@Composable
+fun LoginByOtherWays() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "- Or -",
+            style = Theme.typography.titleSmall,
+            color = Theme.colors.ternaryShadesDark
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.google),
+                contentDescription = ""
+            )
+            Image(
+                painter = painterResource(id = R.drawable.facebook),
+                contentDescription = ""
+            )
+        }
+        TextWithClick(
+            fullText = "Don't have an account? signUp",
+            linkText = "signUp",
+            onClick = {}
+        )
     }
 }
