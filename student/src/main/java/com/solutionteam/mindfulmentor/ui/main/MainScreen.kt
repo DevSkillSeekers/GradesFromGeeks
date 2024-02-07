@@ -10,9 +10,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.solutionteam.design_system.components.setStatusBarColor
+import com.solutionteam.design_system.theme.Theme
 
 @Composable
 fun MainScreen(
@@ -24,6 +28,16 @@ fun MainScreen(
         bottomBar = bottomBar,
         contentWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)
     ) { paddingValues ->
+
+        val systemUIController = rememberSystemUiController()
+        val color = Theme.colors.background
+        LaunchedEffect(true) {
+            setStatusBarColor(
+                systemUIController = systemUIController,
+                color = color,
+            )
+        }
+
         ScreenBackground(
             modifier = Modifier
                 .fillMaxSize()
