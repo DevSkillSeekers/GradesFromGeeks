@@ -1,8 +1,5 @@
 package com.solutionteam.mindfulmentor.ui.auth.login
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,16 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -35,8 +31,6 @@ import com.solutionteam.design_system.components.GGTextField
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.auth.composables.TextWithClick
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -46,8 +40,6 @@ fun LoginScreen(
     onNavigateBack: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsState(initial = null)
-    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     LoginContent(
         state = state,
@@ -56,14 +48,10 @@ fun LoginScreen(
         onUserNameChanged = viewModel::onChangeUserName,
         onPasswordChanged = viewModel::onChangePassword,
         onClickLogin = viewModel::onClickLogin,
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        clearErrorState = viewModel::clearErrorState
     )
 
-    LaunchedEffect(key1 = state.isSuccess) {
-        viewModel.effect.collectLatest {
-            onEffect(effect, context)
-        }
-    }
 }
 
 @Composable
@@ -75,6 +63,7 @@ private fun LoginContent(
     onPasswordChanged: (String) -> Unit,
     onClickLogin: () -> Unit,
     snackbarHostState: SnackbarHostState,
+    clearErrorState: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -83,9 +72,6 @@ private fun LoginContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-
-        val scope = rememberCoroutineScope()
-
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
@@ -117,22 +103,26 @@ private fun LoginContent(
                     title = "Log In",
                     onClick = {
                         onClickLogin()
-                        if (state.isSuccess)
-                            navigateTo()
-                        if(state.errorMessage != null && state.isError){
-                            scope.launch {
-                                val time = System.currentTimeMillis()
-                                snackbarHostState.showSnackbar(
-                                    message = state.errorMessage,
-                                    actionLabel = "Hide",
-                                    duration = SnackbarDuration.Short
-                                )
-                                Log.d(TAG, "done ${System.currentTimeMillis()-time}") // <-- Never called
-                            }
-                        }
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
+
+                LaunchedEffect(state) {
+                    if (state.isSuccess) {
+                        navigateTo()
+                    }
+                    if (state.errorMessage != null && state.isError) {
+                        val result = snackbarHostState.showSnackbar(
+                            message = state.errorMessage,
+                            actionLabel = "Hide",
+                            duration = SnackbarDuration.Short
+                        )
+                        if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
+                            clearErrorState()
+                        }
+                    }
+                }
+
                 GGSnackbar(snackbarHostState = snackbarHostState)
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -167,12 +157,5 @@ private fun LoginContent(
 
         }
 
-    }
-}
-
-private fun onEffect(effect: LoginUIEffect?, context: Context) {
-    when (effect) {
-//        is LoginUIEffect.LoginError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        else -> {}
     }
 }

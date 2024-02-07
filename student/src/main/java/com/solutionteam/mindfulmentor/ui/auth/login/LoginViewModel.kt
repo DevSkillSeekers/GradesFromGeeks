@@ -61,4 +61,9 @@ class LoginViewModel(
             }
         }
     }
+    fun clearErrorState() {
+        updateState { currentState ->
+            currentState.copy(errorMessage = null, isError = false)
+        }
+    }
 }
