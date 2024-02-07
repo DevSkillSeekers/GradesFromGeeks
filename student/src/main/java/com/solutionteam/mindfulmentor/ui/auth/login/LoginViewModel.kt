@@ -1,29 +1,13 @@
 package com.solutionteam.mindfulmentor.ui.auth.login
 
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import androidx.lifecycle.viewModelScope
+import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    private val authRepository: AuthRepository
 ) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
-
-    init {
-        onMakeRequest()
-    }
-
-    private fun onMakeRequest() {
-        updateState { it.copy(isLoading = true) }
-        tryToExecute(
-            {
-                delay(1000)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
-            },
-            { onSuccess() },
-            ::onError
-        )
-    }
-
 
     private fun onSuccess() {
         updateState {
@@ -35,28 +19,46 @@ class LoginViewModel(
         }
     }
 
-    private fun onError() {
+    private fun onLoading() {
+        updateState {
+            it.copy(
+                isLoading = true,
+                isSuccess = false,
+                errorMessage = "",
+                isError = false
+            )
+        }
+    }
+
+    private fun onError(errorMessage: String) {
         updateState {
             LoginUIState(
                 isError = true,
                 isLoading = false,
-                isSuccess = false
+                isSuccess = false,
+                errorMessage = errorMessage
             )
         }
         sendNewEffect(LoginUIEffect.LoginError)
     }
 
     fun onChangeUserName(userName: String) {
-        updateState { it.copy(userName = userName) }
+        updateState { it.copy(email = userName) }
     }
 
     fun onChangePassword(password: String) {
-        updateState{ it.copy(password = password) }
+        updateState { it.copy(password = password) }
     }
 
-     fun onClickLogin() {
-        sendNewEffect(LoginUIEffect.OnClickLogin)
+    fun onClickLogin() {
+        viewModelScope.launch {
+            try {
+                onLoading()
+                authRepository.signIn(state.value.email, state.value.password)
+                onSuccess()
+            } catch (e: Exception) {
+                onError(e.message?:"error")
+            }
+        }
     }
-
-
 }
