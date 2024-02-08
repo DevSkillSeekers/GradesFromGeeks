@@ -1,9 +1,11 @@
 package com.solutionteam.mindfulmentor.ui.review
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,27 +18,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.solutionteam.design_system.components.GGMentor
-import com.solutionteam.design_system.components.GGTitleWithSeeAll
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
-import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.data.entity.Mentor
-import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
-import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
-import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -53,12 +53,15 @@ fun ReviewScreen(
     val systemUIController = rememberSystemUiController()
 
 
+
+
     ReviewContent(
         state = state,
         onBack = navigateBack,
         navigateToSeeAll = { onNavigateTo(ReviewUIEffect.NavigateToSeeAll) },
-        navigateToMentorProfile = { onNavigateTo(ReviewUIEffect.NavigateToMentorProfile) }
+        navigateToMentorProfile = { onNavigateTo(ReviewUIEffect.NavigateToMentorProfile) },
     )
+
 
     val color = Theme.colors.primaryShadesDark
     LaunchedEffect(true) {
@@ -73,6 +76,7 @@ fun ReviewScreen(
             onEffect(effect, context)
         }
     }
+
 }
 
 
@@ -100,7 +104,7 @@ private fun ReviewContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(Theme.colors.background),
+                .background(Theme.colors.primaryShadesDark),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -108,29 +112,20 @@ private fun ReviewContent(
             if (state.isLoading) {
                 CircularProgressIndicator()
             } else {
-                ConstraintLayout(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight()
-                        .verticalScroll(rememberScrollState())
+                        .background(Theme.colors. quaternaryShadesLight)
                 ) {
-                    val (imageWithShadow, profileCorner) = createRefs()
 
-                    ImageWithShadowComponent(
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(270.dp)
-                            .background(Theme.colors.primaryShadesDark)
-                            .constrainAs(imageWithShadow) {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            },
-                        imageUrl = "",
-                        shadowAlpha = 0f,
-                        onBack = onBack
-                    )
-
+                            .height(250.dp)
+                    ) {
+                        VideoLayout(uri = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
+                    }
 
                     Column(
                         modifier = Modifier
@@ -140,72 +135,48 @@ private fun ReviewContent(
                                 Theme.colors.background,
                                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                             )
-                            .padding(top = 24.dp)
-                            .constrainAs(profileCorner) {
-                                top.linkTo(imageWithShadow.bottom, margin = (-24).dp)
-                                start.linkTo(imageWithShadow.start)
-                                end.linkTo(imageWithShadow.end)
-                            },
-                    ) {
 
+                    ){
 
                     }
-
                 }
             }
         }
     }
 }
 
+@Composable
+fun VideoLayout(uri: String) {
+    val context = LocalContext.current
+    val myStyledPlayerView = StyledPlayerView(context)
+    val myExoPlayer = ExoPlayer.Builder(LocalContext.current).build()
+    myStyledPlayerView.player = myExoPlayer
 
-private val mentor = listOf(
-    Mentor(
-        id = "1",
-        name = "First Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "3",
-        name = "Third Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "3",
-        name = "Third Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
+
+    DisposableEffect(myExoPlayer) {
+        onDispose { myExoPlayer.release() }
+    }
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        factory = { it ->
+            PlayerView(it).also {
+                it.player = myStyledPlayerView.player
+                it.resizeMode =  AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+            }
+        },
+        update = {
+            myExoPlayer.setMediaItem(
+                MediaItem.fromUri(
+                    Uri.parse(uri)
+                )
+            )
+            myExoPlayer.prepare()
+            myExoPlayer.playWhenReady = true
+            myExoPlayer.play()
+        }
     )
-)
+
+}

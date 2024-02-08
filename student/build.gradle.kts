@@ -129,4 +129,6 @@ dependencies {
     //constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
+    // ExoPlayer
+    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
 }
