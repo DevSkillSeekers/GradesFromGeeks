@@ -1,8 +1,8 @@
 package com.solutionteam.mindfulmentor.ui.auth.signin
 
-data class SignInState(
+data class SignUpUiState(
     val isSignInSuccessful: Boolean = false,
-    val signInError: String? = null,
+    val isError: Boolean = false,
     val errorMessage: String? = null,
     val isLoading: Boolean = false,
     val userName: String = "",
