@@ -151,7 +151,7 @@ fun NavGraphBuilder.additionalInfo(onNavigateTo: (Screen) -> Unit, onNavigateBac
         route = Screen.AdditionalInfo.route
     ) {
         AdditionalInformationScreen(
-            navigateTo = { Screen.Main.withClearBackStack().also(onNavigateTo) },
+            navigateTo = { Screen.Login.withClearBackStack().also(onNavigateTo) },
             onNavigateBack = onNavigateBack
         )
     }

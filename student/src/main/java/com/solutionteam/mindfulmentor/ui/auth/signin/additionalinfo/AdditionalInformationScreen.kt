@@ -13,14 +13,14 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,10 +32,10 @@ import com.solutionteam.design_system.components.GGBottomSheetWithSearch
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.components.GGDropdownMenu
 import com.solutionteam.design_system.components.GGSnackbar
+import com.solutionteam.design_system.components.GGToggleBottomSheetButton
 import com.solutionteam.design_system.theme.Theme
-import com.solutionteam.mindfulmentor.ui.auth.signin.SignUpUiState
 import com.solutionteam.mindfulmentor.ui.auth.signin.SignInViewModel
-import kotlinx.coroutines.launch
+import com.solutionteam.mindfulmentor.ui.auth.signin.SignUpUiState
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -102,9 +102,12 @@ fun AdditionalInformationScreenContent(
     levels: List<Int>,
 ) {
     var selectedIndex by remember { mutableIntStateOf(-1) }
-    val universityBottomSheetState = rememberBottomSheetScaffoldState()
-    val fieldBottomSheetState = rememberBottomSheetScaffoldState()
-    val scope = rememberCoroutineScope()
+    var isUniversitySheetOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var isFieldSheetOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -130,51 +133,42 @@ fun AdditionalInformationScreenContent(
                     color = Theme.colors.primaryShadesDark,
                     fontSize = 30.sp
                 )
+                GGToggleBottomSheetButton(
+                    value = state.universityName,
+                    onValueChanged = {isUniversitySheetOpen = false},
+                    isOpen = isUniversitySheetOpen,
+                    onToggle = {isUniversitySheetOpen = true},
+                    hint = "Select University",
+                    label = "University"
+                )
+                GGToggleBottomSheetButton(
+                    value = state.field,
+                    onValueChanged = {isFieldSheetOpen = false},
+                    isOpen = isFieldSheetOpen,
+                    onToggle = {isFieldSheetOpen = true},
+                    hint = "Select Field",
+                    label = "Field"
+                )
+
+                if (isUniversitySheetOpen){
                 GGBottomSheetWithSearch(
                     items = universitiesNames,
                     onItemSelected = onChangeUniversity,
-                    bottomSheetState = universityBottomSheetState
-                ) {
-                    GGButton(
-                        title = state.universityName,
-                        onClick = {
-                            scope.launch {
-                                universityBottomSheetState.bottomSheetState.expand()
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        containerColor = Theme.colors.card
-                    )
-                }
+                    onDismissRequest = {isUniversitySheetOpen = false}
+                ) }
+                if (isFieldSheetOpen){
                 GGBottomSheetWithSearch(
                     items = fields,
                     onItemSelected = onChangeField,
-                    bottomSheetState = fieldBottomSheetState,
-                ) {
-                    GGButton(
-                        title = state.field,
-                        onClick = {
-                            scope.launch {
-                                fieldBottomSheetState.bottomSheetState.expand()
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        containerColor = Theme.colors.card
-                    )
+                    onDismissRequest = {isFieldSheetOpen = false}
+                )
                 }
                 GGDropdownMenu(
-                    label = "Field",
-                    items = listOf("Cs", "Art", "Engineering"),
-                    selectedIndex = selectedIndex,
-                    onItemSelected = { index, item ->
-                        selectedIndex = index
-                        onChangeUniversity(item)
-                    },
-                )
-                GGDropdownMenu(
                     label = "Level",
-                    items = listOf(1, 2, 3, 4),
+                    value = state.level,
+                    items = listOf(1, 2, 3, 4,5),
                     selectedIndex = selectedIndex,
+                    hint = "Select Level",
                     onItemSelected = { index, item ->
                         selectedIndex = index
                         onChangeLevel(item)

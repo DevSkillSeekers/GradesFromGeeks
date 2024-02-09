@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.solutionteam.design_system.theme.Gray_1
@@ -44,11 +45,13 @@ fun <T> GGDropdownMenu(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: String,
+    hint: String,
+    value:Int?,
+    textStyle: TextStyle = Theme.typography.bodyLarge,
     notSetLabel: String? = null,
     items: List<T>,
     selectedIndex: Int = -1,
     onItemSelected: (index: Int, item: T) -> Unit,
-    selectedItemToString: (T) -> String = { it.toString() },
     drawItem: @Composable (T, Boolean, Boolean, () -> Unit) -> Unit = { item, selected, itemEnabled, onClick ->
         LargeDropdownMenuItem(
             text = item.toString(),
@@ -73,7 +76,13 @@ fun <T> GGDropdownMenu(
         Box {
             OutlinedTextField(
                 label = { Text("") },
-                value = items.getOrNull(selectedIndex)?.let { selectedItemToString(it) } ?: "",
+                placeholder = {Text(
+                    hint,
+                    style = textStyle,
+                    color = Theme.colors.primaryShadesDark.copy(alpha = 0.6f)
+                )
+                },
+                value = value.toString(),
                 enabled = enabled,
                 modifier = Modifier
                     .fillMaxWidth()
