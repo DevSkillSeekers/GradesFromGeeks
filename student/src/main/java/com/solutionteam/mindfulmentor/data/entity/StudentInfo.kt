@@ -5,5 +5,5 @@ data class StudentInfo(
     val imageUrl: String,
     val universityName: String,
     val field : String,
-    val level: Int,
+    val level: Int?,
 )

@@ -1,14 +1,17 @@
 package com.solutionteam.mindfulmentor.ui.auth.signin
 
 import androidx.lifecycle.viewModelScope
+import com.solutionteam.mindfulmentor.data.entity.StudentInfo
 import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
+import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.data.network.response.SignInResult
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInUIEffect
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class SignInViewModel(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val midFulMentorRepository: MindfulMentorRepository
 ) : BaseViewModel<SignUpUiState, SignInUIEffect>(SignUpUiState()) {
 
     fun onSignInResult(result: SignInResult) {
@@ -55,7 +58,14 @@ class SignInViewModel(
             try {
                 onLoading()
                 val result = authRepository.signUp(state.value.email, state.value.password)
-//                authRepository.addStudentInfo()
+                val studentInfo = StudentInfo(
+                    userName = state.value.userName,
+                    universityName = state.value.universityName,
+                    field = state.value.field,
+                    level = state.value.level,
+                    imageUrl = ""
+                )
+                authRepository.addStudentInfo(studentInfo = studentInfo , user = result.user!! )
                 onSuccess()
             } catch (e: Exception) {
                 onError(e.message?:"error")

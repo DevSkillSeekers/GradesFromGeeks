@@ -60,12 +60,10 @@ fun LoginScreen(
     LoginContent(
         state = state,
         onNavigateBack = onNavigateBack,
-        navigateTo = navigateTo,
         onUserNameChanged = viewModel::onChangeUserName,
         onPasswordChanged = viewModel::onChangePassword,
         onClickLogin = viewModel::onClickLogin,
         snackbarHostState = snackbarHostState,
-        clearErrorState = viewModel::clearErrorState
     )
 
 }
@@ -74,12 +72,10 @@ fun LoginScreen(
 private fun LoginContent(
     state: LoginUIState,
     onNavigateBack: () -> Unit,
-    navigateTo: () -> Unit,
     onUserNameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onClickLogin: () -> Unit,
     snackbarHostState: SnackbarHostState,
-    clearErrorState: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -122,7 +118,6 @@ private fun LoginContent(
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
-
                 GGSnackbar(snackbarHostState = snackbarHostState)
                 LoginByOtherWays()
 

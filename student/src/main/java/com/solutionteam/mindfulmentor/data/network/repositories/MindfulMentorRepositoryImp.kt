@@ -62,6 +62,10 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
+    override  fun getUniversitiesNames(): List<String> {
+        return generateUniversitiesNames()
+    }
+
     override suspend fun getUpComingMeetings(): List<Meeting> {
         return generateMeeting()
     }
@@ -95,6 +99,14 @@ class MindfulMentorRepositoryImp(
 
     override fun getAvailableTimeForMentor(mentorId: String): List<Date> {
         return getDates()
+    }
+
+    override suspend fun getFields(): List<String> {
+        return generateFields()
+    }
+
+    override suspend fun getLevels(): List<Int> {
+        return generateLevels()
     }
 
     //region Fake Data
@@ -154,7 +166,33 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
-
+    private fun generateUniversitiesNames(): List<String> {
+        val list = mutableListOf<String>()
+        for (i in 0..10) {
+            list.add(
+                "University $i"
+            )
+        }
+        return list
+    }
+    private fun generateFields(): List<String> {
+        val list = mutableListOf<String>()
+        for (i in 0..10) {
+            list.add(
+                "Field $i"
+            )
+        }
+        return list
+    }
+    private fun generateLevels(): List<Int> {
+        val list = mutableListOf<Int>()
+        for (i in 0..10) {
+            list.add(
+                i
+            )
+        }
+        return list
+    }
     private fun getImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",

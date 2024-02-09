@@ -6,6 +6,7 @@ import com.solutionteam.mindfulmentor.data.entity.StudentInfo
 
 interface AuthRepository {
     suspend fun signUp(email: String, password: String): AuthResult
+
     suspend fun addStudentInfo(studentInfo: StudentInfo,user: FirebaseUser)
 
     suspend fun signIn(email: String, password: String): AuthResult

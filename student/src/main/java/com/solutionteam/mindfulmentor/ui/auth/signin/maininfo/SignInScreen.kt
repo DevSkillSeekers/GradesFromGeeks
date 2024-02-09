@@ -9,15 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -41,29 +36,29 @@ fun SignInScreen(
     navigateTo: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    val snackbarHostState = remember { SnackbarHostState() }
-    LaunchedEffect(state) {
-        if (state.isSignInSuccessful) {
-            navigateTo()
-        }
-        if (state.errorMessage != null && state.isError) {
-            val result = snackbarHostState.showSnackbar(
-                message = state.errorMessage!!,
-                actionLabel = "Hide",
-                duration = SnackbarDuration.Short
-            )
-            if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
-                viewModel.clearErrorState()
-            }
-        }
-    }
+//    val snackbarHostState = remember { SnackbarHostState() }
+//    LaunchedEffect(state) {
+//        if (state.isSignInSuccessful) {
+//            navigateTo()
+//        }
+//        if (state.errorMessage != null && state.isError) {
+//            val result = snackbarHostState.showSnackbar(
+//                message = state.errorMessage!!,
+//                actionLabel = "Hide",
+//                duration = SnackbarDuration.Short
+//            )
+//            if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
+//                viewModel.clearErrorState()
+//            }
+//        }
+//    }
     SignInScreenContent(
         state = state,
         onNavigateBack = onNavigateBack,
         onChangeEmail = viewModel::onChangeEmail,
         onChangeUserName = viewModel::onChangeUserName,
         onChangePassword = viewModel::onChangePassword,
-        onClickSignUp = viewModel::onClickSignUp
+        onClickContinue = navigateTo
     )
 }
 
@@ -74,7 +69,7 @@ fun SignInScreenContent(
     onChangeEmail: (String) -> Unit,
     onChangeUserName: (String) -> Unit,
     onChangePassword: (String) -> Unit,
-    onClickSignUp: () -> Unit,
+    onClickContinue: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -115,7 +110,7 @@ fun SignInScreenContent(
                 )
                 GGButton(
                     title = "Continue",
-                    onClick = onClickSignUp,
+                    onClick = onClickContinue,
                     modifier = Modifier.fillMaxWidth()
                 )
                 SignWithOtherWays()

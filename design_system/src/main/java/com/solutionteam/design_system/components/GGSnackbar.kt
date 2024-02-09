@@ -33,7 +33,7 @@ fun GGSnackbar(
                             }
                         ) {
                             Text(
-                                text = snackbarHostState.currentSnackbarData?.visuals?.message
+                                text = snackbarHostState.currentSnackbarData?.visuals?.actionLabel
                                     ?: "",
                                 style = Theme.typography.bodyLarge,
                                 color = Theme.colors.secondary
@@ -42,7 +42,7 @@ fun GGSnackbar(
                     }
                 ) {
                     Text(
-                        snackbarHostState.currentSnackbarData?.visuals?.actionLabel ?: "",
+                        snackbarHostState.currentSnackbarData?.visuals?.message ?: "Hide",
                         style = Theme.typography.bodyMedium, color = Theme.colors.secondary
                     )
                 }
