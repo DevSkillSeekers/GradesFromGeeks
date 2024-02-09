@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import com.solutionteam.mindfulmentor.ui.profile.Language
 
 interface MindfulMentorRepository {
+    suspend fun getUniversitiesName(): List<String>
     suspend fun getIsFirstTimeUseApp(): Boolean
     suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean)
 
