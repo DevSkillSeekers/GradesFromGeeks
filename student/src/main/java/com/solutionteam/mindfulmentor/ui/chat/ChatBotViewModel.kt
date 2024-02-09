@@ -1,8 +1,10 @@
 package com.solutionteam.mindfulmentor.ui.chat
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.type.content
+import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 
@@ -17,6 +19,16 @@ import kotlinx.coroutines.launch
 class ChatBotViewModel(
     private val mentorRepository: MindfulMentorRepository
 ) : BaseViewModel<ChatUiState, ChatUIEffect>(ChatUiState()) {
+    init {
+     getUniversities()
+    }
+
+    private fun getUniversities() {
+        viewModelScope.launch {
+            val universities = mentorRepository.getUniversitiesName()
+            updateState { it.copy(universities = universities) }
+        }
+    }
 
     fun setRoles(user:String, model: String) {
         updateState { it.copy(userRole = user, modelRole = model) }
@@ -59,6 +71,11 @@ class ChatBotViewModel(
         getData(oldMsg)
     }
 
+    fun onSelectUniversity(index: Int,user: String, model: String) {
+        updateState { it.copy(messages = emptyList()) }
+        updateState { it.copy(selectedUniversity = index, isFirstEnter = false) }
+        updateState { it.copy(userRole = user, modelRole = model) }
+    }
 
     fun onChanceMessage(newValue: String) {
         updateState { it.copy(message = newValue) }
