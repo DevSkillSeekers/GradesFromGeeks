@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -43,10 +44,12 @@ import com.solutionteam.design_system.theme.Theme
 fun <T> GGDropdownMenu(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    label: String,
+    label: String? = null,
     notSetLabel: String? = null,
     items: List<T>,
     selectedIndex: Int = -1,
+    colors: TextFieldColors = textFieldColorsDefault(),
+    placeholder: String? = null,
     onItemSelected: (index: Int, item: T) -> Unit,
     selectedItemToString: (T) -> String = { it.toString() },
     drawItem: @Composable (T, Boolean, Boolean, () -> Unit) -> Unit = { item, selected, itemEnabled, onClick ->
@@ -64,20 +67,21 @@ fun <T> GGDropdownMenu(
         modifier = modifier,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = label,
-            modifier = Modifier,
-            style = Theme.typography.bodyLarge,
-            color = Theme.colors.secondaryShadesDark
-        )
+        label?.let {
+            Text(
+                    text = label,
+                    modifier = Modifier,
+                    style = Theme.typography.bodyLarge,
+                    color = Theme.colors.secondaryShadesDark
+            )
+        }
         Box {
             OutlinedTextField(
                 label = { Text("") },
-                value = items.getOrNull(selectedIndex)?.let { selectedItemToString(it) } ?: "",
+                value = items.getOrNull(selectedIndex)?.let { selectedItemToString(it) } ?: placeholder ?:"",
                 enabled = enabled,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
                     val icon =
                         if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
@@ -86,17 +90,9 @@ fun <T> GGDropdownMenu(
                 onValueChange = { },
                 readOnly = true,
                 shape = RoundedCornerShape(100.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Theme.colors.disabled,
-                    cursorColor = Gray_1,
-                    errorCursorColor = PrimaryLight,
-                    focusedBorderColor = PrimaryLight.copy(alpha = 0.2f),
-                    unfocusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
-                    errorBorderColor = PrimaryLight.copy(alpha = 0.5f),
-                ),
-                interactionSource = interactionSource
+                colors = colors,
+                interactionSource = interactionSource,
+                textStyle = Theme.typography.bodyMedium.copy(color = Theme.colors.primaryShadesDark)
             )
             Surface(
                 modifier = Modifier
@@ -104,9 +100,9 @@ fun <T> GGDropdownMenu(
                     .height(56.dp)
                     .clip(MaterialTheme.shapes.extraSmall)
                     .clickable(
-                        enabled = enabled,
-                        interactionSource = interactionSource,
-                        indication = null
+                            enabled = enabled,
+                            interactionSource = interactionSource,
+                            indication = null
                     ) { expanded = true },
                 color = Color.Transparent,
             ) {}
@@ -187,3 +183,16 @@ fun LargeDropdownMenuItem(
     }
 }
 
+@Composable
+ fun textFieldColorsDefault(): TextFieldColors {
+   return OutlinedTextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Theme.colors.disabled,
+            cursorColor = Gray_1,
+            errorCursorColor = PrimaryLight,
+            focusedBorderColor = PrimaryLight.copy(alpha = 0.2f),
+            unfocusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
+            errorBorderColor = PrimaryLight.copy(alpha = 0.5f),
+    )
+}
