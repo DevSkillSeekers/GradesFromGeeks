@@ -31,7 +31,7 @@ interface MindfulMentorRepository {
 
     //region Universities
     suspend fun getUniversities(): List<University>
-
+    fun getUniversitiesNames(): List<String>
     //endregion
 
 
@@ -51,5 +51,12 @@ interface MindfulMentorRepository {
     //endregion
 
     fun getAvailableTimeForMentor(mentorId: String): List<Date>
+    // region fields
+    suspend fun getFields(): List<String>
+    //endregion
+
+    //region Levels
+    suspend fun getLevels(): List<Int>
+    //endregion
 
 }

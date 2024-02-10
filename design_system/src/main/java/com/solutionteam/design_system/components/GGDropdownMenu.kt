@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.solutionteam.design_system.theme.Gray_1
@@ -45,6 +46,9 @@ fun <T> GGDropdownMenu(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: String? = null,
+    hint: String,
+    value:Int?,
+    textStyle: TextStyle = Theme.typography.bodyLarge,
     notSetLabel: String? = null,
     items: List<T>,
     selectedIndex: Int = -1,
@@ -100,9 +104,9 @@ fun <T> GGDropdownMenu(
                     .height(56.dp)
                     .clip(MaterialTheme.shapes.extraSmall)
                     .clickable(
-                            enabled = enabled,
-                            interactionSource = interactionSource,
-                            indication = null
+                        enabled = enabled,
+                        interactionSource = interactionSource,
+                        indication = null
                     ) { expanded = true },
                 color = Color.Transparent,
             ) {}

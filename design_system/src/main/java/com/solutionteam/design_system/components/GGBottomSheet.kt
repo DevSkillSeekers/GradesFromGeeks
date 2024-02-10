@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.solutionteam.design_system.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -15,6 +15,7 @@ import com.solutionteam.design_system.theme.Theme
 fun GGBottomSheet(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
+    containerColor: Color = Theme.colors.background,
     content: @Composable (ColumnScope.() -> Unit)
 ) {
     ModalBottomSheet(
@@ -25,7 +26,7 @@ fun GGBottomSheet(
                 true
             }),
         onDismissRequest = onDismissRequest,
-        containerColor = Theme.colors.background,
+        containerColor = containerColor,
         dragHandle = { BottomSheetDefaults.DragHandle(color = Theme.colors.primary) },
         content = content
     )

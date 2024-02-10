@@ -1,30 +1,13 @@
 package com.solutionteam.mindfulmentor.ui.auth.login
 
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import androidx.lifecycle.viewModelScope
+import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()),LoginInteractionListener {
-
-    init {
-        onMakeRequest()
-    }
-
-    private fun onMakeRequest() {
-        updateState { it.copy(isLoading = true) }
-
-        tryToExecute(
-            {
-                delay(1900)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
-            },
-            { onSuccess() },
-            ::onError
-        )
-    }
-
+    private val authRepository: AuthRepository
+) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
 
     private fun onSuccess() {
         updateState {
@@ -36,24 +19,51 @@ class LoginViewModel(
         }
     }
 
-    private fun onError() {
+    private fun onLoading() {
+        updateState {
+            it.copy(
+                isLoading = true,
+                isSuccess = false,
+                errorMessage = "",
+                isError = false
+            )
+        }
+    }
+
+    private fun onError(errorMessage: String) {
         updateState {
             LoginUIState(
                 isError = true,
                 isLoading = false,
-                isSuccess = false
+                isSuccess = false,
+                errorMessage = errorMessage
             )
         }
         sendNewEffect(LoginUIEffect.LoginError)
     }
 
-    override fun onClickLogin() {
-        sendNewEffect(LoginUIEffect.OnClickLogin)
+    fun onChangeUserName(userName: String) {
+        updateState { it.copy(email = userName) }
     }
 
-    override fun onClickBack() {
-        sendNewEffect(LoginUIEffect.OnClickBack)
+    fun onChangePassword(password: String) {
+        updateState { it.copy(password = password) }
     }
 
-
+    fun onClickLogin() {
+        viewModelScope.launch {
+            try {
+                onLoading()
+                authRepository.signIn(state.value.email, state.value.password)
+                onSuccess()
+            } catch (e: Exception) {
+                onError(e.message?:"error")
+            }
+        }
+    }
+    fun clearErrorState() {
+        updateState { currentState ->
+            currentState.copy(errorMessage = null, isError = false)
+        }
+    }
 }
