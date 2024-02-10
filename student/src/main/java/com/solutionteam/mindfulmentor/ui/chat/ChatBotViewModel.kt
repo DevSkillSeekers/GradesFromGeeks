@@ -30,9 +30,10 @@ class ChatBotViewModel(
         }
     }
 
-    fun setRoles(user:String, model: String) {
-        updateState { it.copy(userRole = user, modelRole = model) }
+    fun onDismissRequest() {
+        updateState { it.copy(isUniversitySheetOpen = !state.value.isUniversitySheetOpen) }
     }
+
     private fun getData(msg: String) {
         val chat = mentorRepository.generateContent(
                 userContent = state.value.userRole, modelContent = state.value.modelRole
@@ -72,7 +73,7 @@ class ChatBotViewModel(
     }
 
     fun onSelectUniversity(index: Int,user: String, model: String) {
-        updateState { it.copy(messages = emptyList()) }
+        updateState { it.copy(messages = emptyList(), universityName =state.value.universities[index] , isUniversitySheetOpen = false) }
         updateState { it.copy(selectedUniversity = index, isFirstEnter = false) }
         updateState { it.copy(userRole = user, modelRole = model) }
     }

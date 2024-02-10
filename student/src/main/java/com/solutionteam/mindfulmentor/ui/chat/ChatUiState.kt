@@ -12,6 +12,8 @@ data class ChatUiState(
     val modelRole: String = "",
     val isFirstEnter: Boolean = true,
     val selectedUniversity: Int = -1,
+    val universityName: String = "",
+    val isUniversitySheetOpen: Boolean = false,
 ) {
 
 }

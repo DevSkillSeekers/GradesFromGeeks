@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.chat
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -42,8 +43,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import com.solutionteam.design_system.components.GGDropdownMenu
+import com.solutionteam.design_system.components.GGBottomSheetWithSearch
+import com.solutionteam.design_system.components.GGToggleBottomSheetButton
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Gray_1
 import com.solutionteam.design_system.theme.Theme
@@ -57,7 +58,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ChatBotScreen(
     viewModel: ChatBotViewModel = koinViewModel(),
-    onNavigateBack:()->Unit,
+    onNavigateBack: () -> Unit,
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -69,7 +70,8 @@ fun ChatBotScreen(
             onValueChanged = viewModel::onChanceMessage,
             sendMessage = viewModel::onSendClicked,
             onCLickBack = onNavigateBack,
-            onSelectUniversity = viewModel::onSelectUniversity
+            onSelectUniversity = viewModel::onSelectUniversity,
+            onDismissRequest = viewModel::onDismissRequest
     )
 
 }
@@ -82,11 +84,10 @@ private fun ChatBotContent(
     onValueChanged: (String) -> Unit,
     sendMessage: () -> Unit,
     onCLickBack: () -> Unit,
-    onSelectUniversity: (Int,String,String) -> Unit,
+    onDismissRequest: () -> Unit,
+    onSelectUniversity: (Int, String, String) -> Unit,
 ) {
     val listState = rememberLazyListState()
-    val context = LocalContext.current
-
 
     Scaffold(
             topBar = {
@@ -109,19 +110,14 @@ private fun ChatBotContent(
                                 containerColor = Theme.colors.background
                         ),
                         actions = {
-                            if(!state.isFirstEnter){
-                                GGDropdownMenu(
-                                        modifier = Modifier
-                                            .width(200.dp),
-                                        items = state.universities,
-                                        selectedIndex = state.selectedUniversity,
-                                        onItemSelected = { index, university ->
-                                            Log.e("TAG", "ChatBotContent: $university")
-                                            val user = context.getString(R.string.user_role, university)
-                                            val model = context.getString(R.string.model_role, university)
-                                            onSelectUniversity(index,user,model)
-                                        },
-                                        placeholder = "Select University",
+                            if (!state.isFirstEnter) {
+                                GGToggleBottomSheetButton(
+                                        modifier = Modifier.width(200.dp),
+                                        value = state.universityName,
+                                        onValueChanged = onDismissRequest,
+                                        isOpen = state.isUniversitySheetOpen,
+                                        onToggle = onDismissRequest,
+                                        hint = "Select University",
                                         colors = OutlinedTextFieldDefaults.colors(
                                                 focusedContainerColor = Color.Transparent,
                                                 unfocusedContainerColor = Color.Transparent,
@@ -133,11 +129,13 @@ private fun ChatBotContent(
                                                 errorBorderColor = Color.Transparent,
                                         )
                                 )
+
+
                             }
                         }
                 )
             }
-    ) {padding->
+    ) { padding ->
         Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -183,21 +181,16 @@ private fun ChatBotContent(
                             modifier = Modifier.padding(top = 8.dp, end = 38.dp, start = 38.dp),
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )
-
-                    GGDropdownMenu(
-                            modifier = Modifier
-                                .width(250.dp)
-                                .padding(top = 28.dp),
-                            items = state.universities,
-                            placeholder = "Select University",
-                            selectedIndex = state.selectedUniversity,
-                            onItemSelected = { index, university ->
-                                Log.e("TAG", "ChatBotContent: $university")
-                                val user = context.getString(R.string.user_role, university)
-                                val model = context.getString(R.string.model_role, university)
-                                onSelectUniversity(index,user,model)
-                            },
-                    )
+                        GGToggleBottomSheetButton(
+                                modifier = Modifier
+                                    .width(250.dp)
+                                    .padding(top = 28.dp),
+                                value = state.universityName,
+                                onValueChanged = onDismissRequest,
+                                isOpen = state.isUniversitySheetOpen,
+                                onToggle = onDismissRequest,
+                                hint = "Select University",
+                        )
                 }
             }
             AnimatedVisibility(visible = !state.isFirstEnter) {
@@ -241,13 +234,42 @@ private fun ChatBotContent(
         }
 
     }
+    UniversityBottomSheet(
+            state = state,
+            onSelectUniversity = onSelectUniversity,
+            onDismissRequest = onDismissRequest,
+    )
 
     LaunchedEffect(key1 = true) {
-        listState.animateScrollToItem(index = state.messages.lastIndexOrZero()  )
+        listState.animateScrollToItem(index = state.messages.lastIndexOrZero())
     }
 
 }
 
-fun <T> List<T>.lastIndexOrZero() : Int {
+@Composable
+private fun UniversityBottomSheet(
+    state: ChatUiState,
+    modifier: Modifier = Modifier,
+    onSelectUniversity: (Int, String, String) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    val context = LocalContext.current
+
+    if (state.isUniversitySheetOpen) {
+        GGBottomSheetWithSearch(
+                modifier = modifier,
+                items = state.universities,
+                onItemSelected = { university, index ->
+                    Log.e("TAG", "ChatBotContent: $university")
+                    val user = context.getString(R.string.user_role, university)
+                    val model = context.getString(R.string.model_role, university)
+                    onSelectUniversity(index, user, model)
+                },
+                onDismissRequest = onDismissRequest
+        )
+    }
+}
+
+fun <T> List<T>.lastIndexOrZero(): Int {
     return if (this.isEmpty()) 0 else this.size - 1
 }
