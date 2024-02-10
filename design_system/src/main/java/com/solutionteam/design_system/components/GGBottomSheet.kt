@@ -22,7 +22,6 @@ fun GGBottomSheet(
         modifier = modifier,
         sheetState = rememberModalBottomSheetState(
             confirmValueChange = {
-                onDismissRequest()
                 true
             }),
         onDismissRequest = onDismissRequest,
