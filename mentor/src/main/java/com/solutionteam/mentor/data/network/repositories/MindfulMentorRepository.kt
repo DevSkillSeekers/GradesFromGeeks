@@ -1,7 +1,9 @@
 package com.solutionteam.mentor.data.network.repositories
 
+import com.solutionteam.mentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mentor.ui.profile.Language
+import com.solutionteam.mindfulmentor.data.entity.Subject
 import kotlinx.coroutines.flow.Flow
 
 interface MindfulMentorRepository {
@@ -19,4 +21,11 @@ interface MindfulMentorRepository {
     fun getTheme(): Flow<Boolean>
     //endregion
 
+    suspend fun getUpComingMeetings(): List<Meeting>
+
+
+    //region Subject
+    suspend fun getSubject(): List<Subject>
+
+    //endregion
 }

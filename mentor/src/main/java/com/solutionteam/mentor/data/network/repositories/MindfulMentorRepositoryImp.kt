@@ -1,5 +1,7 @@
 package com.solutionteam.mentor.data.network.repositories
 
+import com.solutionteam.mentor.data.entity.Meeting
+import com.solutionteam.mentor.data.entity.MeetingType
 import com.solutionteam.mentor.data.network.BaseRepository
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
@@ -17,6 +19,11 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()
     }
+
+    override suspend fun getUpComingMeetings(): List<Meeting> {
+        return generateMeeting()
+    }
+
 
     //region Language
     //FOR TEST ONLY
@@ -44,7 +51,34 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
     }
     //endregion
 
+    override suspend fun getSubject(): List<Subject> {
+        return generateSubjects()
+    }
+
     //region Fake Data
+    private fun generateMeeting(): List<Meeting> {
+        val meetings = mutableListOf<Meeting>()
+        val subject = generateSubjects()
+        for (i in 0..5) {
+            val subjectIndex = (0..subject.lastIndex).random()
+
+            meetings.add(
+                Meeting(
+                    id = "$i",
+                    subject = subject[subjectIndex].name,
+                    notes = "This meet to recap data structure from ch2 to ch 5",
+                    time = System.currentTimeMillis() + i * (30 * 60 * 1000),
+                    type = if (i % 2 == 0) {
+                        MeetingType.INDIVIDUAL
+                    } else {
+                        MeetingType.GROUP
+                    }
+                )
+            )
+        }
+        return meetings
+    }
+
     private fun generatorMentor(): List<Mentor> {
         val list = mutableListOf<Mentor>()
         for (i in 0..10) {
@@ -101,6 +135,7 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
         }
         return list
     }
+
     private fun generateUniversitiesNames(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -110,6 +145,7 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
         }
         return list
     }
+
     private fun generateFields(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -119,6 +155,7 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
         }
         return list
     }
+
     private fun generateLevels(): List<Int> {
         val list = mutableListOf<Int>()
         for (i in 0..10) {
@@ -128,6 +165,7 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
         }
         return list
     }
+
     private fun getImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",
@@ -140,7 +178,6 @@ class MindfulMentorRepositoryImp : BaseRepository(), MindfulMentorRepository {
 
         return list.shuffled().first()
     }
-
 
 
     private fun getFormattedDate(addDays: Int): String {
