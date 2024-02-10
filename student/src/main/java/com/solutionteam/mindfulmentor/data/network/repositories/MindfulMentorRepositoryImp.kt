@@ -28,6 +28,25 @@ class MindfulMentorRepositoryImp(
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
     }
 
+    override suspend fun getUniversitiesName(): List<String> {
+        return listOf(
+                "University of Washington",
+                "University of California, Los Angeles",
+                "University of Baghdad",
+                "University of California, Berkeley",
+                "Harvard University",
+                "Stanford University",
+                "Massachusetts Institute of Technology (MIT)",
+                "University of Oxford",
+                "University of Cambridge",
+                "California Institute of Technology (Caltech)",
+                "ETH Zurich - Swiss Federal Institute of Technology",
+                "University College London (UCL)",
+                "University of Chicago",
+                "Imperial College London"
+        )
+    }
+
 
     override suspend fun getIsFirstTimeUseApp(): Boolean {
         return authorizationPreferences.getIsFirstTimeUseApp() ?: true
