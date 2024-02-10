@@ -19,6 +19,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,6 +43,7 @@ fun GGToggleBottomSheetButton(
     hint: String,
     modifier: Modifier = Modifier,
     readOnly: Boolean = true,
+    colors: TextFieldColors = textFieldColorsDefault(),
     label: String? = null,
     labelStyle: TextStyle = Theme.typography.bodyLarge,
     textStyle: TextStyle = Theme.typography.bodyLarge,
@@ -82,16 +84,7 @@ fun GGToggleBottomSheetButton(
                 textStyle = textStyle.copy(color = Theme.colors.primaryShadesDark),
                 singleLine = singleLine,
                 isError = isError,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Theme.colors.disabled,
-                    cursorColor = Gray_1,
-                    errorCursorColor = PrimaryLight,
-                    focusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
-                    unfocusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
-                    errorBorderColor = PrimaryLight.copy(alpha = 0.5f),
-                ),
+                colors = colors,
                 trailingIcon = {
                     IconButton(
                         onClick = onToggle,
