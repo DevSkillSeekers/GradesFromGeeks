@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mindfulmentor.ui.auth.login.LoginScreen
-import com.solutionteam.mindfulmentor.ui.auth.signin.additionalinfo.AdditionalInformationScreen
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeUiEffect
@@ -142,17 +141,6 @@ fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack:
                 Screen.AdditionalInfo.withClearBackStack().also(onNavigateTo)
             },
             onNavigateBack = { onNavigateBack() }
-        )
-    }
-}
-
-fun NavGraphBuilder.additionalInfo(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
-    composable(
-        route = Screen.AdditionalInfo.route
-    ) {
-        AdditionalInformationScreen(
-            navigateTo = { Screen.Login.withClearBackStack().also(onNavigateTo) },
-            onNavigateBack = onNavigateBack
         )
     }
 }

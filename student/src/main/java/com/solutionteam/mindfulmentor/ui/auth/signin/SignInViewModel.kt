@@ -5,6 +5,7 @@ import com.solutionteam.mindfulmentor.data.entity.StudentInfo
 import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.data.network.response.SignInResult
+import com.solutionteam.mindfulmentor.data.utils.UserAlreadyExistsException
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInUIEffect
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class SignInViewModel(
             )
         }
     }
+
     private fun onSuccess() {
         updateState {
             it.copy(
@@ -53,11 +55,46 @@ class SignInViewModel(
             )
         }
     }
+
+    fun onClickContinue() {
+        if (
+            validateEmail(state.value.email)
+            && validatePassword(state.value.password)
+            && validateUserName(state.value.userName)
+        ) {
+            updateState { it.copy(isScreenContinue = false) }
+        } else {
+            updateState {
+                it.copy(
+                    isError = true,
+                    errorMessage = "email, password or username is not invalid "
+                )
+            }
+        }
+    }
+
+    fun onClickBackInAdditionalInfo() {
+        updateState { it.copy(isScreenContinue = true) }
+    }
+
     fun onClickSignUp() {
+        if (state.value.universityName.isNotEmpty() && state.value.field.isNotEmpty()) {
+            onSignUP()
+        } else {
+            updateState {
+                it.copy(
+                    isError = true,
+                    errorMessage = "University or Field is empty "
+                )
+            }
+        }
+    }
+    private fun onSignUP() {
         viewModelScope.launch {
             try {
                 onLoading()
-                val result = authRepository.signUp(state.value.email, state.value.password)
+                val result =
+                    authRepository.signUp(state.value.email, state.value.password)
                 val studentInfo = StudentInfo(
                     userName = state.value.userName,
                     universityName = state.value.universityName,
@@ -65,18 +102,25 @@ class SignInViewModel(
                     level = state.value.level,
                     imageUrl = ""
                 )
-                authRepository.addStudentInfo(studentInfo = studentInfo , user = result.user!! )
-                onSuccess()
+                val studentInfoResult =
+                    authRepository.addStudentInfo(studentInfo = studentInfo, user = result.user!!)
+                if (studentInfoResult)
+                    onSuccess()
+
+            } catch (e: UserAlreadyExistsException) {
+                onError(e.message ?: "error")
             } catch (e: Exception) {
-                onError(e.message?:"error")
+                onError(e.message ?: "error")
             }
         }
     }
+
     fun clearErrorState() {
         updateState { currentState ->
             currentState.copy(errorMessage = null, isError = false)
         }
     }
+
     fun onChangeUserName(userName: String) {
         updateState { it.copy(userName = userName) }
     }
@@ -84,6 +128,7 @@ class SignInViewModel(
     fun onChangePassword(password: String) {
         updateState { it.copy(password = password) }
     }
+
     fun onChangeEmail(email: String) {
         updateState { it.copy(email = email) }
     }
@@ -98,6 +143,18 @@ class SignInViewModel(
 
     fun onChangeLevel(level: Int?) {
         updateState { it.copy(level = level) }
+    }
+
+    private fun validateEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun validatePassword(password: String): Boolean {
+        return password.length >= 6
+    }
+
+    private fun validateUserName(userName: String): Boolean {
+        return userName.length >= 6
     }
 
 }

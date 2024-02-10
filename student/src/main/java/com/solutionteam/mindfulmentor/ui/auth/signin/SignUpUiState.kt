@@ -11,8 +11,9 @@ data class SignUpUiState(
     val userId: Int? = null,
     val universityName: String = "",
     val field : String = "",
-    val level: Int? = 0,
+    val level: Int? = 1,
     val universities: List<String> = emptyList(),
     val fields : List<String> = emptyList(),
     val levels: List<String> = emptyList(),
+    val isScreenContinue: Boolean = true,
 )
