@@ -95,22 +95,20 @@ fun AdditionalInformationScreenContent(
                 if (isUniversitySheetOpen){
                 GGBottomSheetWithSearch(
                     items = universitiesNames,
-                    onItemSelected = onChangeUniversity,
+                    onItemSelected = {university, _ -> onChangeUniversity(university) },
                     onDismissRequest = {isUniversitySheetOpen = false}
                 ) }
                 if (isFieldSheetOpen){
                 GGBottomSheetWithSearch(
                     items = fields,
-                    onItemSelected = onChangeField,
+                        onItemSelected = {field, _ -> onChangeField(field) },
                     onDismissRequest = {isFieldSheetOpen = false}
                 )
                 }
                 GGDropdownMenu(
                     label = "Level",
-                    value = state.level,
                     items = levels,
                     selectedIndex = selectedIndex,
-                    hint = "Select Level",
                     onItemSelected = { index, item ->
                         selectedIndex = index
                         onChangeLevel(item)

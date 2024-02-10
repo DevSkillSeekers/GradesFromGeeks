@@ -43,7 +43,7 @@ import com.solutionteam.design_system.theme.Theme
 @Composable
 fun GGBottomSheetWithSearch(
     items: List<String>,
-    onItemSelected: (String) -> Unit,
+    onItemSelected: (String,Int) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -60,7 +60,7 @@ fun GGBottomSheetWithSearch(
 @Composable
 private fun GGBottomSheetSearchComposable(
     items: List<String>,
-    onItemSelected: (String) -> Unit,
+    onItemSelected: (String,Int) -> Unit,
 ) {
     var searchText by remember {
         mutableStateOf(
@@ -103,25 +103,25 @@ private fun GGBottomSheetSearchComposable(
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(vertical = 8.dp)
             ) {
-                this.items(filteredItems.size) { item ->
+                this.items(filteredItems.size) { index ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null,
-                                onClick = {
-                                    onItemSelected(filteredItems[item])
-                                    searchText = TextFieldValue(
-                                        text = filteredItems[item],
-                                        selection = TextRange(filteredItems[item].length)
-                                    )
-                                }
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null,
+                                    onClick = {
+                                        onItemSelected(filteredItems[index], index)
+                                        searchText = TextFieldValue(
+                                                text = filteredItems[index],
+                                                selection = TextRange(filteredItems[index].length)
+                                        )
+                                    }
                             )
                             .padding(vertical = 8.dp)
                     ) {
                         Text(
-                            text = filteredItems[item],
+                            text = filteredItems[index],
                             color = Theme.colors.primaryShadesDark,
                             style = Theme.typography.bodyMedium,
                             modifier = Modifier.padding(horizontal = 16.dp)
@@ -162,11 +162,12 @@ fun BottomSheetPreview() {
         .background(Color.Gray)) {
        GGButton(title = "open the sheet", onClick = { isSheetOpen = true })
         if(isSheetOpen){
-        GGBottomSheetWithSearch(
-            items,
-            {},
-            {isSheetOpen = false}
-            )}
+            GGBottomSheetWithSearch(
+                    items = items,
+                    onItemSelected = { _, _ -> },
+                    onDismissRequest = { isSheetOpen = false }
+            )
+        }
     }
 }
 
