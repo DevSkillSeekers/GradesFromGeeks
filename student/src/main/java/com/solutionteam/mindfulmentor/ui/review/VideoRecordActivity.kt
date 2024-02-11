@@ -33,7 +33,7 @@ class VideoRecordActivity : ComponentActivity() {
                     content = {
                         RootNavGraph(
                             navController = navController,
-                            startDestination = Screen.Review
+                            startDestination = Screen.Video
                         )
                     }
                 )

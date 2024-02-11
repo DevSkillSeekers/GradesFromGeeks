@@ -31,8 +31,8 @@ import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ReviewScreen(
-    viewModel: ReviewViewModel = koinViewModel(),
+fun VideoScreen(
+    viewModel: VideoViewModel = koinViewModel(),
     navigateBack: () -> Unit
 ) {
 
@@ -42,7 +42,7 @@ fun ReviewScreen(
     val systemUIController = rememberSystemUiController()
 
 
-    ReviewContent(
+    VideoContent(
         state = state,
         onBack = navigateBack,
     )
@@ -66,10 +66,10 @@ fun ReviewScreen(
 }
 
 
-private fun onEffect(effect: ReviewUIEffect?, context: Context) {
+private fun onEffect(effect: VideoUIEffect?, context: Context) {
 
     when (effect) {
-        ReviewUIEffect.ReviewError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT)
+        VideoUIEffect.VideoError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT)
             .show()
 
         else -> {}
@@ -78,8 +78,8 @@ private fun onEffect(effect: ReviewUIEffect?, context: Context) {
 
 
 @Composable
-private fun ReviewContent(
-    state: ReviewUIState,
+private fun VideoContent(
+    state: VideoUIState,
     onBack: () -> Unit
 ) {
     Scaffold { padding ->

@@ -4,9 +4,9 @@ import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRep
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
-class ReviewViewModel(
+class VideoViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<ReviewUIState, ReviewUIEffect>(ReviewUIState()) {
+) : BaseViewModel<VideoUIState, VideoUIEffect>(VideoUIState()) {
 
     init {
         onMakeRequest()
@@ -38,14 +38,13 @@ class ReviewViewModel(
 
     private fun onError() {
         updateState {
-            ReviewUIState(
+            VideoUIState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false
             )
         }
-        sendNewEffect(ReviewUIEffect.ReviewError)
+        sendNewEffect(VideoUIEffect.VideoError)
     }
-
 
 }

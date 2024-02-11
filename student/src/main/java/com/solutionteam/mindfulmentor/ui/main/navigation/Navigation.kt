@@ -27,7 +27,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.MentorScreen
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
-import com.solutionteam.mindfulmentor.ui.review.ReviewScreen
+import com.solutionteam.mindfulmentor.ui.review.VideoScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchUIEffect
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
@@ -201,7 +201,7 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
         DownloadsScreen(
             onNavigateTo = {
-                Screen.Review.withClearBackStack().also(onNavigateTo)
+                Screen.Video.withClearBackStack().also(onNavigateTo)
             }
         )
     }
@@ -336,9 +336,9 @@ fun NavGraphBuilder.individualMeetingNavGraph(
 
 fun NavGraphBuilder.reviewNavGraph( onNavigateBack: () -> Unit) {
     composable(
-        route = Screen.Review.route
+        route = Screen.Video.route
     ) {
-        ReviewScreen(
+        VideoScreen(
             navigateBack = onNavigateBack
         )
     }
