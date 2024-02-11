@@ -62,7 +62,7 @@ fun MentorScreen(
     LaunchedEffect(true) {
         setStatusBarColor(
             systemUIController = systemUIController,
-            color = color,
+            statusBarColor = color,
         )
     }
 

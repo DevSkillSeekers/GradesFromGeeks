@@ -34,7 +34,7 @@ fun MainScreen(
         LaunchedEffect(true) {
             setStatusBarColor(
                 systemUIController = systemUIController,
-                color = color,
+                statusBarColor = color,
             )
         }
 

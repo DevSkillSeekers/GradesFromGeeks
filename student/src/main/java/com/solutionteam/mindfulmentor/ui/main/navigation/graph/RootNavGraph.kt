@@ -68,10 +68,6 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
-        reviewNavGraph(
-            onNavigateTo = navController::navigateTo,
-            onNavigateBack = navController::navigateUp
-        )
-
+        reviewNavGraph(onNavigateBack = navController::navigateUp)
     }
 }

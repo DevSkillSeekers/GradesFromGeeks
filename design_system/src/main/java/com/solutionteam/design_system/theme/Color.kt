@@ -16,7 +16,7 @@ val SecondaryShadesLight = Color(0x99FFFFFF)
 val TernaryShadesLight = Color(0x61FFFFFF)
 val QuaternaryShadesLight = Color(0x29FFFFFF)
 
-val PrimaryShadesDark = Color(0xDE04030A)
+val PrimaryShadesDark = Color(0xFF04030A)
 val SecondaryShadesDark = Color(0x9904030A)
 val TernaryShadesDark = Color(0x6104030A)
 val QuaternaryShadesDark = Color(0x2904030A)

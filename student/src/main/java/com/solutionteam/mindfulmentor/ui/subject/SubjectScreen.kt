@@ -64,7 +64,7 @@ fun SubjectScreen(
     LaunchedEffect(true) {
         setStatusBarColor(
             systemUIController = systemUIController,
-            color = color,
+            statusBarColor = color,
         )
     }
 

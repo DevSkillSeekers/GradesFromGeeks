@@ -65,7 +65,7 @@ fun UniversityScreen(
     LaunchedEffect(true) {
         setStatusBarColor(
             systemUIController = systemUIController,
-            color = color,
+            statusBarColor = color,
         )
     }
 

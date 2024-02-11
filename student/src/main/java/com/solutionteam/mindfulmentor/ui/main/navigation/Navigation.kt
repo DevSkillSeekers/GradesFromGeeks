@@ -334,14 +334,11 @@ fun NavGraphBuilder.individualMeetingNavGraph(
     }
 }
 
-fun NavGraphBuilder.reviewNavGraph(
-    onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit
-) {
+fun NavGraphBuilder.reviewNavGraph( onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Review.route
     ) {
         ReviewScreen(
-            onNavigateTo = {},
             navigateBack = onNavigateBack
         )
     }

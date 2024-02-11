@@ -33,7 +33,8 @@ import com.solutionteam.mindfulmentor.R
 @Composable
 fun MeetingReviewBottomSheet(
     modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onNavigateToShowVideo: () -> Unit
 ) {
 
     GGBottomSheet(
@@ -50,7 +51,7 @@ fun MeetingReviewBottomSheet(
         ) {
 
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = onNavigateToShowVideo,
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
