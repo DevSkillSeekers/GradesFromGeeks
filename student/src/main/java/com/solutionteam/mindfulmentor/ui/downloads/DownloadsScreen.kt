@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -44,7 +45,7 @@ fun DownloadsScreen(
 
     DownloadContent(
         state = state,
-        onNavigateToReviewScreen = onNavigateTo
+        onNavigateToReviewBottomSheet = onNavigateTo
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -67,7 +68,7 @@ private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 @Composable
 private fun DownloadContent(
     state: DownloadsUIState,
-    onNavigateToReviewScreen: () -> Unit
+    onNavigateToReviewBottomSheet: () -> Unit
 ) {
 
     Scaffold(
@@ -101,12 +102,13 @@ private fun DownloadContent(
                             ContentCountUIState("10", "Mentors"),
                             ContentCountUIState("20", "Summaries"),
                             ContentCountUIState("30", "Videos")
-                        )
+                        ),
+                        modifier =Modifier.padding(horizontal = 24.dp)
                     )
                     SubjectComposable()
                     MentorTabBar(
                         nameTabs = listOf("Summaries", "Videos", "Meetings"),
-                        navigateToReviewScreen = onNavigateToReviewScreen
+                        onClickMeeting = onNavigateToReviewBottomSheet
                     )
                 }
             }

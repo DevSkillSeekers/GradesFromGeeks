@@ -23,8 +23,9 @@ import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 @Composable
 fun ContentCountCard(
     contentCountList: List<ContentCountUIState>,
+    modifier: Modifier = Modifier
 ) {
-    Box(modifier = Modifier.padding(horizontal = 24.dp)) {
+    Box(modifier = modifier) {
         Row(
             modifier = Modifier
                 .background(

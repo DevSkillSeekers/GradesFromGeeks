@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -37,7 +36,6 @@ import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
-import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -173,7 +171,8 @@ private fun UniversityContent(
                                 ContentCountUIState("10", "Mentors"),
                                 ContentCountUIState("20", "Summaries"),
                                 ContentCountUIState("30", "Videos")
-                            )
+                            ),
+                            modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         GGTitleWithSeeAll(
                             modifier = Modifier
