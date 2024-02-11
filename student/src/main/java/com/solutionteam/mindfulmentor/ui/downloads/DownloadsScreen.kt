@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.downloads
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,9 +25,11 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.downloads.composable.MeetingReviewBottomSheet
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.review.VideoRecordActivity
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -34,6 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DownloadsScreen(
     viewModel: DownloadsViewModel = koinViewModel(),
+    onNavigateTo: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -41,8 +45,13 @@ fun DownloadsScreen(
     val context = LocalContext.current
 
 
-    SearchContent(
-        state = state
+    DownloadContent(
+        state = state,
+        onNavigateToReviewBottomSheet = viewModel::onClickMeeting,
+        onDismissRequest = viewModel::onDismissRequest,
+        onNavigateToShowVideo = {
+            context.startActivity(Intent(context, VideoRecordActivity::class.java))
+        }
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -63,8 +72,11 @@ private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 
 
 @Composable
-private fun SearchContent(
-    state: DownloadsUIState
+private fun DownloadContent(
+    state: DownloadsUIState,
+    onNavigateToReviewBottomSheet: () -> Unit,
+    onDismissRequest: () -> Unit,
+    onNavigateToShowVideo: () -> Unit
 ) {
 
     Scaffold(
@@ -98,11 +110,20 @@ private fun SearchContent(
                             ContentCountUIState("10", "Mentors"),
                             ContentCountUIState("20", "Summaries"),
                             ContentCountUIState("30", "Videos")
-                        )
+                        ),
+                        modifier = Modifier.padding(horizontal = 24.dp)
                     )
                     SubjectComposable()
                     MentorTabBar(
-                        nameTabs = listOf("Summaries", "Videos", "Meetings")
+                        nameTabs = listOf("Summaries", "Videos", "Meetings"),
+                        onClickMeeting = onNavigateToReviewBottomSheet
+                    )
+                }
+
+                if (state.showReviewBottomSheet) {
+                    MeetingReviewBottomSheet(
+                        onDismissRequest = onDismissRequest,
+                        onNavigateToShowVideo = onNavigateToShowVideo
                     )
                 }
             }

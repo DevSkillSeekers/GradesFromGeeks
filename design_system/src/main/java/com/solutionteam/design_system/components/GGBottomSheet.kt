@@ -15,6 +15,7 @@ import com.solutionteam.design_system.theme.Theme
 fun GGBottomSheet(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
+    showDragHandle: Boolean = true,
     containerColor: Color = Theme.colors.background,
     content: @Composable (ColumnScope.() -> Unit)
 ) {
@@ -25,8 +26,13 @@ fun GGBottomSheet(
                 true
             }),
         onDismissRequest = onDismissRequest,
+        dragHandle = {
+            if (showDragHandle)
+                BottomSheetDefaults.DragHandle(color = Theme.colors.primary)
+            else
+                BottomSheetDefaults.HiddenShape
+        },
         containerColor = containerColor,
-        dragHandle = { BottomSheetDefaults.DragHandle(color = Theme.colors.primary) },
         content = content
     )
 }

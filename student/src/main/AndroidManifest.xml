@@ -15,6 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Splash"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.review.VideoRecordActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Splash" />
+
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"

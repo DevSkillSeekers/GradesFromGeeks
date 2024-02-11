@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.R
 import com.solutionteam.design_system.theme.Gray_1
@@ -49,6 +51,8 @@ fun GGTextField(
     singleLine: Boolean = true,
     errorMessage: String = "",
     isError: Boolean = errorMessage.isNotEmpty(),
+    focusedBorderColor: Color = PrimaryLight.copy(alpha = 0.2f),
+    hintTextAlign: TextAlign = TextAlign.Start
 ) {
     var showPassword by remember { mutableStateOf(false) }
 
@@ -72,7 +76,9 @@ fun GGTextField(
                 Text(
                     hint,
                     style = textStyle,
-                    color = Theme.colors.primaryShadesDark.copy(alpha = 0.6f)
+                    textAlign = hintTextAlign,
+                    color = Theme.colors.primaryShadesDark.copy(alpha = 0.6f),
+                    modifier = Modifier.fillMaxWidth()
                 )
             },
             onValueChange = onValueChange,
@@ -91,7 +97,7 @@ fun GGTextField(
                 disabledContainerColor = Theme.colors.disabled,
                 cursorColor = Gray_1,
                 errorCursorColor = PrimaryLight,
-                focusedBorderColor = PrimaryLight.copy(alpha = 0.2f),
+                focusedBorderColor = focusedBorderColor,
                 unfocusedBorderColor = PrimaryLight.copy(alpha = 0.1f),
                 errorBorderColor = PrimaryLight.copy(alpha = 0.5f),
             ),

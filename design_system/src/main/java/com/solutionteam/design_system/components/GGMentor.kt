@@ -1,5 +1,6 @@
 package com.solutionteam.design_system.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,10 +29,12 @@ import com.solutionteam.design_system.theme.Theme
 @Composable
 fun GGMentor(
     name: String,
-    rate: Double,
-    numberReviewers: Int,
+    subjectName: String = "",
+    isForSubject: Boolean = false,
+    rate: Double = 0.0,
+    numberReviewers: Int = 0,
     profileUrl: String,
-    modifier: Modifier = Modifier,
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     imageSize: Int = 56,
     onClick: () -> Unit
 ) {
@@ -60,26 +63,35 @@ fun GGMentor(
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
-                text = name,
+                text = if (isForSubject) subjectName else name,
                 style = Theme.typography.bodyLarge,
-                color = Theme.colors.primaryShadesDark,
+                color = if (isForSubject) Theme.colors.primary else Theme.colors.primaryShadesDark,
                 maxLines = 1
             )
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.star),
-                    contentDescription = name,
-                    tint = Gold
-                )
+            if (isForSubject) {
                 Text(
-                    text = "${rate}/10  -  (${numberReviewers})",
-                    color = Theme.colors.primary,
-                    style = Theme.typography.labelLarge
+                    text = name,
+                    style = Theme.typography.labelLarge,
+                    color = Theme.colors.primaryShadesDark,
+                    maxLines = 1
                 )
+            } else {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.star),
+                        contentDescription = name,
+                        tint = Gold
+                    )
+                    Text(
+                        text = "${rate}/10  -  (${numberReviewers})",
+                        color = Theme.colors.primary,
+                        style = Theme.typography.labelLarge
+                    )
+                }
             }
         }
     }

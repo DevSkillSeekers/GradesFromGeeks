@@ -71,6 +71,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -130,4 +133,6 @@ dependencies {
     //constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
+    // ExoPlayer
+    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
 }

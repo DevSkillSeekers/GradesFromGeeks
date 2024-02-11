@@ -1,12 +1,12 @@
-package com.solutionteam.mindfulmentor.ui.downloads
+package com.solutionteam.mindfulmentor.ui.review
 
 import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
-class DownloadsViewModel(
+class VideoViewModel(
     private val mindfulMentorRepository: MindfulMentorRepository
-) : BaseViewModel<DownloadsUIState, DownloadsUIEffect>(DownloadsUIState()) {
+) : BaseViewModel<VideoUIState, VideoUIEffect>(VideoUIState()) {
 
     init {
         onMakeRequest()
@@ -25,13 +25,6 @@ class DownloadsViewModel(
         )
     }
 
-    fun onClickMeeting(){
-        updateState { it.copy(showReviewBottomSheet = true) }
-    }
-
-    fun onDismissRequest(){
-        updateState { it.copy(showReviewBottomSheet = false) }
-    }
 
     private fun onSuccess() {
         updateState {
@@ -45,14 +38,13 @@ class DownloadsViewModel(
 
     private fun onError() {
         updateState {
-            DownloadsUIState(
+            VideoUIState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false
             )
         }
-        sendNewEffect(DownloadsUIEffect.DownloadsError)
+        sendNewEffect(VideoUIEffect.VideoError)
     }
-
 
 }

@@ -30,9 +30,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorProfileDetails
-import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
@@ -62,7 +62,7 @@ fun MentorScreen(
     LaunchedEffect(true) {
         setStatusBarColor(
             systemUIController = systemUIController,
-            color = color,
+            statusBarColor = color,
         )
     }
 
@@ -153,7 +153,8 @@ private fun MentorContent(
                                 ContentCountUIState("20", "Summaries"),
                                 ContentCountUIState("30", "Videos"),
                                 ContentCountUIState("10", "Meetings")
-                            )
+                            ),
+                            modifier = Modifier.padding(horizontal = 24.dp)
                         )
 
                         Text(

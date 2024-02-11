@@ -5,8 +5,11 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.solutionteam.design_system.theme.BackgroundLight
 
 fun setStatusBarColor(
-    color: Color = BackgroundLight,
-    systemUIController: SystemUiController
+    statusBarColor: Color = BackgroundLight,
+    navigationBarColor: Color = BackgroundLight,
+    systemUIController: SystemUiController,
+    isDarkIcon: Boolean = true
 ) {
-    systemUIController.setStatusBarColor(color)
+    systemUIController.setStatusBarColor(statusBarColor, darkIcons = isDarkIcon)
+    systemUIController.setNavigationBarColor(navigationBarColor, darkIcons = isDarkIcon)
 }

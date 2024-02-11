@@ -38,7 +38,6 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
-import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,7 +65,7 @@ fun UniversityScreen(
     LaunchedEffect(true) {
         setStatusBarColor(
             systemUIController = systemUIController,
-            color = color,
+            statusBarColor = color,
         )
     }
 
@@ -182,7 +181,8 @@ private fun UniversityContent(
                                 ContentCountUIState("10", "Mentors"),
                                 ContentCountUIState("20", "Summaries"),
                                 ContentCountUIState("30", "Videos")
-                            )
+                            ),
+                            modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         SubjectComposable(
                             modifier = Modifier.padding(top= 16.dp)
