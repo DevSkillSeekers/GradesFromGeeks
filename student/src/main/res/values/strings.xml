@@ -35,8 +35,9 @@
     <string name="google_link" translatable="false">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
 
-    <string name="userRole">When asked any question that is not related to universities , please say: “I don’t know.”</string>
-    <string name="modelRole">Plz ask me about something related on universities just, so I can answer you.</string>
+<!--    <string name="userRole">When asked any question that is not related to this university , please say: “I don’t know.”</string>-->
+    <string name="user_role">When asked any question that is not related to this university %1$s , please say: “I don’t know.”</string>
+    <string name="model_role">Plz ask me about something related on %1$s just, so I can answer you.</string>
 
     <!-- download section -->
     <string name="download_title">Download</string>
@@ -45,4 +46,6 @@
     <string name="search">Search for a university, subject, mentor</string>
     <string name="why_meeting">Add why you want this meet?</string>
     <string name="book">Book</string>
+    <string name="by_select_the_university_you_want_to_learn_more_about_and_obtain_references_from">by select the university you want to learn more about and obtain references from.</string>
+    <string name="start_chatting_with_chat_bot_now">Start chatting with chat bot  now</string>
 </resources>

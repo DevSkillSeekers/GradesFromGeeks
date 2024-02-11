@@ -28,6 +28,25 @@ class MindfulMentorRepositoryImp(
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
     }
 
+    override suspend fun getUniversitiesName(): List<String> {
+        return listOf(
+                "University of Washington",
+                "University of California, Los Angeles",
+                "University of Baghdad",
+                "University of California, Berkeley",
+                "Harvard University",
+                "Stanford University",
+                "Massachusetts Institute of Technology (MIT)",
+                "University of Oxford",
+                "University of Cambridge",
+                "California Institute of Technology (Caltech)",
+                "ETH Zurich - Swiss Federal Institute of Technology",
+                "University College London (UCL)",
+                "University of Chicago",
+                "Imperial College London"
+        )
+    }
+
 
     override suspend fun getIsFirstTimeUseApp(): Boolean {
         return authorizationPreferences.getIsFirstTimeUseApp() ?: true
@@ -60,6 +79,10 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getUniversities(): List<University> {
         return generateUniversities()
+    }
+
+    override  fun getUniversitiesNames(): List<String> {
+        return generateUniversitiesNames()
     }
 
     override suspend fun getUpComingMeetings(): List<Meeting> {
@@ -95,6 +118,14 @@ class MindfulMentorRepositoryImp(
 
     override fun getAvailableTimeForMentor(mentorId: String): List<Date> {
         return getDates()
+    }
+
+    override suspend fun getFields(): List<String> {
+        return generateFields()
+    }
+
+    override suspend fun getLevels(): List<Int> {
+        return generateLevels()
     }
 
     //region Fake Data
@@ -154,7 +185,33 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
-
+    private fun generateUniversitiesNames(): List<String> {
+        val list = mutableListOf<String>()
+        for (i in 0..10) {
+            list.add(
+                "University $i"
+            )
+        }
+        return list
+    }
+    private fun generateFields(): List<String> {
+        val list = mutableListOf<String>()
+        for (i in 0..10) {
+            list.add(
+                "Field $i"
+            )
+        }
+        return list
+    }
+    private fun generateLevels(): List<Int> {
+        val list = mutableListOf<Int>()
+        for (i in 0..10) {
+            list.add(
+                i
+            )
+        }
+        return list
+    }
     private fun getImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",
