@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">mentor</string>
+    <string name="app_name">Mentors</string>
+
+    <string name="join_now">Join now</string>
+    <string name="join_after">"Join after..</string>
+    <string name="subjects">Subjects</string>
+
 </resources>
