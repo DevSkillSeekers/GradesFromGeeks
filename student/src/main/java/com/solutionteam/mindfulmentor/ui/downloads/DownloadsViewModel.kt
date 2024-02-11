@@ -17,7 +17,7 @@ class DownloadsViewModel(
 
         tryToExecute(
             {
-                delay(1900)
+                delay(1000)
                 updateState { it.copy(isLoading = false, isSuccess = true) }
             },
             { onSuccess() },
@@ -25,6 +25,13 @@ class DownloadsViewModel(
         )
     }
 
+    fun onClickMeeting(){
+        updateState { it.copy(showReviewBottomSheet = true) }
+    }
+
+    fun onDismissRequest(){
+        updateState { it.copy(showReviewBottomSheet = false) }
+    }
 
     private fun onSuccess() {
         updateState {

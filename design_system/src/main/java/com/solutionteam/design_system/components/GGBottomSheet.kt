@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +14,7 @@ import com.solutionteam.design_system.theme.Theme
 fun GGBottomSheet(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
+    showDragHandle: Boolean = true,
     content: @Composable (ColumnScope.() -> Unit)
 ) {
     ModalBottomSheet(
@@ -26,7 +26,12 @@ fun GGBottomSheet(
             }),
         onDismissRequest = onDismissRequest,
         containerColor = Theme.colors.background,
-        dragHandle = { BottomSheetDefaults.DragHandle(color = Theme.colors.primary) },
+        dragHandle = {
+            if (showDragHandle)
+                BottomSheetDefaults.DragHandle(color = Theme.colors.primary)
+            else
+                BottomSheetDefaults.HiddenShape
+        },
         content = content
     )
 }

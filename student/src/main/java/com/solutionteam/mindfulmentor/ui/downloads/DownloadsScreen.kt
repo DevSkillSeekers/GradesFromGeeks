@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.downloads.composable.MeetingReviewBottomSheet
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
@@ -45,7 +45,8 @@ fun DownloadsScreen(
 
     DownloadContent(
         state = state,
-        onNavigateToReviewBottomSheet = onNavigateTo
+        onNavigateToReviewBottomSheet = viewModel::onClickMeeting,
+        onDismissRequest = viewModel::onDismissRequest
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -68,7 +69,8 @@ private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 @Composable
 private fun DownloadContent(
     state: DownloadsUIState,
-    onNavigateToReviewBottomSheet: () -> Unit
+    onNavigateToReviewBottomSheet: () -> Unit,
+    onDismissRequest: () -> Unit
 ) {
 
     Scaffold(
@@ -103,12 +105,18 @@ private fun DownloadContent(
                             ContentCountUIState("20", "Summaries"),
                             ContentCountUIState("30", "Videos")
                         ),
-                        modifier =Modifier.padding(horizontal = 24.dp)
+                        modifier = Modifier.padding(horizontal = 24.dp)
                     )
                     SubjectComposable()
                     MentorTabBar(
                         nameTabs = listOf("Summaries", "Videos", "Meetings"),
                         onClickMeeting = onNavigateToReviewBottomSheet
+                    )
+                }
+
+                if (state.showReviewBottomSheet) {
+                    MeetingReviewBottomSheet(
+                        onDismissRequest = onDismissRequest,
                     )
                 }
             }
