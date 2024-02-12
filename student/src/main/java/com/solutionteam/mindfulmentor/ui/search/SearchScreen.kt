@@ -36,9 +36,8 @@ import com.solutionteam.design_system.components.GGUniversity
 import com.solutionteam.design_system.components.Loading
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.home.HomeUIEffect
 import com.solutionteam.mindfulmentor.ui.home.showSeeAll
-import com.solutionteam.mindfulmentor.ui.search.composable.EmptySearchItem
+import com.solutionteam.mindfulmentor.ui.search.composable.EmptyScreenItem
 import com.solutionteam.mindfulmentor.ui.search.composable.SearchTextField
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
 import org.koin.androidx.compose.koinViewModel
@@ -115,7 +114,7 @@ fun SearchContent(
             if (state.isLoading) {
                 Loading()
             } else if (state.mentors.isEmpty() && state.universities.isEmpty()) {
-                EmptySearchItem()
+                EmptyScreenItem()
             } else {
 
                 Column(

@@ -23,8 +23,11 @@ import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 
 @Composable
-fun EmptySearchItem(
-    modifier: Modifier = Modifier
+fun EmptyScreenItem(
+    modifier: Modifier = Modifier,
+    iconRes: Int = R.drawable.search_icon,
+    title: String = stringResource(R.string.nothing_to_show),
+    description: String = stringResource(R.string.empty_search_description)
 ) {
     Column(
             modifier = modifier.fillMaxSize(),
@@ -39,7 +42,7 @@ fun EmptySearchItem(
         ) {
             Icon(
                     modifier = Modifier.size(56.dp),
-                    painter = painterResource(id = R.drawable.search_icon),
+                    painter = painterResource(id = iconRes),
                     tint = Theme.colors.primary,
                     contentDescription = null
             )
@@ -51,7 +54,7 @@ fun EmptySearchItem(
                 horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                    text = stringResource(R.string.nothing_to_show),
+                    text = title,
                     style = Theme.typography.bodyLarge,
                     color = Theme.colors.primary
             )
@@ -61,7 +64,7 @@ fun EmptySearchItem(
                         .padding(top = 4.dp)
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    text = stringResource(R.string.empty_search_description),
+                    text = description,
                     style = Theme.typography.labelLarge,
                     textAlign = TextAlign.Center,
                     color = Theme.colors.primary
