@@ -7,20 +7,21 @@ import com.solutionteam.mindfulmentor.R
 const val navigationRouteLogin = "login"
 const val navigationRouteOnBoarding = "onboarding"
 const val navigationRouteChatBot = "chatBot"
+const val navigationRouteNotification = "notification"
 const val navigationRouteSeeAll = "seeAll"
+
+
 const val navigationRouteIndividualMeeting = "individualMeeting"
-
-
 const val navigationRouteWelcome = "welcome"
 const val navigationRouteSignIn = "sign_in"
 const val navigationRouteAdditionalInfo = "additional_info"
-const val navigationRouteMain = "main"
 
+const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
-const val navigationRouteDownloads = "downloads"
 
+const val navigationRouteDownloads = "downloads"
 const val navigationRouteMentor = "mentor"
 const val navigationRouteUniversity = "university"
 const val navigationRouteSubject = "Subject"
@@ -49,6 +50,7 @@ sealed class Screen(
     data object SignIn : Screen(navigationRouteSignIn)
     data object AdditionalInfo : Screen(navigationRouteAdditionalInfo)
     data object ChatBot : Screen(navigationRouteChatBot)
+    data object Notification : Screen(navigationRouteNotification)
     data object SeeAll : Screen(navigationRouteSeeAll)
     data object IndividualMeeting : Screen(navigationRouteIndividualMeeting)
 
