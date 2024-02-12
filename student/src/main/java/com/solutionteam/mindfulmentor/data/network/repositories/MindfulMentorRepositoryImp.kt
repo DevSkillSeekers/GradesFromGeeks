@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
@@ -11,6 +12,7 @@ import com.solutionteam.mindfulmentor.data.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.network.BaseRepository
 import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,6 +77,92 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getSubject(): List<Subject> {
         return generateSubjects()
+    }
+
+    override suspend fun getNotifications(): List<Notification> {
+        return listOf(
+                Notification(
+                        id = 1,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "12 sec",
+                        type = NotificationType.MEETING_ACCEPTED,
+                        viewed = true,
+                        subjectId = 1,
+                ),
+                Notification(
+                        id = 2,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.UPCOMING_MEETING,
+                        viewed = false,
+                        subjectId = 2
+                ),
+                Notification(
+                        id = 3,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                        viewed = false,
+                        subjectId = 3
+                ),
+                Notification(
+                        id = 4,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 min ago",
+                        type = NotificationType.NEW_SUMMARY,
+                        viewed = false,
+                        subjectId = 4
+                ),
+                Notification(
+                        id = 5,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 6,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 7,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 8,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.UPCOMING_MEETING,
+                        viewed = false,
+                        subjectId = 2
+                ),
+                Notification(
+                        id = 9,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                        viewed = false,
+                        subjectId = 3
+                ),
+        )
     }
 
     override suspend fun getUniversities(): List<University> {
