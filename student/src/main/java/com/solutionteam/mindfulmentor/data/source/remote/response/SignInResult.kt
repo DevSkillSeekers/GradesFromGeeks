@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.response
+package com.solutionteam.mindfulmentor.data.source.remote.response
 
 data class SignInResult(
     val data: UserData?,

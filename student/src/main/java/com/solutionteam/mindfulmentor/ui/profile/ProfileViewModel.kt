@@ -1,7 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.profile
 
 import androidx.lifecycle.viewModelScope
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -30,8 +30,8 @@ class ProfileViewModel(
     //region Theme
     private fun getTheme() {
         viewModelScope.launch {
-            mindfulMentorRepository.getTheme().distinctUntilChanged().collectLatest { isDark ->
-                updateState { it.copy(isDarkTheme = isDark) }
+            mindfulMentorRepository.getTheme().distinctUntilChanged().collectLatest { theme ->
+                updateState { it.copy(isDarkTheme = theme ?: false) }
             }
         }
     }
@@ -45,8 +45,10 @@ class ProfileViewModel(
     }
 
     fun onThemeChanged(isDark: Boolean) {
-        mindfulMentorRepository.setTheme(isDark)
-        updateState { it.copy(isDarkTheme = isDark) }
+        viewModelScope.launch {
+            mindfulMentorRepository.setTheme(isDark)
+            updateState { it.copy(isDarkTheme = isDark) }
+        }
     }
     //endregion
 
@@ -68,8 +70,15 @@ class ProfileViewModel(
     }
 
     fun onLanguageChanged(selectedLanguage: Language) {
-        mindfulMentorRepository.saveLanguage(selectedLanguage)
-        updateState { it.copy(currentLanguage = selectedLanguage, showBottomSheetLanguage = false) }
+        viewModelScope.launch {
+            mindfulMentorRepository.saveLanguage(selectedLanguage)
+            updateState {
+                it.copy(
+                    currentLanguage = selectedLanguage,
+                    showBottomSheetLanguage = false
+                )
+            }
+        }
     }
     //endregion
 }

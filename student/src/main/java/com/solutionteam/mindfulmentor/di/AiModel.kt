@@ -3,7 +3,7 @@ package com.solutionteam.mindfulmentor.di
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.generationConfig
 import com.solutionteam.mindfulmentor.BuildConfig
-import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 

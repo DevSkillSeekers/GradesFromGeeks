@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.repositories
+package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
@@ -7,10 +7,10 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
-import com.solutionteam.mindfulmentor.data.local.UserPreferences
-import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
-import com.solutionteam.mindfulmentor.data.network.BaseRepository
-import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
+import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
+import com.solutionteam.mindfulmentor.data.source.BaseRepository
+import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,20 +30,20 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getUniversitiesName(): List<String> {
         return listOf(
-                "University of Washington",
-                "University of California, Los Angeles",
-                "University of Baghdad",
-                "University of California, Berkeley",
-                "Harvard University",
-                "Stanford University",
-                "Massachusetts Institute of Technology (MIT)",
-                "University of Oxford",
-                "University of Cambridge",
-                "California Institute of Technology (Caltech)",
-                "ETH Zurich - Swiss Federal Institute of Technology",
-                "University College London (UCL)",
-                "University of Chicago",
-                "Imperial College London"
+            "University of Washington",
+            "University of California, Los Angeles",
+            "University of Baghdad",
+            "University of California, Berkeley",
+            "Harvard University",
+            "Stanford University",
+            "Massachusetts Institute of Technology (MIT)",
+            "University of Oxford",
+            "University of Cambridge",
+            "California Institute of Technology (Caltech)",
+            "ETH Zurich - Swiss Federal Institute of Technology",
+            "University College London (UCL)",
+            "University of Chicago",
+            "Imperial College London"
         )
     }
 
@@ -56,14 +56,19 @@ class MindfulMentorRepositoryImp(
         return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
     }
 
-    override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
-        return  if (keyword.isNotEmpty()) {
+    override suspend fun getSearch(keyword: String, limit: Int): SearchResult {
+        return if (keyword.isNotEmpty()) {
             val result = SearchResult(
-                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
-                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
-                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+                universities = getUniversities().filter {
+                    it.name.contains(
+                        keyword,
+                        ignoreCase = true
+                    )
+                },
+                mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
             )
-             result
+            result
         } else {
             SearchResult()
         }
@@ -81,7 +86,7 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
-    override  fun getUniversitiesNames(): List<String> {
+    override fun getUniversitiesNames(): List<String> {
         return generateUniversitiesNames()
     }
 
@@ -95,24 +100,21 @@ class MindfulMentorRepositoryImp(
     private val appLanguage: MutableStateFlow<Language> = MutableStateFlow(Language.ENGLISH)
     private val appTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    override fun saveLanguage(language: Language) {
-        //ToDo: save language inDB
-        appLanguage.tryEmit(language)
+    override suspend fun saveLanguage(language: Language) {
+        authorizationPreferences.saveLanguage(language)
     }
 
     override fun getLanguage(): Flow<Language> {
-        //ToDo: get saved language in DB
-        return appLanguage
+        return authorizationPreferences.getLanguage()
+
     }
 
-    override fun setTheme(isDark: Boolean) {
-        //ToDo: get saved Theme in DB
-        appTheme.tryEmit(isDark)
+    override suspend fun setTheme(isDark: Boolean) {
+        authorizationPreferences.saveTheme(isDark)
     }
 
-    override fun getTheme(): Flow<Boolean> {
-        //ToDo: get saved language in DB
-        return appTheme
+    override fun getTheme(): Flow<Boolean?> {
+        return authorizationPreferences.isDarkTheme()
     }
     //endregion
 
@@ -185,6 +187,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateUniversitiesNames(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -194,6 +197,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateFields(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -203,6 +207,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateLevels(): List<Int> {
         val list = mutableListOf<Int>()
         for (i in 0..10) {
@@ -212,6 +217,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun getImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",

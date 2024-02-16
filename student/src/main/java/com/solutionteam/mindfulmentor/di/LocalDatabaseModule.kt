@@ -2,8 +2,8 @@ package com.solutionteam.mindfulmentor.di
 
 import androidx.room.Room
 import com.google.gson.Gson
-import com.solutionteam.mindfulmentor.data.local.Converters
-import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDataBase
+import com.solutionteam.mindfulmentor.data.source.local.Converters
+import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDataBase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

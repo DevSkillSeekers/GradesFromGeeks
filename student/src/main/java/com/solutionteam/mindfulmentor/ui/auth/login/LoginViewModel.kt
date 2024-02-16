@@ -1,7 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.auth.login
 
 import androidx.lifecycle.viewModelScope
-import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
+import com.solutionteam.mindfulmentor.data.repositories.AuthRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 

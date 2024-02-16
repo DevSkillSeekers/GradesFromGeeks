@@ -1,6 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.subject
 
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 

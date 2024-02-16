@@ -163,10 +163,13 @@ private fun ProfileContent(
     }
 }
 
-private fun updateLanguage(context: Context, language: String) {
+fun updateLanguage(context: Context, language: String) {
     val locale = Locale(language)
     Locale.setDefault(locale)
     val config = Configuration()
     config.locale = locale
     context.resources.updateConfiguration(config, context.resources.displayMetrics)
+
+    context.createConfigurationContext(config)
+
 }

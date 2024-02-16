@@ -1,7 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.individualMeeting
 
 import com.solutionteam.mindfulmentor.data.entity.Date
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIState

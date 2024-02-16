@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.service
+package com.solutionteam.mindfulmentor.data.source.remote.service
 
 import retrofit2.Response
 import retrofit2.http.Field

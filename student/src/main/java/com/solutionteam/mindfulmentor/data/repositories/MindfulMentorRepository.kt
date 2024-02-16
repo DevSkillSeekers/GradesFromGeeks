@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.repositories
+package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
@@ -15,7 +15,7 @@ interface MindfulMentorRepository {
     suspend fun getIsFirstTimeUseApp(): Boolean
     suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean)
 
-    suspend fun getSearch(keyword: String,limit:Int): SearchResult
+    suspend fun getSearch(keyword: String, limit: Int): SearchResult
 
     //region Mentor
     suspend fun getMentors(): List<Mentor>
@@ -44,13 +44,14 @@ interface MindfulMentorRepository {
 
 
     //region Language and Theme
-    fun saveLanguage(language: Language)
+    suspend fun saveLanguage(language: Language)
     fun getLanguage(): Flow<Language>
-    fun setTheme(isDark: Boolean)
-    fun getTheme(): Flow<Boolean>
+    suspend fun setTheme(isDark: Boolean)
+    fun getTheme(): Flow<Boolean?>
     //endregion
 
     fun getAvailableTimeForMentor(mentorId: String): List<Date>
+
     // region fields
     suspend fun getFields(): List<String>
     //endregion
