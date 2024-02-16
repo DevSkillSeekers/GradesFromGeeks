@@ -1,7 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.notification
 
 import com.solutionteam.mindfulmentor.data.entity.Notification
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import kotlinx.coroutines.flow.update

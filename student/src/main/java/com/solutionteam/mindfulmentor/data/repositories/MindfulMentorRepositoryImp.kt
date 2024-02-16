@@ -8,14 +8,10 @@ import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
+import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
-import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
-import com.solutionteam.mindfulmentor.data.local.UserPreferences
-import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
-import com.solutionteam.mindfulmentor.data.network.BaseRepository
-import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
 import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
