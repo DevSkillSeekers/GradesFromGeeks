@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
@@ -11,6 +12,11 @@ import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
+import com.solutionteam.mindfulmentor.data.local.UserPreferences
+import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
+import com.solutionteam.mindfulmentor.data.network.BaseRepository
+import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,20 +36,20 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getUniversitiesName(): List<String> {
         return listOf(
-            "University of Washington",
-            "University of California, Los Angeles",
-            "University of Baghdad",
-            "University of California, Berkeley",
-            "Harvard University",
-            "Stanford University",
-            "Massachusetts Institute of Technology (MIT)",
-            "University of Oxford",
-            "University of Cambridge",
-            "California Institute of Technology (Caltech)",
-            "ETH Zurich - Swiss Federal Institute of Technology",
-            "University College London (UCL)",
-            "University of Chicago",
-            "Imperial College London"
+                "University of Washington",
+                "University of California, Los Angeles",
+                "University of Baghdad",
+                "University of California, Berkeley",
+                "Harvard University",
+                "Stanford University",
+                "Massachusetts Institute of Technology (MIT)",
+                "University of Oxford",
+                "University of Cambridge",
+                "California Institute of Technology (Caltech)",
+                "ETH Zurich - Swiss Federal Institute of Technology",
+                "University College London (UCL)",
+                "University of Chicago",
+                "Imperial College London"
         )
     }
 
@@ -56,19 +62,14 @@ class MindfulMentorRepositoryImp(
         return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
     }
 
-    override suspend fun getSearch(keyword: String, limit: Int): SearchResult {
-        return if (keyword.isNotEmpty()) {
+    override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
+        return  if (keyword.isNotEmpty()) {
             val result = SearchResult(
-                universities = getUniversities().filter {
-                    it.name.contains(
-                        keyword,
-                        ignoreCase = true
-                    )
-                },
-                mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
-                subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
+                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
             )
-            result
+             result
         } else {
             SearchResult()
         }
@@ -82,11 +83,97 @@ class MindfulMentorRepositoryImp(
         return generateSubjects()
     }
 
+    override suspend fun getNotifications(): List<Notification> {
+        return listOf(
+                Notification(
+                        id = 1,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "12 sec",
+                        type = NotificationType.MEETING_ACCEPTED,
+                        viewed = true,
+                        subjectId = 1,
+                ),
+                Notification(
+                        id = 2,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.UPCOMING_MEETING,
+                        viewed = false,
+                        subjectId = 2
+                ),
+                Notification(
+                        id = 3,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                        viewed = false,
+                        subjectId = 3
+                ),
+                Notification(
+                        id = 4,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 min ago",
+                        type = NotificationType.NEW_SUMMARY,
+                        viewed = false,
+                        subjectId = 4
+                ),
+                Notification(
+                        id = 5,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 6,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 7,
+                        ownerId = 5,
+                        mentorName = "Amnah.a",
+                        timeCreated = "56 sec",
+                        type = NotificationType.NEW_VIDEO,
+                        viewed = true,
+                        subjectId = 5
+                ),
+                Notification(
+                        id = 8,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.UPCOMING_MEETING,
+                        viewed = false,
+                        subjectId = 2
+                ),
+                Notification(
+                        id = 9,
+                        ownerId = 3,
+                        mentorName = "Nada Feteiha",
+                        timeCreated = "1 hr ago",
+                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                        viewed = false,
+                        subjectId = 3
+                ),
+        )
+    }
+
     override suspend fun getUniversities(): List<University> {
         return generateUniversities()
     }
 
-    override fun getUniversitiesNames(): List<String> {
+    override  fun getUniversitiesNames(): List<String> {
         return generateUniversitiesNames()
     }
 

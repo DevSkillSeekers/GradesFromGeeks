@@ -57,7 +57,8 @@ fun HomeScreen(
         onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
         onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
         onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
-        onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) }
+        onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) },
+        onNavigateToNotification = { navigateTo(HomeUIEffect.NavigateToNotification) },
     )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
@@ -92,7 +93,9 @@ private fun HomeContent(
     onNavigateToSubjectScreen: () -> Unit,
     onNavigateToUniversityProfile: () -> Unit,
     onNavigateToSeeALLUniversities: () -> Unit,
-    onNavigateToSeeALLSubjects: () -> Unit
+    onNavigateToSeeALLSubjects: () -> Unit,
+    onNavigateToNotification: () -> Unit,
+
 ) {
     Column(
         modifier = Modifier
@@ -103,7 +106,7 @@ private fun HomeContent(
     ) {
         HomeAppBar(
             modifier = Modifier.fillMaxWidth(),
-            onNotificationClicked = {}
+            onNotificationClicked = onNavigateToNotification
         )
 
         if (state.isLoading) {

@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
@@ -26,6 +27,10 @@ interface MindfulMentorRepository {
     //region Subject
     suspend fun getSubject(): List<Subject>
 
+    //endregion
+
+    //region Notifications
+    suspend fun getNotifications(): List<Notification>
     //endregion
 
 

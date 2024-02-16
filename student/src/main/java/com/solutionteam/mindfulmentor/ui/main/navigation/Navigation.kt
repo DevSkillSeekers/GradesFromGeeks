@@ -23,6 +23,7 @@ import com.solutionteam.mindfulmentor.ui.main.navigation.ext.navigateTo
 import com.solutionteam.mindfulmentor.ui.main.navigation.graph.MainNavGraph
 import com.solutionteam.mindfulmentor.ui.mentor.MentorScreen
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
+import com.solutionteam.mindfulmentor.ui.notification.NotificationScreen
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.review.VideoScreen
@@ -97,7 +98,6 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
                         .also(onNavigateTo)
 
-                    HomeUIEffect.NavigateToNotification -> {}
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.withClearBackStack().also(onNavigateTo)
@@ -107,6 +107,8 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                         .also(onNavigateTo)
 
                     HomeUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
+                        .also(onNavigateTo)
+                    HomeUIEffect.NavigateToNotification -> Screen.Notification.withClearBackStack()
                         .also(onNavigateTo)
 
                     else -> {}
@@ -280,7 +282,20 @@ fun NavGraphBuilder.universityNavGraph(
         )
     }
 }
+fun NavGraphBuilder.notificationNavGraph(
+    onNavigateTo: (Screen) -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    composable(
+            route = Screen.Notification.route
+    ) {
 
+        NotificationScreen(
+                navigateTo = {},
+                onNavigateBack = onNavigateBack
+        )
+    }
+}
 fun NavGraphBuilder.subjectNavGraph(
     onNavigateTo: (Screen) -> Unit,
     onNavigateBack: () -> Unit

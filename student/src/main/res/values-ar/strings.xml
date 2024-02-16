@@ -45,6 +45,12 @@
     <string name="book">احجز الان</string>
     <string name="by_select_the_university_you_want_to_learn_more_about_and_obtain_references_from">يرجى تحديد الجامعة التي ترغب في معرفة المزيد عنها والحصول على المراجع منها.</string>
     <string name="start_chatting_with_chat_bot_now">الان يمكن بدأ الدردشة مع chat bot</string>
+    <string name="accepted_your_request_for_one_one_meeting">وافق على طلبك لاجراء لقاء one- one</string>
+    <string name="meeting_with_you_will_come_soon_stay_tuned">سيكون اجتماعه معك قريبا, كن على ترقب.</string>
+    <string name="has_scheduled_an_upcoming_meeting">"قد حدد موعدا لاجتماع قريبا!"</string>
+    <string name="published_a_new_video">قام بنشر فيديو جديد.</string>
+    <string name="published_a_new_summary">قام بنشر ملخص جديد.</string>
+    <string name="do_some_active_to_have_notification"><![CDATA[قم بنشطات ما لتحصل على اشعارات >”<]]></string>
 
 </resources>
 
