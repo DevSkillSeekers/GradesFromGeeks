@@ -1,7 +1,7 @@
 <h1 align="center">Grads from Greek's</h1>
-<p align="center">  
-  TODO
-</p>
+
+> "Grades from Geeks" is your key to unlocking academic success and empowerment. With features tailored to students facing financial barriers, academic challenges, and limited access to quality education, our application offers a beacon of hope. From monetizing knowledge and accessing free educational content to connecting with top-performing peers and leveraging AI-powered learning tools, "Grades from Geeks" is not just an app—it's a movement towards education equality. 
+
 
 ## Architecture:
 TODO Architecture
@@ -20,7 +20,7 @@ TODO ...
 ## License
 
 ```xml
-Designed and developed by 2023 EliteDevs
+Designed and developed by 2024 DevSkillSeekers
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
