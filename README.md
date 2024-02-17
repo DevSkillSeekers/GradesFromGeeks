@@ -1,3 +1,17 @@
+<h1 align="center">Grads from Greek's</h1>
+<p align="center">  
+  TODO
+</p>
+
+## Architecture:
+TODO Architecture
+
+## Features
+TODO..
+
+## Download apk
+TODO ...
+
 ## Contributors
 <a href="https://github.com/DevSkillSeekers/GradesFromGeeks/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=DevSkillSeekers/GradesFromGeeks" />
