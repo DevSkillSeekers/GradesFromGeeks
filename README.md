@@ -1,6 +1,6 @@
 <h1 align="center">Grads from Greek's</h1>
 
-> "Grades from Geeks" is your key to unlocking academic success and empowerment. With features tailored to students facing financial barriers, academic challenges, and limited access to quality education, our application offers a beacon of hope. From monetizing knowledge and accessing free educational content to connecting with top-performing peers and leveraging AI-powered learning tools, "Grades from Geeks" is not just an app—it's a movement towards education equality. 
+> "Grades from Geeks" is the key to unlocking academic success and empowerment. With features tailored to students facing financial barriers, academic challenges, and limited access to quality education, our application offers a beacon of hope. From monetizing knowledge and accessing free educational content to connecting with top-performing peers and leveraging AI-powered learning tools, "Grades from Geeks" is not just an app—it's a movement towards education equality. 
 
 
 ## Architecture:
