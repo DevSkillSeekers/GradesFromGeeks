@@ -44,7 +44,8 @@ import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 @Composable
 fun MentorTabBar(
     nameTabs: List<String>,
-    onClickMeeting: () -> Unit = {}
+    onClickMeeting: () -> Unit = {},
+    onOpenPDFClicked: () -> Unit = {}
 ) {
     var tabIndex by remember { mutableIntStateOf(0) }
 
@@ -102,18 +103,18 @@ fun MentorTabBar(
         }
 
         when (tabIndex) {
-            0 -> SummeryScreen()
+            0 -> SummeryScreen(onClick = onOpenPDFClicked)
 
-            1 -> SummeryScreen()
+            1 -> SummeryScreen(onClick = onOpenPDFClicked)
 
-            2 -> MeetingScreen( onClickMeeting = onClickMeeting)
+            2 -> MeetingScreen(onClickMeeting = onClickMeeting)
         }
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SummeryScreen() {
+fun SummeryScreen(onClick: () -> Unit) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,8 +128,9 @@ fun SummeryScreen() {
             SummeryItems(
                 chapterNumber = it.chapterNumber,
                 chapterDescription = it.chapterDescription,
-                piedPrice = it.piedPrice
-            ) {}
+                piedPrice = it.piedPrice,
+                onClick = onClick
+            )
         }
     }
 }
@@ -315,24 +317,24 @@ fun MeetingItem(
             )
     ) {
 
-       Row(
-           horizontalArrangement = Arrangement.SpaceBetween,
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(8.dp)
-       ) {
-           Text(
-               text = "OOP Cracking",
-               style = Theme.typography.titleSmall,
-               color = Theme.colors.primaryShadesDark,
-           )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(
+                text = "OOP Cracking",
+                style = Theme.typography.titleSmall,
+                color = Theme.colors.primaryShadesDark,
+            )
 
-           Text(
-               text = "30$",
-               style = Theme.typography.titleSmall,
-               color = Theme.colors.primaryShadesDark,
-           )
-       }
+            Text(
+                text = "30$",
+                style = Theme.typography.titleSmall,
+                color = Theme.colors.primaryShadesDark,
+            )
+        }
 
         Text(
             text = "Thr 25 May in 10 :23 PM",
@@ -347,10 +349,12 @@ fun MeetingItem(
             color = Theme.colors.secondaryShadesDark,
             modifier = Modifier.padding(8.dp)
         )
-        
-        GGButton(title = "Book now", onClick = onClickMeeting, modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth())
+
+        GGButton(
+            title = "Book now", onClick = onClickMeeting, modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+        )
     }
 }
 

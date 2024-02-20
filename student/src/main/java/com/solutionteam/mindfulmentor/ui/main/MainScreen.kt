@@ -23,7 +23,6 @@ fun MainScreen(
     nestedNavGraph: @Composable () -> Unit,
     bottomBar: @Composable () -> Unit
 ) {
-
     Scaffold(
         bottomBar = bottomBar,
         contentWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)

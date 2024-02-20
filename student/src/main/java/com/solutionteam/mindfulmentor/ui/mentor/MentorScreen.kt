@@ -174,7 +174,7 @@ private fun MentorContent(
 
                         SubjectComposable()
                         MentorTabBar(
-                            nameTabs = listOf("Summaries", "Videos", "Meetings")
+                            nameTabs = listOf("Summaries", "Videos", "Meetings"),
                         )
                     }
 

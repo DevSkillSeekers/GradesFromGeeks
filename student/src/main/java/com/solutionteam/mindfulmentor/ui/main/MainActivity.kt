@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.FirebaseApp
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.ui.pdfReader.PDFViewerScreen
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +36,9 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxSize(),
                 color = Theme.colors.background,
-                content = { App() }
+                content = {
+                    App()
+                }
             )
         }
     }

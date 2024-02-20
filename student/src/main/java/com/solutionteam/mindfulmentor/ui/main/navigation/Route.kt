@@ -9,6 +9,7 @@ const val navigationRouteOnBoarding = "onboarding"
 const val navigationRouteChatBot = "chatBot"
 const val navigationRouteNotification = "notification"
 const val navigationRouteSeeAll = "seeAll"
+const val navigationRoutePDFReader = "pDFReader"
 
 
 const val navigationRouteIndividualMeeting = "individualMeeting"
@@ -87,4 +88,6 @@ sealed class Screen(
     data object Subject : Screen(route = navigationRouteSubject)
 
     data object Video : Screen(route = navigationRouteVedio)
+    data object PDFReader : Screen(navigationRoutePDFReader)
+
 }
