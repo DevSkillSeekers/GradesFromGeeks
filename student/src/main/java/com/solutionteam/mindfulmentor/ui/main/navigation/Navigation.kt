@@ -25,6 +25,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.MentorScreen
 import com.solutionteam.mindfulmentor.ui.mentor.MentorUIEffect
 import com.solutionteam.mindfulmentor.ui.notification.NotificationScreen
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
+import com.solutionteam.mindfulmentor.ui.pdfReader.PDFViewerScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
 import com.solutionteam.mindfulmentor.ui.review.VideoScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
@@ -108,6 +109,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
 
                     HomeUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
                         .also(onNavigateTo)
+
                     HomeUIEffect.NavigateToNotification -> Screen.Notification.withClearBackStack()
                         .also(onNavigateTo)
 
@@ -191,7 +193,8 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
         DownloadsScreen(
             onNavigateTo = {
-                Screen.Video.withClearBackStack().also(onNavigateTo)
+//                Screen.Video.withClearBackStack().also(onNavigateTo)
+                Screen.PDFReader.withClearBackStack().also(onNavigateTo)
             }
         )
     }
@@ -282,20 +285,22 @@ fun NavGraphBuilder.universityNavGraph(
         )
     }
 }
+
 fun NavGraphBuilder.notificationNavGraph(
     onNavigateTo: (Screen) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     composable(
-            route = Screen.Notification.route
+        route = Screen.Notification.route
     ) {
 
         NotificationScreen(
-                navigateTo = {},
-                onNavigateBack = onNavigateBack
+            navigateTo = {},
+            onNavigateBack = onNavigateBack
         )
     }
 }
+
 fun NavGraphBuilder.subjectNavGraph(
     onNavigateTo: (Screen) -> Unit,
     onNavigateBack: () -> Unit
@@ -337,11 +342,22 @@ fun NavGraphBuilder.individualMeetingNavGraph(
     }
 }
 
-fun NavGraphBuilder.reviewNavGraph( onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Video.route
     ) {
         VideoScreen(
+            navigateBack = onNavigateBack
+        )
+    }
+}
+
+
+fun NavGraphBuilder.pdvReaderNavGraph(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.PDFReader.route
+    ) {
+        PDFViewerScreen(
             navigateBack = onNavigateBack
         )
     }

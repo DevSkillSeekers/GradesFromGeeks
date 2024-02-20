@@ -44,14 +44,14 @@ fun DownloadsScreen(
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-
     DownloadContent(
         state = state,
         onNavigateToReviewBottomSheet = viewModel::onClickMeeting,
         onDismissRequest = viewModel::onDismissRequest,
         onNavigateToShowVideo = {
             context.startActivity(Intent(context, VideoRecordActivity::class.java))
-        }
+        },
+        onNavigateToPDFReader= onNavigateTo
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -65,7 +65,9 @@ fun DownloadsScreen(
 private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 
     when (effect) {
-        DownloadsUIEffect.DownloadsError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        DownloadsUIEffect.DownloadsError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT)
+            .show()
+
         else -> {}
     }
 }
@@ -76,7 +78,8 @@ private fun DownloadContent(
     state: DownloadsUIState,
     onNavigateToReviewBottomSheet: () -> Unit,
     onDismissRequest: () -> Unit,
-    onNavigateToShowVideo: () -> Unit
+    onNavigateToShowVideo: () -> Unit,
+    onNavigateToPDFReader: () -> Unit
 ) {
 
     Scaffold(
@@ -116,7 +119,8 @@ private fun DownloadContent(
                     SubjectComposable()
                     MentorTabBar(
                         nameTabs = listOf("Summaries", "Videos", "Meetings"),
-                        onClickMeeting = onNavigateToReviewBottomSheet
+                        onClickMeeting = onNavigateToReviewBottomSheet,
+                        onOpenPDFClicked = onNavigateToPDFReader
                     )
                 }
 
