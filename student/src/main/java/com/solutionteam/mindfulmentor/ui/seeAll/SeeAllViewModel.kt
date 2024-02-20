@@ -2,7 +2,7 @@ package com.solutionteam.mindfulmentor.ui.seeAll
 
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.University
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import com.solutionteam.mindfulmentor.ui.home.toUiState
 import com.solutionteam.mindfulmentor.ui.home.toUniversityUiState

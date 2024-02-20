@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.service
+package com.solutionteam.mindfulmentor.data.source.remote.service
 
 import com.google.ai.client.generativeai.Chat
 import com.google.ai.client.generativeai.GenerativeModel

@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.repositories
+package com.solutionteam.mindfulmentor.data.repositories
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.data.network.response.SignInResult
-import com.solutionteam.mindfulmentor.data.network.response.UserData
+import com.solutionteam.mindfulmentor.data.source.remote.response.SignInResult
+import com.solutionteam.mindfulmentor.data.source.remote.response.UserData
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 

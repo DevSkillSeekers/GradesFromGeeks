@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.type.content
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 
 import kotlinx.coroutines.flow.catch

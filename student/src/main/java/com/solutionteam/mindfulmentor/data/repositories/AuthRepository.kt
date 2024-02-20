@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.repositories
+package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -11,6 +11,14 @@ import com.solutionteam.mindfulmentor.data.utils.UserAlreadyExistsException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+
+interface AuthRepository {
+    suspend fun signUp(email: String, password: String): AuthResult
+
+    suspend fun addStudentInfo(studentInfo: StudentInfo,user: FirebaseUser):Boolean
+
+    suspend fun signIn(email: String, password: String): AuthResult
+}
 
 class AuthRepositoryImpl : AuthRepository {
     private val auth = Firebase.auth

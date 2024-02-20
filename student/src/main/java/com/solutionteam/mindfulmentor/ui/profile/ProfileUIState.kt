@@ -26,4 +26,12 @@ enum class Language(
     ARABIC(value = "عربي", "ar", layoutDirection = LayoutDirection.Rtl)
 }
 
+fun String?.getLanguage(): Language {
+    Language.entries.forEach {
+        if (it.abbreviation == this) {
+            return it
+        }
+    }
+    return Language.ENGLISH
+}
 

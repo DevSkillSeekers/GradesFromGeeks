@@ -2,9 +2,9 @@ package com.solutionteam.mindfulmentor.ui.auth.signin
 
 import androidx.lifecycle.viewModelScope
 import com.solutionteam.mindfulmentor.data.entity.StudentInfo
-import com.solutionteam.mindfulmentor.data.network.repositories.AuthRepository
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
-import com.solutionteam.mindfulmentor.data.network.response.SignInResult
+import com.solutionteam.mindfulmentor.data.repositories.AuthRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.source.remote.response.SignInResult
 import com.solutionteam.mindfulmentor.data.utils.UserAlreadyExistsException
 import com.solutionteam.mindfulmentor.ui.auth.signin.maininfo.SignInUIEffect
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel

@@ -2,7 +2,7 @@ package com.solutionteam.mindfulmentor.ui.search
 
 import androidx.lifecycle.viewModelScope
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
-import com.solutionteam.mindfulmentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

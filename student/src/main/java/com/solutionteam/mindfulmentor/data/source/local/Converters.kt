@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.local
+package com.solutionteam.mindfulmentor.data.source.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter

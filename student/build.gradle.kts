@@ -5,14 +5,14 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.solutionteam.mindfulmentor"
     compileSdk = 34
-    val localProperties =  Properties()
+    val localProperties = Properties()
     localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
@@ -26,7 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField("String", "API_KEY", "\"${localProperties.getProperty ("ApiKey")}\"")
+        buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("ApiKey")}\"")
 
     }
 
@@ -118,9 +118,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 
-    implementation ("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
     //Gimien AI
     implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
@@ -134,5 +134,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // ExoPlayer
-    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 }

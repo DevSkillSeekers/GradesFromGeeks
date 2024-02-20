@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.local.database
+package com.solutionteam.mindfulmentor.data.source.local.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

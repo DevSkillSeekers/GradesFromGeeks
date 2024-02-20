@@ -1,6 +1,6 @@
-package com.solutionteam.mindfulmentor.data.network
+package com.solutionteam.mindfulmentor.data.source
 
-import com.solutionteam.mindfulmentor.data.network.response.BaseResponse
+import com.solutionteam.mindfulmentor.data.source.remote.response.BaseResponse
 import retrofit2.Response
 
 abstract class BaseRepository() {

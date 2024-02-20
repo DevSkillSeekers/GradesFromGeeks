@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.data.network.repositories
+package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
@@ -8,10 +8,10 @@ import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University
-import com.solutionteam.mindfulmentor.data.local.UserPreferences
-import com.solutionteam.mindfulmentor.data.local.database.MindfulMentorDao
-import com.solutionteam.mindfulmentor.data.network.BaseRepository
-import com.solutionteam.mindfulmentor.data.network.service.GeminiApi
+import com.solutionteam.mindfulmentor.data.source.BaseRepository
+import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
+import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
+import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
 import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
@@ -183,24 +183,21 @@ class MindfulMentorRepositoryImp(
     private val appLanguage: MutableStateFlow<Language> = MutableStateFlow(Language.ENGLISH)
     private val appTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    override fun saveLanguage(language: Language) {
-        //ToDo: save language inDB
-        appLanguage.tryEmit(language)
+    override suspend fun saveLanguage(language: Language) {
+        authorizationPreferences.saveLanguage(language)
     }
 
     override fun getLanguage(): Flow<Language> {
-        //ToDo: get saved language in DB
-        return appLanguage
+        return authorizationPreferences.getLanguage()
+
     }
 
-    override fun setTheme(isDark: Boolean) {
-        //ToDo: get saved Theme in DB
-        appTheme.tryEmit(isDark)
+    override suspend fun setTheme(isDark: Boolean) {
+        authorizationPreferences.saveTheme(isDark)
     }
 
-    override fun getTheme(): Flow<Boolean> {
-        //ToDo: get saved language in DB
-        return appTheme
+    override fun getTheme(): Flow<Boolean?> {
+        return authorizationPreferences.isDarkTheme()
     }
     //endregion
 
@@ -273,6 +270,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateUniversitiesNames(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -282,6 +280,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateFields(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0..10) {
@@ -291,6 +290,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun generateLevels(): List<Int> {
         val list = mutableListOf<Int>()
         for (i in 0..10) {
@@ -300,6 +300,7 @@ class MindfulMentorRepositoryImp(
         }
         return list
     }
+
     private fun getImage(): String {
         val list = listOf(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgorKUEVujUWNUHzI_fM_pQX2or-AiH6j29Q&usqp=CAU",

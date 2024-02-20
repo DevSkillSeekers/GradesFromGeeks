@@ -2,8 +2,8 @@ package com.solutionteam.mindfulmentor.di
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.solutionteam.mindfulmentor.data.local.UserDataStorePreferencesImp
-import com.solutionteam.mindfulmentor.data.local.UserPreferences
+import com.solutionteam.mindfulmentor.data.source.local.UserDataStorePreferencesImp
+import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
