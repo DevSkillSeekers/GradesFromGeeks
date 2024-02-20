@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.solutionteam.mentor.ui.base.signUp.SignUpScreen
 import com.solutionteam.mentor.ui.main.MainScreen
 import com.solutionteam.mentor.ui.main.navigation.ext.navigateTo
 import com.solutionteam.mentor.ui.main.navigation.graph.MainNavGraph
@@ -16,7 +17,6 @@ import com.solutionteam.mentor.ui.home.HomeScreen
 import com.solutionteam.mentor.ui.profile.ProfileScreen
 import com.solutionteam.mentor.ui.wallet.WalletScreen
 
-@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
     composable(route = Screen.Main.route) {
 
@@ -47,6 +47,8 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
             bottomBar = bottomBar,
             nestedNavGraph = nestedNavGraph
         )
+
+
     }
 
 }
@@ -86,5 +88,13 @@ fun NavGraphBuilder.videosScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Videos.route
     ) {
         VideosScreen()
+    }
+}
+
+fun NavGraphBuilder.signUpScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.SignUp.route
+    ) {
+        SignUpScreen()
     }
 }

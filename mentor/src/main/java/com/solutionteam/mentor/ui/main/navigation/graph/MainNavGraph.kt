@@ -7,9 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mentor.ui.main.navigation.Screen
-import com.solutionteam.mentor.ui.main.navigation.videosScreen
 import com.solutionteam.mentor.ui.main.navigation.homeScreen
 import com.solutionteam.mentor.ui.main.navigation.profileScreen
+import com.solutionteam.mentor.ui.main.navigation.signUpScreen
+import com.solutionteam.mentor.ui.main.navigation.videosScreen
 import com.solutionteam.mentor.ui.main.navigation.walletScreen
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)

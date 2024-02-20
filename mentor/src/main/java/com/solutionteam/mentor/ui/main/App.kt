@@ -16,15 +16,22 @@ import org.koin.androidx.compose.koinViewModel
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun App(viewModel: AppViewModel = koinViewModel()) {
+    val firstTime by viewModel.isFirstTimeOpenApp.collectAsState()
     val language by viewModel.language.collectAsState()
     val theme by viewModel.theme.collectAsState()
 
     GGTheme(isDarkTheme = theme) {
-        CompositionLocalProvider(
-            LocalLayoutDirection provides language.layoutDirection
-        ) {
+        CompositionLocalProvider(LocalLayoutDirection provides language.layoutDirection) {
             val navController = rememberNavController()
-            RootNavGraph(navController = navController, startDestination = Screen.Main)
+            firstTime?.let {
+                if (it) {
+                    RootNavGraph(
+                        navController = navController, startDestination = Screen.SignUp
+                    )
+                } else {
+                    RootNavGraph(navController = navController, startDestination = Screen.Main)
+                }
+            }
         }
     }
 

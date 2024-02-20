@@ -5,6 +5,7 @@ import com.solutionteam.mentor.R
 
 
 const val navigationRouteMain = "main"
+const val navigationRouteSignUp = "signUp"
 
 const val navigationRouteHome = "home"
 const val navigationRouteWallet = "wallet"
@@ -27,6 +28,8 @@ sealed class Screen(
     fun routeWith(path: String) = apply {
         routePath = path
     }
+
+    data object SignUp : Screen(navigationRouteSignUp)
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(
