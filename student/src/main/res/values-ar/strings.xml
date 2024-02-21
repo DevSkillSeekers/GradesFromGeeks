@@ -52,5 +52,8 @@
     <string name="published_a_new_summary">قام بنشر ملخص جديد.</string>
     <string name="do_some_active_to_have_notification"><![CDATA[قم بنشطات ما لتحصل على اشعارات >”<]]></string>
 
+    <!-- review section -->
+    <string name="help">مساعدة</string>
+    <string name="click_summarize">اضغط زر التلخيص للحصول على الشرح كنص.</string>
 </resources>
 
