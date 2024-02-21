@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.review
+package com.solutionteam.mindfulmentor.ui.video
 
 
 sealed interface VideoUIEffect {

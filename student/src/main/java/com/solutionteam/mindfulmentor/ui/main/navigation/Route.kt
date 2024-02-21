@@ -26,7 +26,8 @@ const val navigationRouteDownloads = "downloads"
 const val navigationRouteMentor = "mentor"
 const val navigationRouteUniversity = "university"
 const val navigationRouteSubject = "Subject"
-const val navigationRouteVedio = "review"
+const val navigationRouteVideo = "video"
+const val navigationRouteReview = "review"
 
 
 sealed class Screen(
@@ -87,7 +88,8 @@ sealed class Screen(
 
     data object Subject : Screen(route = navigationRouteSubject)
 
-    data object Video : Screen(route = navigationRouteVedio)
+    data object Video : Screen(route = navigationRouteVideo)
     data object PDFReader : Screen(navigationRoutePDFReader)
+    data object Review: Screen(navigationRouteReview)
 
 }

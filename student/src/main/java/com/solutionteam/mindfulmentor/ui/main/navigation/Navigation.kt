@@ -15,6 +15,7 @@ import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeScreen
 import com.solutionteam.mindfulmentor.ui.auth.welcome.WelcomeUiEffect
 import com.solutionteam.mindfulmentor.ui.chat.ChatBotScreen
 import com.solutionteam.mindfulmentor.ui.downloads.DownloadsScreen
+import com.solutionteam.mindfulmentor.ui.downloads.DownloadsUIEffect
 import com.solutionteam.mindfulmentor.ui.home.HomeScreen
 import com.solutionteam.mindfulmentor.ui.home.HomeUIEffect
 import com.solutionteam.mindfulmentor.ui.individualMeeting.IndividualMeetingScreen
@@ -27,7 +28,7 @@ import com.solutionteam.mindfulmentor.ui.notification.NotificationScreen
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.pdfReader.PDFViewerScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
-import com.solutionteam.mindfulmentor.ui.review.VideoScreen
+import com.solutionteam.mindfulmentor.ui.review.ReviewScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchUIEffect
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllScreen
@@ -37,6 +38,7 @@ import com.solutionteam.mindfulmentor.ui.subject.SubjectScreen
 import com.solutionteam.mindfulmentor.ui.subject.SubjectUIEffect
 import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
 import com.solutionteam.mindfulmentor.ui.university.UniversityUIEffect
+import com.solutionteam.mindfulmentor.ui.video.VideoScreen
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -192,9 +194,16 @@ fun NavGraphBuilder.downloadsScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Downloads.route
     ) {
         DownloadsScreen(
-            onNavigateTo = {
-//                Screen.Video.withClearBackStack().also(onNavigateTo)
-                Screen.PDFReader.withClearBackStack().also(onNavigateTo)
+            onNavigateTo = { navigateTo ->
+                when (navigateTo) {
+                    DownloadsUIEffect.NavigateToPDFReader -> Screen.PDFReader.withClearBackStack()
+                        .also(onNavigateTo)
+
+                    DownloadsUIEffect.NavigateToReviewScreen -> Screen.Review.withClearBackStack()
+                        .also(onNavigateTo)
+
+                    else -> {}
+                }
             }
         )
     }
@@ -342,7 +351,7 @@ fun NavGraphBuilder.individualMeetingNavGraph(
     }
 }
 
-fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.videoNavGraph(onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Video.route
     ) {
@@ -359,6 +368,17 @@ fun NavGraphBuilder.pdvReaderNavGraph(onNavigateBack: () -> Unit) {
     ) {
         PDFViewerScreen(
             navigateBack = onNavigateBack
+        )
+    }
+}
+
+fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit, onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Review.route
+    ) {
+        ReviewScreen(
+            navigateBack = onNavigateBack,
+            onNavigateTo = { Screen.Video.withClearBackStack().also(onNavigateTo) }
         )
     }
 }

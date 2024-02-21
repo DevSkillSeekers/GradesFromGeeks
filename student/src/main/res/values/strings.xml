@@ -28,13 +28,11 @@
     <string name="logout">Logout</string>
     <string name="app_language">App Language</string>
     <string name="choose_theme">Choose your theme</string>
-
     <string name="web_client_id" translatable="false">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
     <string name="services_text"><![CDATA[By continuing you argree Habeet’s Terms of Services & Privacy Policy]]></string>
     <string name="services_text_link"><![CDATA[Terms of Services & Privacy Policy]]></string>
     <string name="google_link" translatable="false">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
-
 <!--    <string name="userRole">When asked any question that is not related to this university , please say: “I don’t know.”</string>-->
     <string name="user_role">When asked any question that is not related to this university %1$s , please say: “I don’t know.”</string>
     <string name="model_role">Plz ask me about something related on %1$s just, so I can answer you.</string>
@@ -54,4 +52,10 @@
     <string name="published_a_new_video">published a new video.</string>
     <string name="published_a_new_summary">published a new summary.</string>
     <string name="do_some_active_to_have_notification"><![CDATA[Do some active to have notification >”<]]></string>
+
+
+    <!-- review section -->
+    <string name="help">Help</string>
+    <string name="click_summarize">Click Summarize button to get ths explain as text.</string>
+
 </resources>

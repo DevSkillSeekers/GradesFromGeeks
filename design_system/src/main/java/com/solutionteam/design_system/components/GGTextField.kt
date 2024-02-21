@@ -1,6 +1,7 @@
 package com.solutionteam.design_system.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,13 +53,13 @@ fun GGTextField(
     errorMessage: String = "",
     isError: Boolean = errorMessage.isNotEmpty(),
     focusedBorderColor: Color = PrimaryLight.copy(alpha = 0.2f),
-    hintTextAlign: TextAlign = TextAlign.Start
+    hintTextAlign: TextAlign = TextAlign.Justify
 ) {
     var showPassword by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.Start
+        verticalArrangement = Arrangement.Top
     ) {
         label?.let {
             Text(

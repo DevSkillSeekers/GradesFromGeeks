@@ -10,15 +10,16 @@ import com.solutionteam.mindfulmentor.ui.individualMeeting.IndividualMeetingView
 import com.solutionteam.mindfulmentor.ui.main.AppViewModel
 import com.solutionteam.mindfulmentor.ui.mentor.MentorViewModel
 import com.solutionteam.mindfulmentor.ui.notification.NotificationsViewModel
+import com.solutionteam.mindfulmentor.ui.pdfReader.PDFReaderViewModel
 import com.solutionteam.mindfulmentor.ui.profile.ProfileViewModel
-import com.solutionteam.mindfulmentor.ui.review.VideoViewModel
+import com.solutionteam.mindfulmentor.ui.review.ReviewViewModel
 import com.solutionteam.mindfulmentor.ui.search.SearchViewModel
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllViewModel
 import com.solutionteam.mindfulmentor.ui.subject.SubjectViewModel
 import com.solutionteam.mindfulmentor.ui.university.UniversityViewModel
+import com.solutionteam.mindfulmentor.ui.video.VideoViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
-import  com.solutionteam.mindfulmentor.ui.pdfReader.PDFReaderViewModel
 
 
 val viewModelModule = module {
@@ -39,4 +40,5 @@ val viewModelModule = module {
     viewModelOf(::VideoViewModel)
     viewModelOf(::NotificationsViewModel)
     viewModelOf(::PDFReaderViewModel)
+    viewModelOf(::ReviewViewModel)
 }
