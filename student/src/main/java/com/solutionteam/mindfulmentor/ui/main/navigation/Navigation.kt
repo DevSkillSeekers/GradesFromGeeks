@@ -372,12 +372,13 @@ fun NavGraphBuilder.pdvReaderNavGraph(onNavigateBack: () -> Unit) {
     }
 }
 
-fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit, onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Review.route
     ) {
         ReviewScreen(
-            navigateBack = onNavigateBack
+            navigateBack = onNavigateBack,
+            onNavigateTo = { Screen.Video.withClearBackStack().also(onNavigateTo) }
         )
     }
 }

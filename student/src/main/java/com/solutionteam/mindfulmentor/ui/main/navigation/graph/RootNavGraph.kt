@@ -72,6 +72,9 @@ fun RootNavGraph(
         )
         videoNavGraph(onNavigateBack = navController::navigateUp)
         pdvReaderNavGraph(onNavigateBack = navController::navigateUp)
-        reviewNavGraph(onNavigateBack = navController::navigateUp)
+        reviewNavGraph(
+            onNavigateBack = navController::navigateUp,
+            onNavigateTo = navController::navigateTo
+        )
     }
 }
