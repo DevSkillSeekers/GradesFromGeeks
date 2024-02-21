@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.review
+package com.solutionteam.mindfulmentor.ui.video
 
 import android.content.Context
 import android.net.Uri

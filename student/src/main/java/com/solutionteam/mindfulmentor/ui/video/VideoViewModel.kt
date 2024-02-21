@@ -1,4 +1,4 @@
-package com.solutionteam.mindfulmentor.ui.review
+package com.solutionteam.mindfulmentor.ui.video
 
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel

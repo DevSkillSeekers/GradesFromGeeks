@@ -19,6 +19,7 @@ import com.solutionteam.mindfulmentor.ui.main.navigation.reviewNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.signInScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.subjectNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.universityNavGraph
+import com.solutionteam.mindfulmentor.ui.main.navigation.videoNavGraph
 import com.solutionteam.mindfulmentor.ui.main.navigation.welcomeScreen
 
 @Composable
@@ -69,8 +70,8 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
-        reviewNavGraph(onNavigateBack = navController::navigateUp)
-
+        videoNavGraph(onNavigateBack = navController::navigateUp)
         pdvReaderNavGraph(onNavigateBack = navController::navigateUp)
+        reviewNavGraph(onNavigateBack = navController::navigateUp)
     }
 }

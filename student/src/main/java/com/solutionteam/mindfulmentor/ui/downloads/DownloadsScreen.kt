@@ -1,7 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.downloads
 
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.ui.downloads.composable.MeetingReviewBottomSheet
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
-import com.solutionteam.mindfulmentor.ui.review.VideoRecordActivity
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -37,7 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DownloadsScreen(
     viewModel: DownloadsViewModel = koinViewModel(),
-    onNavigateTo: () -> Unit
+    onNavigateTo: (DownloadsUIEffect) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -46,12 +43,8 @@ fun DownloadsScreen(
 
     DownloadContent(
         state = state,
-        onNavigateToReviewBottomSheet = viewModel::onClickMeeting,
-        onDismissRequest = viewModel::onDismissRequest,
-        onNavigateToShowVideo = {
-            context.startActivity(Intent(context, VideoRecordActivity::class.java))
-        },
-        onNavigateToPDFReader= onNavigateTo
+        onNavigateToReviewScreen = { onNavigateTo(DownloadsUIEffect.NavigateToReviewScreen) },
+        onNavigateToPDFReader = { onNavigateTo(DownloadsUIEffect.NavigateToPDFReader) }
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -76,9 +69,7 @@ private fun onEffect(effect: DownloadsUIEffect?, context: Context) {
 @Composable
 private fun DownloadContent(
     state: DownloadsUIState,
-    onNavigateToReviewBottomSheet: () -> Unit,
-    onDismissRequest: () -> Unit,
-    onNavigateToShowVideo: () -> Unit,
+    onNavigateToReviewScreen: () -> Unit,
     onNavigateToPDFReader: () -> Unit
 ) {
 
@@ -119,15 +110,8 @@ private fun DownloadContent(
                     SubjectComposable()
                     MentorTabBar(
                         nameTabs = listOf("Summaries", "Videos", "Meetings"),
-                        onClickMeeting = onNavigateToReviewBottomSheet,
+                        onClickMeeting = onNavigateToReviewScreen,
                         onOpenPDFClicked = onNavigateToPDFReader
-                    )
-                }
-
-                if (state.showReviewBottomSheet) {
-                    MeetingReviewBottomSheet(
-                        onDismissRequest = onDismissRequest,
-                        onNavigateToShowVideo = onNavigateToShowVideo
                     )
                 }
             }
