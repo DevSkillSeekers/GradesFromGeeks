@@ -2,33 +2,22 @@ package com.solutionteam.mindfulmentor.ui.mentor.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -41,80 +30,10 @@ import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 
-@Composable
-fun MentorTabBar(
-    nameTabs: List<String>,
-    onClickMeeting: () -> Unit = {},
-    onOpenPDFClicked: () -> Unit = {}
-) {
-    var tabIndex by remember { mutableIntStateOf(0) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Theme.colors.background)
-    ) {
-        TabRow(
-            selectedTabIndex = tabIndex,
-            divider = {
-                Spacer(
-                    modifier = Modifier
-                        .height(5.dp)
-                        .padding(horizontal = 16.dp)
-                )
-            },
-            indicator = { tabPositions ->
-                TabRowDefaults.Indicator(
-                    modifier = Modifier
-                        .tabIndicatorOffset(tabPositions[tabIndex])
-                        .background(
-                            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-                            color = Theme.colors.primary
-                        ),
-                    height = 4.dp,
-                    color = Theme.colors.primary
-                )
-            },
-            containerColor = Theme.colors.background,
-            contentColor = Theme.colors.primaryShadesDark,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .background(color = Theme.colors.background)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp)
-
-        ) {
-            nameTabs.forEachIndexed { index, title ->
-                Tab(
-                    text = {
-                        Text(
-                            title,
-                            style = Theme.typography.bodyMedium,
-                            color = if (tabIndex == index) Theme.colors.primary else Theme.colors.secondaryShadesDark
-                        )
-                    },
-                    selected = tabIndex == index,
-                    onClick = { tabIndex = index },
-                    interactionSource = MutableInteractionSource()
-                )
-            }
-        }
-
-        when (tabIndex) {
-            0 -> SummeryScreen(onClick = onOpenPDFClicked)
-
-            1 -> SummeryScreen(onClick = onOpenPDFClicked)
-
-            2 -> MeetingScreen(onClickMeeting = onClickMeeting)
-        }
-    }
-}
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SummeryScreen(onClick: () -> Unit) {
+fun SummeryScreen(onClick: () -> Unit = {}) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -288,7 +207,7 @@ val fakeSummeryList = listOf(
 
 @Composable
 fun MeetingScreen(
-    onClickMeeting: () -> Unit
+    onClickMeeting: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier

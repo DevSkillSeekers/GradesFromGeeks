@@ -24,9 +24,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.solutionteam.design_system.components.GGAppBar
+import com.solutionteam.design_system.components.GGTabBar
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -118,6 +120,14 @@ private fun ReviewContent(
                         )
                     }
                 }
+
+                GGTabBar(
+                    tabs = listOf(
+                        "Info" to { },
+                        "Review" to { },
+                        "Summarize" to { SummeryScreen() }
+                    ),
+                )
             }
         }
     }

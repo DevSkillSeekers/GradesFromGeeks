@@ -27,14 +27,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.solutionteam.design_system.components.GGTabBar
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
+import com.solutionteam.mindfulmentor.ui.mentor.composable.MeetingScreen
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorProfileDetails
-import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -173,8 +175,12 @@ private fun MentorContent(
                         )
 
                         SubjectComposable()
-                        MentorTabBar(
-                            nameTabs = listOf("Summaries", "Videos", "Meetings"),
+                        GGTabBar(
+                            tabs = listOf(
+                                "Summaries" to { SummeryScreen() },
+                                "Video" to { SummeryScreen() },
+                                "Meeting" to { MeetingScreen() }
+                            ),
                         )
                     }
 

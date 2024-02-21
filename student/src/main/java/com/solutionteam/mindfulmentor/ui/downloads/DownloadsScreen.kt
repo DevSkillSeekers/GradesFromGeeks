@@ -22,11 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGAppBar
+import com.solutionteam.design_system.components.GGTabBar
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
-import com.solutionteam.mindfulmentor.ui.mentor.composable.MentorTabBar
+import com.solutionteam.mindfulmentor.ui.mentor.composable.MeetingScreen
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -108,10 +110,12 @@ private fun DownloadContent(
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
                     SubjectComposable()
-                    MentorTabBar(
-                        nameTabs = listOf("Summaries", "Videos", "Meetings"),
-                        onClickMeeting = onNavigateToReviewScreen,
-                        onOpenPDFClicked = onNavigateToPDFReader
+                    GGTabBar(
+                        tabs = listOf(
+                            "Summaries" to { SummeryScreen(onClick = onNavigateToPDFReader) },
+                            "Video" to { SummeryScreen(onClick = onNavigateToPDFReader) },
+                            "Meeting" to { MeetingScreen(onClickMeeting = onNavigateToReviewScreen) }
+                        )
                     )
                 }
             }
