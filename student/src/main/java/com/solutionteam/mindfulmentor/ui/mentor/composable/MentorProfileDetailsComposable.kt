@@ -23,9 +23,11 @@ import coil.compose.rememberAsyncImagePainter
 import com.solutionteam.design_system.R
 import com.solutionteam.design_system.theme.Gold
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.ui.mentor.MentorUIState
 
 @Composable
 fun MentorProfileDetails(
+    mentor: MentorUIState,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -34,7 +36,7 @@ fun MentorProfileDetails(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = rememberAsyncImagePainter(model = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU"),
+            painter = rememberAsyncImagePainter(model = mentor.imageUrl),
             contentDescription = "image_profile_without_shadow",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -51,7 +53,7 @@ fun MentorProfileDetails(
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = "Amnah Ali",
+                text = mentor.fullName,
                 style = Theme.typography.titleLarge,
                 color = Theme.colors.background
             )

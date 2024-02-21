@@ -85,10 +85,10 @@ private fun onEffect(effect: MentorUIEffect?, context: Context) {
 
 @Composable
 private fun MentorContent(
-    state: MentorUIState, onBack: () -> Unit,
+    state: MentorUIState,
+    onBack: () -> Unit,
     navigateToScheduleMeeting: () -> Unit
 ) {
-
     Scaffold { padding ->
         Column(
             modifier = Modifier
@@ -119,18 +119,21 @@ private fun MentorContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
+                        imageUrl = state.imageUrl,
                         onBack = onBack
                     )
 
-                    MentorProfileDetails(modifier = Modifier
-                        .fillMaxWidth()
-                        .constrainAs(profileDetails) {
-                            top.linkTo(imageWithShadow.top, margin = 50.dp)
-                            start.linkTo(imageWithShadow.start, margin = 50.dp)
-                            end.linkTo(imageWithShadow.end)
-                            bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
-                        })
+                    MentorProfileDetails(
+                        mentor = state,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .constrainAs(profileDetails) {
+                                top.linkTo(imageWithShadow.top, margin = 50.dp)
+                                start.linkTo(imageWithShadow.start, margin = 50.dp)
+                                end.linkTo(imageWithShadow.end)
+                                bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
+                            }
+                    )
 
                     Column(
                         modifier = Modifier

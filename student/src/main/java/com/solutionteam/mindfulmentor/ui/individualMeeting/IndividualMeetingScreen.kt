@@ -23,7 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.solutionteam.design_system.components.GGAppBar
+import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.ui.individualMeeting.composable.AvailableTimePerDay
 import com.solutionteam.mindfulmentor.ui.individualMeeting.composable.ScheduleMeetingBottomSheet
@@ -53,6 +55,15 @@ fun IndividualMeetingScreen(
         viewModel.effect.collectLatest {
             onEffect(effect, context)
         }
+    }
+
+    val systemUIController = rememberSystemUiController()
+    val color = Theme.colors.background
+    LaunchedEffect(true) {
+        setStatusBarColor(
+            systemUIController = systemUIController,
+            navigationBarColor = color,
+        )
     }
 }
 

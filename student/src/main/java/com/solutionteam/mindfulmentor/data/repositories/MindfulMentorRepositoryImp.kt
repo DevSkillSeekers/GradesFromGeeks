@@ -32,20 +32,20 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getUniversitiesName(): List<String> {
         return listOf(
-                "University of Washington",
-                "University of California, Los Angeles",
-                "University of Baghdad",
-                "University of California, Berkeley",
-                "Harvard University",
-                "Stanford University",
-                "Massachusetts Institute of Technology (MIT)",
-                "University of Oxford",
-                "University of Cambridge",
-                "California Institute of Technology (Caltech)",
-                "ETH Zurich - Swiss Federal Institute of Technology",
-                "University College London (UCL)",
-                "University of Chicago",
-                "Imperial College London"
+            "University of Washington",
+            "University of California, Los Angeles",
+            "University of Baghdad",
+            "University of California, Berkeley",
+            "Harvard University",
+            "Stanford University",
+            "Massachusetts Institute of Technology (MIT)",
+            "University of Oxford",
+            "University of Cambridge",
+            "California Institute of Technology (Caltech)",
+            "ETH Zurich - Swiss Federal Institute of Technology",
+            "University College London (UCL)",
+            "University of Chicago",
+            "Imperial College London"
         )
     }
 
@@ -58,14 +58,19 @@ class MindfulMentorRepositoryImp(
         return authorizationPreferences.saveIsFirstTimeUseApp(isFirstTimeUseApp)
     }
 
-    override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
-        return  if (keyword.isNotEmpty()) {
+    override suspend fun getSearch(keyword: String, limit: Int): SearchResult {
+        return if (keyword.isNotEmpty()) {
             val result = SearchResult(
-                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
-                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
-                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+                universities = getUniversities().filter {
+                    it.name.contains(
+                        keyword,
+                        ignoreCase = true
+                    )
+                },
+                mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
             )
-             result
+            result
         } else {
             SearchResult()
         }
@@ -81,87 +86,87 @@ class MindfulMentorRepositoryImp(
 
     override suspend fun getNotifications(): List<Notification> {
         return listOf(
-                Notification(
-                        id = 1,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "12 sec",
-                        type = NotificationType.MEETING_ACCEPTED,
-                        viewed = true,
-                        subjectId = 1,
-                ),
-                Notification(
-                        id = 2,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 3,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
-                        subjectId = 3
-                ),
-                Notification(
-                        id = 4,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 min ago",
-                        type = NotificationType.NEW_SUMMARY,
-                        viewed = false,
-                        subjectId = 4
-                ),
-                Notification(
-                        id = 5,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 6,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 7,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 8,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 9,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
-                        subjectId = 3
-                ),
+            Notification(
+                id = 1,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "12 sec",
+                type = NotificationType.MEETING_ACCEPTED,
+                viewed = true,
+                subjectId = 1,
+            ),
+            Notification(
+                id = 2,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 3,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
+                subjectId = 3
+            ),
+            Notification(
+                id = 4,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 min ago",
+                type = NotificationType.NEW_SUMMARY,
+                viewed = false,
+                subjectId = 4
+            ),
+            Notification(
+                id = 5,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 6,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 7,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 8,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 9,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
+                subjectId = 3
+            ),
         )
     }
 
@@ -169,7 +174,7 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
-    override  fun getUniversitiesNames(): List<String> {
+    override fun getUniversitiesNames(): List<String> {
         return generateUniversitiesNames()
     }
 
@@ -216,7 +221,34 @@ class MindfulMentorRepositoryImp(
     //region Fake Data
     private fun generatorMentor(): List<Mentor> {
         val list = mutableListOf<Mentor>()
-        for (i in 0..10) {
+        list.add(
+            Mentor(
+                id = "10",
+                name = "Ahmed Ali",
+                imageUrl = "https://www.crushpixel.com/big-static7/preview4/portrait-male-student-working-on-260856.jpg",
+                rate = (0..10).random().toDouble(),
+                numberReviewers = (1..500).random(),
+            )
+        )
+        list.add(
+            Mentor(
+                id = "11",
+                name = "Amnah Ali",
+                imageUrl = "https://www.law.uchicago.edu/sites/default/files/styles/extra_large/public/2018-03/theisen_tarra.jpg?itok=Olm_LKro",
+                rate = (0..10).random().toDouble(),
+                numberReviewers = (1..500).random(),
+            )
+        )
+        list.add(
+            Mentor(
+                id = "12",
+                name = "Sara Eric",
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_oF7kxvYq5J61K2hCpQhG7hYkA_DtfhpdOw&usqp=CAU",
+                rate = (0..10).random().toDouble(),
+                numberReviewers = (1..500).random(),
+            )
+        )
+        for (i in 1..10) {
             list.add(
                 Mentor(
                     id = "$i",
@@ -232,12 +264,12 @@ class MindfulMentorRepositoryImp(
 
     private fun getProfileImage(): String {
         val list = listOf(
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFiWs0Sx8Omxw_qamwrZT_EYTz27HulwjRBA&usqp=CAU",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU"
+            "https://www.bssc.edu.au/wp-content/uploads/2020/06/Taine-Lang.jpg",
+            "https://www.wheaton.edu/media/giving/Joy-Ong-Blog-Header.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_oF7kxvYq5J61K2hCpQhG7hYkA_DtfhpdOw&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRW8MprfJzvyxKiP8t7o1E-LKC9NkPEVClQ&usqp=CAU",
+            "https://harris.uchicago.edu/sites/default/files/inline-images/J.%20Vinegar%20profile.jpg",
         )
-
         return list.shuffled().first()
     }
 

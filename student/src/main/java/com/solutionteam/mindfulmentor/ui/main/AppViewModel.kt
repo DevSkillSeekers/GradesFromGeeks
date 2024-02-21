@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -49,7 +50,10 @@ class AppViewModel(
 
     private fun getLanguage() {
         viewModelScope.launch {
-            repository.getLanguage().distinctUntilChanged().collectLatest { lang ->
+            repository.getLanguage().distinctUntilChanged()
+                .onStart {
+                }
+                .collectLatest { lang ->
                 _language.update { lang }
             }
         }

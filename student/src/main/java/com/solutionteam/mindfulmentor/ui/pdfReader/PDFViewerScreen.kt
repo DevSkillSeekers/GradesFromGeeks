@@ -1,8 +1,10 @@
 package com.solutionteam.mindfulmentor.ui.pdfReader
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.rizzi.bouquet.VerticalPDFReader
 import org.koin.androidx.compose.koinViewModel
 
@@ -13,8 +15,7 @@ fun PDFViewerScreen(
 ) {
     VerticalPDFReader(
         state = viewModel.pdfVerticalReaderState,
-        modifier = Modifier.fillMaxSize()
-    )
+        modifier = Modifier.fillMaxSize())
 
 }
 
