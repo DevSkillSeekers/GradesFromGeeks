@@ -9,6 +9,18 @@ TODO Architecture
 ## Features
 TODO..
 
+## Opening in Android Studio
+
+To open one of the applications in Android Studio, begin by checking out one of the branches
+
+Clone the repository:
+```
+git clone git@github.com:DevSkillSeekers/GradesFromGeeks.git
+```
+In the Android studio select the Application want to run.  
+
+<img width="406" alt="Screenshot 2024-02-24 at 9 06 02 AM" src="https://github.com/DevSkillSeekers/GradesFromGeeks/assets/34461597/ac305b4c-0679-41de-9028-656c555d9040">
+
 ## Download apk
 TODO ...
 
