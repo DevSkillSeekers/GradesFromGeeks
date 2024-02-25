@@ -40,10 +40,12 @@ import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MentorScreen(
-    viewModel: MentorViewModel = koinViewModel(),
+    id: String,
+    viewModel: MentorViewModel =  koinViewModel(parameters = { parametersOf(id) }),
     onNavigateTo: (MentorUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {

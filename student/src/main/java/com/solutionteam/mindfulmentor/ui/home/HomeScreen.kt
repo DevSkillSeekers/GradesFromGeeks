@@ -53,7 +53,7 @@ fun HomeScreen(
         state = state,
         onNavigateToSeeAllMentors = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },
         onNavigateToChatBot = { navigateTo(HomeUIEffect.NavigateToChatBooks) },
-        onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile) },
+        onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile(it)) },
         onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
         onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
         onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
@@ -89,7 +89,7 @@ private fun HomeContent(
     state: HomeUIState,
     onNavigateToSeeAllMentors: () -> Unit,
     onNavigateToChatBot: () -> Unit,
-    onNavigateToMentorProfile: () -> Unit,
+    onNavigateToMentorProfile: (String) -> Unit,
     onNavigateToSubjectScreen: () -> Unit,
     onNavigateToUniversityProfile: () -> Unit,
     onNavigateToSeeALLUniversities: () -> Unit,
@@ -153,7 +153,7 @@ private fun HomeContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = onNavigateToMentorProfile
+                        onClick = { onNavigateToMentorProfile(mentor.id) }
                     )
                 }
 

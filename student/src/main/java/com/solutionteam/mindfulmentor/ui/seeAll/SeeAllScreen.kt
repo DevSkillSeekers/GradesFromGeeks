@@ -35,7 +35,7 @@ import org.koin.core.parameter.parametersOf
 fun SeeAllScreen(
     type: SeeAllType,
     viewModel: SeeAllViewModel = koinViewModel(parameters = { parametersOf(type) }),
-    navigateTo: () -> Unit,
+    navigateTo: (String) -> Unit,
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -69,7 +69,7 @@ private fun onEffect(effect: SeeAllUIEffect?, context: Context) {
 private fun SeeAllContent(
     state: SeeAllUIState,
     onBack: () -> Unit,
-    navigateTo: () -> Unit
+    navigateTo: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -106,7 +106,7 @@ private fun SeeAllContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = { navigateTo() }
+                        onClick = { navigateTo(mentor.id) }
                     )
                 }
 
@@ -118,7 +118,7 @@ private fun SeeAllContent(
                         name = university.name,
                         address = university.address,
                         imageUrl = university.imageUrl,
-                        onClick = {navigateTo()}
+                        onClick = { navigateTo(university.id) }
                     )
                 }
             }

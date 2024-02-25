@@ -1,14 +1,17 @@
 package com.solutionteam.mindfulmentor.ui.mentor
 
+import android.util.Log
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
 class MentorViewModel(
+    private val id:String,
     private val mindfulMentorRepository: MindfulMentorRepository
 ) : BaseViewModel<MentorUIState, MentorUIEffect>(MentorUIState()) {
 
     init {
+        Log.i("llllllllllll", id)
         onMakeRequest()
     }
 
