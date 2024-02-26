@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -18,10 +17,11 @@ import com.solutionteam.design_system.components.GGSubject
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.ui.home.SubjectDetailsUiState
 
 @Composable
 fun SubjectComposable(
-    subjectList: List<Subject>,
+    subjectList: List<SubjectDetailsUiState>,
     modifier: Modifier = Modifier.padding(vertical = 16.dp)
 ) {
     val selectedSubject = remember { mutableStateOf(subjectList.first()) }

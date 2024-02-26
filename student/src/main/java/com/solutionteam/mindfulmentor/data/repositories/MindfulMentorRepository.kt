@@ -10,6 +10,7 @@ import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.entity.University
+import com.solutionteam.mindfulmentor.ui.main.navigation.Screen
 import kotlinx.coroutines.flow.Flow
 import com.solutionteam.mindfulmentor.ui.profile.Language
 
@@ -49,6 +50,10 @@ interface MindfulMentorRepository {
     //region Universities
     suspend fun getUniversities(): List<University>
     fun getUniversitiesNames(): List<String>
+
+    suspend fun getUniversityById(id: String): University
+
+
     //endregion
 
 

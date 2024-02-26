@@ -2,8 +2,9 @@ package com.solutionteam.mindfulmentor.ui.mentor
 
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
-import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.Summaries
+import com.solutionteam.mindfulmentor.ui.home.SubjectDetailsUiState
+import com.solutionteam.mindfulmentor.ui.home.toSubjectUiState
 
 data class MentorUIState(
     val isLoading: Boolean = false,
@@ -25,7 +26,7 @@ data class MentorDetailsUIState(
     val summaries: Int = 0,
     val videos: Int = 0,
     val meeting: Int = 0,
-    val subjects: List<Subject> = emptyList(),
+    val subjects: List<SubjectDetailsUiState> = emptyList(),
     val university: String = ""
 )
 
@@ -55,7 +56,7 @@ fun Mentor.toUIState(): MentorDetailsUIState {
         numberReviewers = numberReviewers,
         summaries = summaries,
         meeting = meeting,
-        subjects = subjects,
+        subjects = subjects.toSubjectUiState(),
         university = university,
         videos = videos
     )

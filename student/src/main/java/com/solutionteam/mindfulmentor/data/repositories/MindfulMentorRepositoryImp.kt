@@ -254,8 +254,13 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
-    override  fun getUniversitiesNames(): List<String> {
+    override fun getUniversitiesNames(): List<String> {
         return generateUniversitiesNames()
+    }
+
+    override suspend fun getUniversityById(id: String): University {
+        return generateUniversities().find { it.id == id }
+            ?: throw Exception("empty university details")
     }
 
     override suspend fun getUpComingMeetings(): List<Meeting> {
@@ -346,7 +351,7 @@ class MindfulMentorRepositoryImp(
         )
     }
 
-    private fun generateUniversities(): List<University> {
+    private suspend fun generateUniversities(): List<University> {
         val list = mutableListOf<University>()
         for (i in 0..10) {
             list.add(
@@ -354,7 +359,12 @@ class MindfulMentorRepositoryImp(
                     id = "$i",
                     name = "First Last$i",
                     imageUrl = getImage(),
-                    address = "Seattle, Washington"
+                    address = "Seattle, Washington",
+                    mentorNumber = "5",
+                    summaryNumber = "15",
+                    videoNumber = "1$i",
+                    subjects = getSubject(),
+                    mentors = getMentors()
                 )
             )
         }

@@ -129,7 +129,7 @@ private fun UniversityContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQANtG6UPPvIwDcLr4wpV4pt3ixtkv8eHjlKg&usqp=CAU",
+                        imageUrl = state.universityDetails.universityImageUrl,
                         onBack = onBack
                     )
 
@@ -147,15 +147,15 @@ private fun UniversityContent(
 
                     ) {
                         Text(
-                            text = "Harvard University",
+                            text = state.universityDetails.universityName,
                             style = Theme.typography.titleMedium,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(16.dp)
                         )
 
                         Text(
-                            text = "86 Brattle Street Cambridge, MA 02138",
-                            style = Theme.typography. labelLarge,
+                            text = state.universityDetails.universityDescription,
+                            style = Theme.typography.labelLarge,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(horizontal = 24.dp),
                             overflow = TextOverflow.Ellipsis,
@@ -181,15 +181,24 @@ private fun UniversityContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("10", stringResource(id = R.string.mentors)),
-                                ContentCountUIState("20",  stringResource(id = R.string.summaries)),
-                                ContentCountUIState("30",  stringResource(id = R.string.videos))
+                                ContentCountUIState(
+                                    state.universityDetails.mentorNumber,
+                                    stringResource(id = R.string.mentors)
+                                ),
+                                ContentCountUIState(
+                                    state.universityDetails.summaryNumber,
+                                    stringResource(id = R.string.summaries)
+                                ),
+                                ContentCountUIState(
+                                    state.universityDetails.videoNumber,
+                                    stringResource(id = R.string.videos)
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         SubjectComposable(
                             modifier = Modifier.padding(top= 16.dp),
-                            subjectList = subjectList
+                            subjectList = state.universityDetails.subjectList
                         )
                         GGTitleWithSeeAll(
                             modifier = Modifier
@@ -200,7 +209,7 @@ private fun UniversityContent(
                             onClick = navigateToSeeAll
                         )
 
-                        mentor.forEach {
+                        state.universityDetails.mentorList.forEach {
                             GGMentor(
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)
@@ -220,43 +229,3 @@ private fun UniversityContent(
         }
     }
 }
-
-
-private val mentor = listOf(
-    Mentor(
-        id = "1",
-        name = "First Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-        summaries = 20,
-        videos = 16,
-        meeting = 18,
-        subjects = emptyList(),
-        university = "First University"
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-        summaries = 20,
-        videos = 16,
-        meeting = 18,
-        subjects = emptyList(),
-        university = "First University"
-    ),
-    Mentor(
-        id = "3",
-        name = "Third Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-        summaries = 20,
-        videos = 16,
-        meeting = 18,
-        subjects = emptyList(),
-        university = "First University"
-    )
-)

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 data class HomeUIState(
     val mentors: List<MentorUiState> = emptyList(),
-    val subjects: List<SubjectUiState> = emptyList(),
+    val subjects: List<SubjectDetailsUiState> = emptyList(),
     val university: List<UniversityUiState> = emptyList(),
     val upComingMeetings: List<MeetingUiState> = emptyList(),
 
@@ -26,7 +26,7 @@ data class MentorUiState(
     val numberReviewers: Int = 0
 )
 
-data class SubjectUiState(
+data class SubjectDetailsUiState(
     val id: String = "",
     val name: String = ""
 )
@@ -66,7 +66,7 @@ fun Mentor.toUiState() = MentorUiState(
 
 fun List<Mentor>.toUiState() = map { it.toUiState() }
 
-fun Subject.toSubjectUiState() = SubjectUiState(id, name)
+fun Subject.toSubjectUiState() = SubjectDetailsUiState(id, name)
 
 fun List<Subject>.toSubjectUiState() = map { it.toSubjectUiState() }
 
