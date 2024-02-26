@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
+import com.solutionteam.mindfulmentor.data.entity.Download
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Notification
@@ -62,14 +63,31 @@ class MindfulMentorRepositoryImp(
     override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
         return  if (keyword.isNotEmpty()) {
             val result = SearchResult(
-                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
-                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
-                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+                universities = getUniversities().filter {
+                    it.name.contains(
+                        keyword,
+                        ignoreCase = true
+                    )
+                },
+                mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
             )
-             result
+            result
         } else {
             SearchResult()
         }
+    }
+
+    override suspend fun getDownloadDetails(id: String): Download {
+        return Download(
+            summariesNumber = "10",
+            videoNumber = "8",
+            meetingNumber = "16",
+            subjects = getSubject(),
+            summaries = getSummaries(),
+            meeting = getMeeting(),
+            video = getVideos()
+        )
     }
 
     override suspend fun getMentors(): List<Mentor> {
@@ -85,27 +103,32 @@ class MindfulMentorRepositoryImp(
             Summaries(
                 chapterNumber = "Chapter 1",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = ""
+                piedPrice = "",
+                isBuy = false
             ),
             Summaries(
                 chapterNumber = "Chapter 2",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = ""
+                piedPrice = "",
+                isBuy = true
             ),
             Summaries(
                 chapterNumber = "Chapter 3",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = "10$"
+                piedPrice = "10$",
+                isBuy = true
             ),
             Summaries(
                 chapterNumber = "Chapter 4",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = ""
+                piedPrice = "",
+                isBuy = false
             ),
             Summaries(
                 chapterNumber = "Chapter 5",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = "5$"
+                piedPrice = "5$",
+                isBuy = false
             ),
         )
     }
@@ -115,17 +138,20 @@ class MindfulMentorRepositoryImp(
             Summaries(
                 chapterNumber = "Chapter 1",
                 chapterDescription = "15 page (pdf)",
-                piedPrice = "10$"
+                piedPrice = "10$",
+                isBuy = false
             ),
             Summaries(
                 chapterNumber = "Chapter 5",
                 chapterDescription = "11 page (pdf)",
-                piedPrice = "5$"
+                piedPrice = "5$",
+                isBuy = true
             ),
             Summaries(
                 chapterNumber = "Chapter 11",
                 chapterDescription = "3 page (pdf)",
-                piedPrice = ""
+                piedPrice = "",
+                isBuy = false
             )
         )
     }

@@ -57,7 +57,7 @@ class MentorViewModel(
     private fun onGetSummariseSuccess(summaries: List<Summaries>) {
         updateState {
             it.copy(
-                mentorSummariseList = summaries.toListUIState()
+                mentorSummariseList = summaries.filter { !it.isBuy }.toListUIState()
             )
         }
     }
@@ -73,7 +73,7 @@ class MentorViewModel(
     private fun onGetVideoSuccess(video: List<Summaries>) {
         updateState {
             it.copy(
-                mentorVideoList = video.toListUIState()
+                mentorVideoList = video.filter { !it.isBuy }.toListUIState()
             )
         }
     }
@@ -93,7 +93,6 @@ class MentorViewModel(
             )
         }
     }
-
 
     private fun onError() {
         updateState {

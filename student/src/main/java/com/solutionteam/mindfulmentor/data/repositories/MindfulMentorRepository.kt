@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
+import com.solutionteam.mindfulmentor.data.entity.Download
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Notification
@@ -18,6 +19,11 @@ interface MindfulMentorRepository {
     suspend fun saveIsFirstTimeUseApp(isFirstTimeUseApp: Boolean)
 
     suspend fun getSearch(keyword: String, limit: Int): SearchResult
+
+    //region Download
+    suspend fun getDownloadDetails(id: String): Download
+
+    //endregion
 
     //region Mentor
     suspend fun getMentors(): List<Mentor>

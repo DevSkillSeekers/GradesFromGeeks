@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -21,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.modifier.noRippleEffect
@@ -38,7 +38,8 @@ import com.solutionteam.mindfulmentor.utils.formatTimestamp
 fun SummeryScreen(
     summeryList: List<SummeryDetailsUIState> = emptyList(),
     isVideo: Boolean = false,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    onNavigate: () -> Unit = {}
 ) {
     FlowRow(
         modifier = Modifier
@@ -56,7 +57,9 @@ fun SummeryScreen(
                 chapterDescription = it.chapterDescription,
                 piedPrice = it.piedPrice,
                 isVideo = isVideo,
-                onClick = onClick
+                onBuy = onClick,
+                isBuy = it.isBuy,
+                onNavigate = onNavigate
             )
         }
     }
@@ -68,26 +71,31 @@ fun SummeryItems(
     chapterDescription: String,
     piedPrice: String,
     isVideo: Boolean,
-    onClick: () -> Unit
+    isBuy: Boolean,
+    onBuy: () -> Unit,
+    onNavigate: () -> Unit
 ) {
 
-    Box(modifier = Modifier.padding(horizontal = 10.dp)){
+    Box(modifier = Modifier
+        .padding(horizontal = 10.dp)
+        .noRippleEffect { onNavigate() }) {
         Column(
             modifier = Modifier
                 .background(
                     color = Theme.colors.secondary,
                     shape = RoundedCornerShape(16.dp)
                 )
-                .wrapContentSize()
+                .fillMaxWidth(.47f)
+                .wrapContentHeight()
                 .padding(8.dp)
         ) {
             Image(
                 painter = painterResource(id = if (isVideo) R.drawable.ic_video else R.drawable.ic_document),
                 contentDescription = "",
                 modifier = Modifier
-                    .fillMaxWidth(.4f)
-                    .wrapContentHeight()
-                    .padding(vertical = 8.dp, horizontal = 16.dp)
+                    .fillMaxWidth(.9f)
+                    .fillMaxHeight(.9f)
+                    .padding(vertical = 8.dp, horizontal = 4.dp)
             )
 
             Text(
@@ -102,43 +110,45 @@ fun SummeryItems(
                 color = Theme.colors.secondaryShadesDark,
             )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(.45f)
-                    .padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
+            if (!isBuy) {
+                Row(
                     modifier = Modifier
-                        .background(
-                            color = Theme.colors.card,
-                            shape = CircleShape
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .noRippleEffect { onClick() }
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (piedPrice.isNotEmpty()) {
-                        Text(
-                            text = "Download",
-                            style = Theme.typography.labelMedium,
-                            color = Theme.colors.primary,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_cart),
-                            contentDescription = null,
-                            tint = Theme.colors.primary
-                        )
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                color = Theme.colors.card,
+                                shape = CircleShape
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .noRippleEffect { onBuy() }
+                    ) {
+                        if (piedPrice.isNotEmpty()) {
+                            Text(
+                                text = stringResource(id = R.string.download_title),
+                                style = Theme.typography.labelMedium,
+                                color = Theme.colors.primary,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                            )
+                        } else {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_cart),
+                                contentDescription = null,
+                                tint = Theme.colors.primary
+                            )
+                        }
                     }
-                }
 
-                Text(
-                    text = piedPrice.ifEmpty { "Free" },
-                    style = Theme.typography.bodyLarge,
-                    color = if (piedPrice.isEmpty()) Green else Red
-                )
+                    Text(
+                        text = piedPrice.ifEmpty { stringResource(id = R.string.free) },
+                        style = Theme.typography.bodyLarge,
+                        color = if (piedPrice.isEmpty()) Green else Red
+                    )
+                }
             }
         }
     }
@@ -194,11 +204,13 @@ fun MeetingItem(
                 color = Theme.colors.primaryShadesDark,
             )
 
-            Text(
-                text = meeting.price + "$",
-                style = Theme.typography.titleSmall,
-                color = Theme.colors.primaryShadesDark,
-            )
+            if (meeting.price != "") {
+                Text(
+                    text = meeting.price + "$",
+                    style = Theme.typography.titleSmall,
+                    color = Theme.colors.primaryShadesDark,
+                )
+            }
         }
 
         Text(

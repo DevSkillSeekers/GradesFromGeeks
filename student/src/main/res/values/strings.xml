@@ -63,6 +63,7 @@
     <string name="videos">Video</string>
     <string name="meetings">Meetings</string>
     <string name="schedule_one_to_one">Schedule one to one Meeting</string>
+    <string name="free">Free</string>
 
 
 </resources>

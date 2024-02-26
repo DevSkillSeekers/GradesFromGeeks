@@ -4,7 +4,6 @@ import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.Summaries
-import com.solutionteam.mindfulmentor.ui.home.MeetingUiState
 
 data class MentorUIState(
     val isLoading: Boolean = false,
@@ -34,6 +33,7 @@ data class SummeryDetailsUIState(
     val chapterNumber: String = "",
     val chapterDescription: String = "",
     val piedPrice: String = "",
+    val isBuy: Boolean = false
 )
 
 data class MeetingUIState(
@@ -67,7 +67,8 @@ fun Summaries.toUIState(): SummeryDetailsUIState {
     return SummeryDetailsUIState(
         chapterNumber = chapterNumber,
         chapterDescription = chapterDescription,
-        piedPrice = piedPrice
+        piedPrice = piedPrice,
+        isBuy = isBuy
     )
 }
 

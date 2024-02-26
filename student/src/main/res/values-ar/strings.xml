@@ -61,6 +61,8 @@
     <string name="videos">فيديوات</string>
     <string name="meetings">اجتماعات</string>
     <string name="schedule_one_to_one">حدد موعدًا لاجتماع واحد</string>
+    <string name="free">مجاني</string>
+
 
 </resources>
 
