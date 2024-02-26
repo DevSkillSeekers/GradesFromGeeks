@@ -2,11 +2,13 @@ package com.solutionteam.mindfulmentor.data.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.solutionteam.mindfulmentor.data.entity.Date
+import com.solutionteam.mindfulmentor.data.entity.Download
 import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
@@ -61,105 +63,189 @@ class MindfulMentorRepositoryImp(
     override suspend fun getSearch(keyword: String,limit:Int): SearchResult {
         return  if (keyword.isNotEmpty()) {
             val result = SearchResult(
-                    universities = getUniversities().filter { it.name.contains(keyword, ignoreCase = true) },
-                    mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
-                    subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
+                universities = getUniversities().filter {
+                    it.name.contains(
+                        keyword,
+                        ignoreCase = true
+                    )
+                },
+                mentors = getMentors().filter { it.name.contains(keyword, ignoreCase = true) },
+                subject = getSubject().filter { it.name.contains(keyword, ignoreCase = true) }
             )
-             result
+            result
         } else {
             SearchResult()
         }
+    }
+
+    override suspend fun getDownloadDetails(id: String): Download {
+        return Download(
+            summariesNumber = "10",
+            videoNumber = "8",
+            meetingNumber = "16",
+            subjects = getSubject(),
+            summaries = getSummaries(),
+            meeting = getMeeting(),
+            video = getVideos()
+        )
     }
 
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()
     }
 
+    override suspend fun getMentorDetails(id: String): Mentor {
+        return generatorMentor().find { it.id == id } ?: throw Exception("empty details")
+    }
+
+    override suspend fun getSummaries(): List<Summaries> {
+        return listOf(
+            Summaries(
+                chapterNumber = "Chapter 1",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "",
+                isBuy = false
+            ),
+            Summaries(
+                chapterNumber = "Chapter 2",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "",
+                isBuy = true
+            ),
+            Summaries(
+                chapterNumber = "Chapter 3",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "10$",
+                isBuy = true
+            ),
+            Summaries(
+                chapterNumber = "Chapter 4",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "",
+                isBuy = false
+            ),
+            Summaries(
+                chapterNumber = "Chapter 5",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "5$",
+                isBuy = false
+            ),
+        )
+    }
+
+    override suspend fun getVideos(): List<Summaries> {
+        return listOf(
+            Summaries(
+                chapterNumber = "Chapter 1",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "10$",
+                isBuy = false
+            ),
+            Summaries(
+                chapterNumber = "Chapter 5",
+                chapterDescription = "11 page (pdf)",
+                piedPrice = "5$",
+                isBuy = true
+            ),
+            Summaries(
+                chapterNumber = "Chapter 11",
+                chapterDescription = "3 page (pdf)",
+                piedPrice = "",
+                isBuy = false
+            )
+        )
+    }
+
+    override suspend fun getMeeting(): List<Meeting> {
+        return generateMeeting()
+    }
+
     override suspend fun getSubject(): List<Subject> {
         return generateSubjects()
     }
 
+    override suspend fun getSubjectById(id: String): Subject {
+        return getSubject().find { it.id == id } ?: throw Exception("empty subject")
+    }
+
     override suspend fun getNotifications(): List<Notification> {
         return listOf(
-                Notification(
-                        id = 1,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "12 sec",
-                        type = NotificationType.MEETING_ACCEPTED,
-                        viewed = true,
-                        subjectId = 1,
-                ),
-                Notification(
-                        id = 2,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 3,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
-                        subjectId = 3
-                ),
-                Notification(
-                        id = 4,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 min ago",
-                        type = NotificationType.NEW_SUMMARY,
-                        viewed = false,
-                        subjectId = 4
-                ),
-                Notification(
-                        id = 5,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 6,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 7,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 8,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 9,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
+            Notification(
+                id = 1,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "12 sec",
+                type = NotificationType.MEETING_ACCEPTED,
+                viewed = true,
+                subjectId = 1,
+            ),
+            Notification(
+                id = 2,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 3,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
+                subjectId = 3
+            ),
+            Notification(
+                id = 4,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 min ago",
+                type = NotificationType.NEW_SUMMARY,
+                viewed = false,
+                subjectId = 4
+            ),
+            Notification(
+                id = 5,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 6,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 7, ownerId = 5, mentorName = "Amnah.a", timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 8,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 9,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
                         subjectId = 3
                 ),
         )
@@ -169,8 +255,13 @@ class MindfulMentorRepositoryImp(
         return generateUniversities()
     }
 
-    override  fun getUniversitiesNames(): List<String> {
+    override fun getUniversitiesNames(): List<String> {
         return generateUniversitiesNames()
+    }
+
+    override suspend fun getUniversityById(id: String): University {
+        return generateUniversities().find { it.id == id }
+            ?: throw Exception("empty university details")
     }
 
     override suspend fun getUpComingMeetings(): List<Meeting> {
@@ -224,6 +315,11 @@ class MindfulMentorRepositoryImp(
                     imageUrl = getProfileImage(),
                     rate = (0..10).random().toDouble(),
                     numberReviewers = (1..500).random(),
+                    summaries = 20 + i,
+                    videos = 5 + i,
+                    meeting = 19 +i,
+                    subjects = generateSubjects(),
+                    university = "University $i"
                 )
             )
         }
@@ -243,20 +339,81 @@ class MindfulMentorRepositoryImp(
 
     private fun generateSubjects(): List<Subject> {
         return listOf(
-            Subject(id = "1", name = "Design Pattern"),
-            Subject(id = "2", name = "Data Structures"),
-            Subject(id = "3", name = "Algorithms"),
-            Subject(id = "4", name = "Software Engineering"),
-            Subject(id = "5", name = "Database Systems"),
-            Subject(id = "6", name = "Web Development"),
-            Subject(id = "7", name = "Mobile App Development"),
-            Subject(id = "8", name = "Artificial Intelligence"),
-            Subject(id = "9", name = "Machine Learning"),
-            Subject(id = "10", name = "Computer Networks")
+            Subject(
+                id = "1",
+                name = "Design Pattern",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1", "3", "5")
+            ), Subject(
+                id = "2",
+                name = "Data Structures",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1", "6", "2")
+            ), Subject(
+                id = "3",
+                name = "Algorithms",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("4","2","1")
+            ), Subject(
+                id = "4",
+                name = "Software Engineering",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "5",
+                name = "Database Systems",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","8")
+            ), Subject(
+                id = "6",
+                name = "Web Development",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "7",
+                name = "Mobile App Development",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors =listOf("1","3","5")
+            ), Subject(
+                id = "8",
+                name = "Artificial Intelligence",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "9",
+                name = "Machine Learning",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("4","1","3","5")
+            ), Subject(
+                id = "10",
+                name = "Computer Networks",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("3","1","3","5")
+            )
         )
     }
 
-    private fun generateUniversities(): List<University> {
+    private suspend fun generateUniversities(): List<University> {
         val list = mutableListOf<University>()
         for (i in 0..10) {
             list.add(
@@ -264,7 +421,12 @@ class MindfulMentorRepositoryImp(
                     id = "$i",
                     name = "First Last$i",
                     imageUrl = getImage(),
-                    address = "Seattle, Washington"
+                    address = "Seattle, Washington",
+                    mentorNumber = "5",
+                    summaryNumber = "15",
+                    videoNumber = "1$i",
+                    subjects = getSubject(),
+                    mentors = getMentors()
                 )
             )
         }
@@ -328,8 +490,10 @@ class MindfulMentorRepositoryImp(
                     id = "$i",
                     mentor = mentors[mentorIndex],
                     subject = subject[subjectIndex].name,
-                    notes = "This meet to recap data structure from ch2 to ch 5",
-                    time = System.currentTimeMillis() + i * (30 * 60 * 1000)
+                    notes = "This meet to recap data structure from ch$i to ch ${i + 3}",
+                    time = System.currentTimeMillis() + i * (30 * 60 * 1000),
+                    isBook = i % 2 == 0,
+                    price = if (i % 2 == 0) "" else "1$i"
                 )
             )
         }

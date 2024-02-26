@@ -1,15 +1,22 @@
 package com.solutionteam.mindfulmentor.ui.subject
 
+import android.util.Log
+import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
+import com.solutionteam.mindfulmentor.ui.home.toSubjectUiState
+import com.solutionteam.mindfulmentor.ui.home.toUiState
 import kotlinx.coroutines.delay
 
 class SubjectViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    val id: String,
+    private val ggRepository: MindfulMentorRepository
 ) : BaseViewModel<SubjectUIState, SubjectUIEffect>(SubjectUIState()) {
 
     init {
+        Log.i("lllllllllll", id)
         onMakeRequest()
+        getMentors()
     }
 
     private fun onMakeRequest() {
@@ -18,20 +25,32 @@ class SubjectViewModel(
         tryToExecute(
             {
                 delay(1000)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
+                ggRepository.getSubjectById(id)
             },
-            { onSuccess() },
+            ::onSuccess,
             ::onError
         )
     }
 
+    private fun getMentors() {
+        tryToExecute(
+            {
+                ggRepository.getMentors()
+            },
+            { mentors ->
+                updateState { it.copy(subjectMentors = mentors.toUiState()) }
+            },
+            ::onError
+        )
+    }
 
-    private fun onSuccess() {
+    private fun onSuccess(subject: Subject) {
         updateState {
             it.copy(
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
+                subjectDetails = subject.toSubjectUiState(),
             )
         }
     }

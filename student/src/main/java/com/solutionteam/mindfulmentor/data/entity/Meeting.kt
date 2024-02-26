@@ -6,4 +6,6 @@ data class Meeting(
     val time: Long,
     val subject: String,
     val notes: String,
+    val isBook: Boolean,
+    val price: String
 )

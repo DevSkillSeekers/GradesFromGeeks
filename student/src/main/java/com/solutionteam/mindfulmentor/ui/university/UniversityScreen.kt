@@ -34,16 +34,17 @@ import com.solutionteam.design_system.components.GGTitleWithSeeAll
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun UniversityScreen(
-    viewModel: UniversityViewModel = koinViewModel(),
+    id: String,
+    viewModel: UniversityViewModel = koinViewModel(parameters = { parametersOf(id) }),
     onNavigateTo: (UniversityUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -58,7 +59,7 @@ fun UniversityScreen(
         state = state,
         onBack = navigateBack,
         navigateToSeeAll = { onNavigateTo(UniversityUIEffect.NavigateToSeeAll) },
-        navigateToMentorProfile = { onNavigateTo(UniversityUIEffect.NavigateToMentorProfile) }
+        navigateToMentorProfile = { onNavigateTo(UniversityUIEffect.NavigateToMentorProfile(it)) }
     )
 
     val color = Theme.colors.primary
@@ -93,7 +94,7 @@ private fun UniversityContent(
     state: UniversityUIState,
     onBack: () -> Unit,
     navigateToSeeAll:() -> Unit,
-    navigateToMentorProfile: () -> Unit
+    navigateToMentorProfile: (String) -> Unit
 ) {
 
     Scaffold { padding ->
@@ -126,7 +127,7 @@ private fun UniversityContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQANtG6UPPvIwDcLr4wpV4pt3ixtkv8eHjlKg&usqp=CAU",
+                        imageUrl = state.universityDetails.universityImageUrl,
                         onBack = onBack
                     )
 
@@ -144,15 +145,15 @@ private fun UniversityContent(
 
                     ) {
                         Text(
-                            text = "Harvard University",
+                            text = state.universityDetails.universityName,
                             style = Theme.typography.titleMedium,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(16.dp)
                         )
 
                         Text(
-                            text = "86 Brattle Street Cambridge, MA 02138",
-                            style = Theme.typography. labelLarge,
+                            text = state.universityDetails.universityDescription,
+                            style = Theme.typography.labelLarge,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(horizontal = 24.dp),
                             overflow = TextOverflow.Ellipsis,
@@ -178,14 +179,24 @@ private fun UniversityContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("10", "Mentors"),
-                                ContentCountUIState("20", "Summaries"),
-                                ContentCountUIState("30", "Videos")
+                                ContentCountUIState(
+                                    state.universityDetails.mentorNumber,
+                                    stringResource(id = R.string.mentors)
+                                ),
+                                ContentCountUIState(
+                                    state.universityDetails.summaryNumber,
+                                    stringResource(id = R.string.summaries)
+                                ),
+                                ContentCountUIState(
+                                    state.universityDetails.videoNumber,
+                                    stringResource(id = R.string.videos)
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         SubjectComposable(
-                            modifier = Modifier.padding(top= 16.dp)
+                            modifier = Modifier.padding(top= 16.dp),
+                            subjectList = state.universityDetails.subjectList
                         )
                         GGTitleWithSeeAll(
                             modifier = Modifier
@@ -196,7 +207,7 @@ private fun UniversityContent(
                             onClick = navigateToSeeAll
                         )
 
-                        mentor.forEach {
+                        state.universityDetails.mentorList.forEach {
                             GGMentor(
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)
@@ -205,7 +216,7 @@ private fun UniversityContent(
                                 rate = it.rate,
                                 numberReviewers = it.numberReviewers,
                                 profileUrl = it.imageUrl,
-                                onClick = navigateToMentorProfile
+                                onClick = { navigateToMentorProfile(it.id) }
                             )
 
                         }
@@ -216,28 +227,3 @@ private fun UniversityContent(
         }
     }
 }
-
-
-private val mentor = listOf(
-    Mentor(
-        id = "1",
-        name = "First Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "2",
-        name = "Second Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    ),
-    Mentor(
-        id = "3",
-        name = "Third Mentor",
-        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
-        rate = 4.5,
-        numberReviewers = 500,
-    )
-)

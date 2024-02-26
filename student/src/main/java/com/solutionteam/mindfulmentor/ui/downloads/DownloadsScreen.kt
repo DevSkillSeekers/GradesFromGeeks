@@ -90,7 +90,7 @@ private fun DownloadContent(
                 .background(Theme.colors.background)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
 
             if (state.isLoading) {
@@ -102,19 +102,33 @@ private fun DownloadContent(
                         .padding(top = 16.dp)
                 ) {
                     ContentCountCard(
-                        contentCountList = listOf(
-                            ContentCountUIState("10", "Mentors"),
-                            ContentCountUIState("20", "Summaries"),
-                            ContentCountUIState("30", "Videos")
-                        ),
+                        contentCountList = contentCountList(state.downloadDetails),
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
-                    SubjectComposable()
+
+                    SubjectComposable(subjectList = state.downloadDetails.subjectList)
+
                     GGTabBar(
                         tabs = listOf(
-                            "Summaries" to { SummeryScreen(onClick = onNavigateToPDFReader) },
-                            "Video" to { SummeryScreen(onClick = onNavigateToPDFReader) },
-                            "Meeting" to { MeetingScreen(onClickMeeting = onNavigateToReviewScreen) }
+                            stringResource(id = R.string.summaries) to {
+                                SummeryScreen(
+                                    onClick = onNavigateToPDFReader,
+                                    summeryList = state.downloadDetails.summaryList
+                                )
+                            },
+                            stringResource(id = R.string.videos) to {
+                                SummeryScreen(
+                                    onNavigate = onNavigateToReviewScreen,
+                                    summeryList = state.downloadDetails.videoList,
+                                    isVideo = true,
+                                )
+                            },
+                            stringResource(id = R.string.meetings) to {
+                                MeetingScreen(
+                                    onClickMeeting = {},
+                                    meetingList = state.downloadDetails.meetingList
+                                )
+                            }
                         )
                     )
                 }
@@ -122,3 +136,19 @@ private fun DownloadContent(
         }
     }
 }
+
+@Composable
+private fun contentCountList(state: DownloadDetailsUIState) = listOf(
+    ContentCountUIState(
+        state.summaryNumber,
+        stringResource(id = R.string.summaries)
+    ),
+    ContentCountUIState(
+        state.videoNumber,
+        stringResource(id = R.string.videos)
+    ),
+    ContentCountUIState(
+        state.meetingNumber,
+        stringResource(id = R.string.meetings)
+    )
+)

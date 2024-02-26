@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -31,6 +32,7 @@ import com.solutionteam.design_system.components.GGTabBar
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MeetingScreen
@@ -40,10 +42,12 @@ import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MentorScreen(
-    viewModel: MentorViewModel = koinViewModel(),
+    id: String,
+    viewModel: MentorViewModel =  koinViewModel(parameters = { parametersOf(id) }),
     onNavigateTo: (MentorUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -87,7 +91,8 @@ private fun onEffect(effect: MentorUIEffect?, context: Context) {
 
 @Composable
 private fun MentorContent(
-    state: MentorUIState, onBack: () -> Unit,
+    state: MentorUIState,
+    onBack: () -> Unit,
     navigateToScheduleMeeting: () -> Unit
 ) {
 
@@ -121,18 +126,20 @@ private fun MentorContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
+                        imageUrl = state.mentorDetailsUIState.imageUrl,
                         onBack = onBack
                     )
 
-                    MentorProfileDetails(modifier = Modifier
-                        .fillMaxWidth()
-                        .constrainAs(profileDetails) {
-                            top.linkTo(imageWithShadow.top, margin = 50.dp)
-                            start.linkTo(imageWithShadow.start, margin = 50.dp)
-                            end.linkTo(imageWithShadow.end)
-                            bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
-                        })
+                    MentorProfileDetails(
+                        state = state.mentorDetailsUIState,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .constrainAs(profileDetails) {
+                                top.linkTo(imageWithShadow.top, margin = 50.dp)
+                                start.linkTo(imageWithShadow.start, margin = 50.dp)
+                                end.linkTo(imageWithShadow.end)
+                                bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
+                            })
 
                     Column(
                         modifier = Modifier
@@ -152,15 +159,25 @@ private fun MentorContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("20", "Summaries"),
-                                ContentCountUIState("30", "Videos"),
-                                ContentCountUIState("10", "Meetings")
+                                ContentCountUIState(
+                                    state.mentorDetailsUIState.summaries.toString(),
+                                    stringResource(id = R.string.summaries)
+
+                                ),
+                                ContentCountUIState(
+                                    "${state.mentorDetailsUIState.videos}",
+                                    stringResource(id = R.string.videos)
+                                ),
+                                ContentCountUIState(
+                                    "${state.mentorDetailsUIState.meeting}",
+                                    stringResource(id = R.string.meetings)
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
 
                         Text(
-                            text = "Schedule one to one Meeting",
+                            text = stringResource(id = R.string.schedule_one_to_one),
                             color = Theme.colors.secondary,
                             textAlign = TextAlign.Center,
                             style = Theme.typography.titleSmall,
@@ -174,12 +191,27 @@ private fun MentorContent(
                                 .noRippleEffect(navigateToScheduleMeeting),
                         )
 
-                        SubjectComposable()
+                        SubjectComposable(
+                            subjectList = state.mentorDetailsUIState.subjects
+                        )
                         GGTabBar(
                             tabs = listOf(
-                                "Summaries" to { SummeryScreen() },
-                                "Video" to { SummeryScreen() },
-                                "Meeting" to { MeetingScreen() }
+                                stringResource(id = R.string.summaries) to {
+                                    SummeryScreen(
+                                        summeryList = state.mentorSummariseList
+                                    )
+                                },
+                                stringResource(id = R.string.videos) to {
+                                    SummeryScreen(
+                                        summeryList = state.mentorSummariseList,
+                                        isVideo = true
+                                    )
+                                },
+                                stringResource(id = R.string.meetings) to {
+                                    MeetingScreen(
+                                        meetingList = state.mentorMeetingList
+                                    )
+                                }
                             ),
                         )
                     }
