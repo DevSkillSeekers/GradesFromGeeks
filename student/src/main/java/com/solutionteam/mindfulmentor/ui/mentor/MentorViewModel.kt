@@ -1,7 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.mentor
 
-import android.util.Log
 import com.solutionteam.mindfulmentor.data.entity.Mentor
+import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
@@ -12,13 +12,13 @@ class MentorViewModel(
 ) : BaseViewModel<MentorUIState, MentorUIEffect>(MentorUIState()) {
 
     init {
-        Log.i("llllllllllll", id)
         getDataOfMentor()
     }
 
     private fun getDataOfMentor() {
         updateState { it.copy(isLoading = true) }
         onGetMentorDetails()
+        getSummariesOfMentor()
     }
 
     private fun onGetMentorDetails() {
@@ -32,7 +32,6 @@ class MentorViewModel(
         )
     }
 
-
     private fun onGetMentorDetailsSuccess(mentor: Mentor) {
         updateState {
             it.copy(
@@ -43,6 +42,25 @@ class MentorViewModel(
             )
         }
     }
+
+    private fun getSummariesOfMentor() {
+        tryToExecute(
+            {
+                ggRepository.getSummaries()
+            },
+            ::onGetSummariseSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetSummariseSuccess(summaries: List<Summaries>) {
+        updateState {
+            it.copy(
+                mentorSummariseList = summaries.toListUIState()
+            )
+        }
+    }
+
 
     private fun onError() {
         updateState {

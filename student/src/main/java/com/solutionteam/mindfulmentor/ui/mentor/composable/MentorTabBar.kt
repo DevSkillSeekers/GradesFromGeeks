@@ -33,7 +33,11 @@ import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SummeryScreen(onClick: () -> Unit = {}) {
+fun SummeryScreen(
+    summeryList: List<SummeryDetailsUIState> = emptyList(),
+    isVideo: Boolean = false,
+    onClick: () -> Unit = {}
+) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,11 +47,12 @@ fun SummeryScreen(onClick: () -> Unit = {}) {
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
-        fakeSummeryList.forEach {
+        summeryList.forEach {
             SummeryItems(
                 chapterNumber = it.chapterNumber,
                 chapterDescription = it.chapterDescription,
                 piedPrice = it.piedPrice,
+                isVideo = isVideo,
                 onClick = onClick
             )
         }
@@ -59,6 +64,7 @@ fun SummeryItems(
     chapterNumber: String,
     chapterDescription: String,
     piedPrice: String,
+    isVideo: Boolean,
     onClick: () -> Unit
 ) {
     Column(
@@ -71,10 +77,11 @@ fun SummeryItems(
             .padding(8.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_document),
+            painter = painterResource(id = if (isVideo) R.drawable.ic_video else R.drawable.ic_document),
             contentDescription = "",
             modifier = Modifier
-                .wrapContentSize()
+                .fillMaxWidth(.4f)
+                .wrapContentHeight()
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         )
 

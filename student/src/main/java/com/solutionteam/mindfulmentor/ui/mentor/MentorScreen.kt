@@ -193,8 +193,17 @@ private fun MentorContent(
                         )
                         GGTabBar(
                             tabs = listOf(
-                                "Summaries" to { SummeryScreen() },
-                                "Video" to { SummeryScreen() },
+                                "Summaries" to {
+                                    SummeryScreen(
+                                        summeryList = state.mentorSummariseList
+                                    )
+                                },
+                                "Video" to {
+                                    SummeryScreen(
+                                        summeryList = state.mentorSummariseList,
+                                        isVideo = true
+                                    )
+                                },
                                 "Meeting" to { MeetingScreen() }
                             ),
                         )

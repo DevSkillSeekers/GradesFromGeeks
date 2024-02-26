@@ -7,6 +7,7 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.entity.University
 import kotlinx.coroutines.flow.Flow
 import com.solutionteam.mindfulmentor.ui.profile.Language
@@ -20,8 +21,8 @@ interface MindfulMentorRepository {
 
     //region Mentor
     suspend fun getMentors(): List<Mentor>
-
     suspend fun getMentorDetails(id: String): Mentor
+    suspend fun getSummaries(): List<Summaries>
 
     //endregion
 

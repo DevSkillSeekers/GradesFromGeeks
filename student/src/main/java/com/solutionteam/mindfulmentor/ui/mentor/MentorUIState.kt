@@ -2,12 +2,14 @@ package com.solutionteam.mindfulmentor.ui.mentor
 
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.data.entity.Summaries
 
 data class MentorUIState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
     val mentorDetailsUIState: MentorDetailsUIState = MentorDetailsUIState(),
+    val mentorSummariseList: List<SummeryDetailsUIState> = emptyList()
 )
 
 
@@ -25,9 +27,9 @@ data class MentorDetailsUIState(
 )
 
 data class SummeryDetailsUIState(
-    val chapterNumber: String,
-    val chapterDescription: String,
-    val piedPrice: String,
+    val chapterNumber: String = "",
+    val chapterDescription: String = "",
+    val piedPrice: String = "",
 )
 
 fun Mentor.toUIState(): MentorDetailsUIState {
@@ -41,5 +43,15 @@ fun Mentor.toUIState(): MentorDetailsUIState {
         meeting = meeting,
         subjects = subjects,
         university = university
+    )
+}
+
+fun List<Summaries>.toListUIState() = map { it.toUIState() }
+
+fun Summaries.toUIState(): SummeryDetailsUIState {
+    return SummeryDetailsUIState(
+        chapterNumber = chapterNumber,
+        chapterDescription = chapterDescription,
+        piedPrice = piedPrice
     )
 }

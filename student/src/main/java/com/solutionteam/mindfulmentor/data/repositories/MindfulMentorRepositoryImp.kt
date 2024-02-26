@@ -7,11 +7,13 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Notification
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.data.entity.Subject
+import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
+import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
@@ -79,15 +81,61 @@ class MindfulMentorRepositoryImp(
         return generatorMentor().find { it.id == id } ?: throw Exception("empty details")
     }
 
+    override suspend fun getSummaries(): List<Summaries> {
+        return listOf(
+            Summaries(
+                chapterNumber = "Chapter 1",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = ""
+            ),
+            Summaries(
+                chapterNumber = "Chapter 2",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = ""
+            ),
+            Summaries(
+                chapterNumber = "Chapter 3",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "10$"
+            ),
+            Summaries(
+                chapterNumber = "Chapter 4",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = ""
+            ),
+            Summaries(
+                chapterNumber = "Chapter 5",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "5$"
+            ),
+            Summaries(
+                chapterNumber = "Chapter 6",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = ""
+            ),
+            Summaries(
+                chapterNumber = "Chapter 7",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = "10$"
+            ),
+            Summaries(
+                chapterNumber = "Chapter 8",
+                chapterDescription = "15 page (pdf)",
+                piedPrice = ""
+            ),
+
+        )
+    }
+
     override suspend fun getSubject(): List<Subject> {
         return generateSubjects()
     }
 
     override suspend fun getNotifications(): List<Notification> {
         return listOf(
-                Notification(
-                        id = 1,
-                        ownerId = 3,
+            Notification(
+                id = 1,
+                ownerId = 3,
                         mentorName = "Nada Feteiha",
                         timeCreated = "12 sec",
                         type = NotificationType.MEETING_ACCEPTED,
