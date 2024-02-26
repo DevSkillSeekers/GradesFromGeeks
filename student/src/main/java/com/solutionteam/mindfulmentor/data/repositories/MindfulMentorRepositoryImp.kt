@@ -13,7 +13,6 @@ import com.solutionteam.mindfulmentor.data.source.BaseRepository
 import com.solutionteam.mindfulmentor.data.source.local.UserPreferences
 import com.solutionteam.mindfulmentor.data.source.local.database.MindfulMentorDao
 import com.solutionteam.mindfulmentor.data.source.remote.service.GeminiApi
-import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
 import com.solutionteam.mindfulmentor.ui.notification.NotificationType
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.flow.Flow
@@ -108,23 +107,31 @@ class MindfulMentorRepositoryImp(
                 chapterDescription = "15 page (pdf)",
                 piedPrice = "5$"
             ),
+        )
+    }
+
+    override suspend fun getVideos(): List<Summaries> {
+        return listOf(
             Summaries(
-                chapterNumber = "Chapter 6",
-                chapterDescription = "15 page (pdf)",
-                piedPrice = ""
-            ),
-            Summaries(
-                chapterNumber = "Chapter 7",
+                chapterNumber = "Chapter 1",
                 chapterDescription = "15 page (pdf)",
                 piedPrice = "10$"
             ),
             Summaries(
-                chapterNumber = "Chapter 8",
-                chapterDescription = "15 page (pdf)",
-                piedPrice = ""
+                chapterNumber = "Chapter 5",
+                chapterDescription = "11 page (pdf)",
+                piedPrice = "5$"
             ),
-
+            Summaries(
+                chapterNumber = "Chapter 11",
+                chapterDescription = "3 page (pdf)",
+                piedPrice = ""
+            )
         )
+    }
+
+    override suspend fun getMeeting(): List<Meeting> {
+        return generateMeeting()
     }
 
     override suspend fun getSubject(): List<Subject> {
@@ -277,7 +284,7 @@ class MindfulMentorRepositoryImp(
                     rate = (0..10).random().toDouble(),
                     numberReviewers = (1..500).random(),
                     summaries = 20 + i,
-                    videos = 5 +i,
+                    videos = 5 + i,
                     meeting = 19 +i,
                     subjects = generateSubjects(),
                     university = "University $i"
@@ -385,8 +392,10 @@ class MindfulMentorRepositoryImp(
                     id = "$i",
                     mentor = mentors[mentorIndex],
                     subject = subject[subjectIndex].name,
-                    notes = "This meet to recap data structure from ch2 to ch 5",
-                    time = System.currentTimeMillis() + i * (30 * 60 * 1000)
+                    notes = "This meet to recap data structure from ch$i to ch ${i + 3}",
+                    time = System.currentTimeMillis() + i * (30 * 60 * 1000),
+                    isBook = i % 2 == 0,
+                    price = if (i % 2 == 0) "" else "1$i"
                 )
             )
         }

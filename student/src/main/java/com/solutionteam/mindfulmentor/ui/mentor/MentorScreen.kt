@@ -204,7 +204,7 @@ private fun MentorContent(
                                         isVideo = true
                                     )
                                 },
-                                "Meeting" to { MeetingScreen() }
+                                "Meeting" to { MeetingScreen(meetingList = state.mentorMeetingList) }
                             ),
                         )
                     }

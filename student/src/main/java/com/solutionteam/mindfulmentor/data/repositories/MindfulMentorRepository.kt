@@ -23,6 +23,9 @@ interface MindfulMentorRepository {
     suspend fun getMentors(): List<Mentor>
     suspend fun getMentorDetails(id: String): Mentor
     suspend fun getSummaries(): List<Summaries>
+    suspend fun getVideos() : List<Summaries>
+
+    suspend fun getMeeting(): List<Meeting>
 
     //endregion
 

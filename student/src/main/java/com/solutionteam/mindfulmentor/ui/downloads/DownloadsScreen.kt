@@ -117,7 +117,12 @@ private fun DownloadContent(
                         tabs = listOf(
                             "Summaries" to { SummeryScreen(onClick = onNavigateToPDFReader) },
                             "Video" to { SummeryScreen(onClick = onNavigateToPDFReader) },
-                            "Meeting" to { MeetingScreen(onClickMeeting = onNavigateToReviewScreen) }
+                            "Meeting" to {
+                                MeetingScreen(
+                                    onClickMeeting = onNavigateToReviewScreen,
+                                    meetingList = emptyList()
+                                )
+                            }
                         )
                     )
                 }

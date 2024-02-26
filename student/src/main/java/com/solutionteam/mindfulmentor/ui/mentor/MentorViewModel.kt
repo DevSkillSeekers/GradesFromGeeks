@@ -1,5 +1,6 @@
 package com.solutionteam.mindfulmentor.ui.mentor
 
+import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Summaries
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
@@ -19,6 +20,8 @@ class MentorViewModel(
         updateState { it.copy(isLoading = true) }
         onGetMentorDetails()
         getSummariesOfMentor()
+        getVideosOfMentor()
+        getMeetingOfMentor()
     }
 
     private fun onGetMentorDetails() {
@@ -45,9 +48,7 @@ class MentorViewModel(
 
     private fun getSummariesOfMentor() {
         tryToExecute(
-            {
-                ggRepository.getSummaries()
-            },
+            ggRepository::getSummaries,
             ::onGetSummariseSuccess,
             ::onError
         )
@@ -57,6 +58,38 @@ class MentorViewModel(
         updateState {
             it.copy(
                 mentorSummariseList = summaries.toListUIState()
+            )
+        }
+    }
+
+    private fun getVideosOfMentor() {
+        tryToExecute(
+            ggRepository::getVideos,
+            ::onGetVideoSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetVideoSuccess(video: List<Summaries>) {
+        updateState {
+            it.copy(
+                mentorVideoList = video.toListUIState()
+            )
+        }
+    }
+
+    private fun getMeetingOfMentor() {
+        tryToExecute(
+            ggRepository::getMeeting,
+            ::onGetMeetingSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetMeetingSuccess(meeting: List<Meeting>) {
+        updateState {
+            it.copy(
+                mentorMeetingList = meeting.filter { item -> !item.isBook }.toMeetingListUIState()
             )
         }
     }

@@ -28,7 +28,9 @@ import com.solutionteam.design_system.theme.Green
 import com.solutionteam.design_system.theme.Red
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.mentor.MeetingUIState
 import com.solutionteam.mindfulmentor.ui.mentor.SummeryDetailsUIState
+import com.solutionteam.mindfulmentor.utils.formatTimestamp
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -45,8 +47,9 @@ fun SummeryScreen(
             .background(color = Theme.colors.background),
         maxItemsInEachRow = 2,
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
+        horizontalArrangement = Arrangement.Start,
     ) {
+
         summeryList.forEach {
             SummeryItems(
                 chapterNumber = it.chapterNumber,
@@ -67,153 +70,85 @@ fun SummeryItems(
     isVideo: Boolean,
     onClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .background(
-                color = Theme.colors.secondary,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .wrapContentSize()
-            .padding(8.dp)
-    ) {
-        Image(
-            painter = painterResource(id = if (isVideo) R.drawable.ic_video else R.drawable.ic_document),
-            contentDescription = "",
+
+    Box(modifier = Modifier.padding(horizontal = 10.dp)){
+        Column(
             modifier = Modifier
-                .fillMaxWidth(.4f)
-                .wrapContentHeight()
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        )
-
-        Text(
-            text = chapterNumber,
-            style = Theme.typography.bodyLarge,
-            color = Theme.colors.primaryShadesDark,
-        )
-
-        Text(
-            text = chapterDescription,
-            style = Theme.typography.labelLarge,
-            color = Theme.colors.secondaryShadesDark,
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(.45f)
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .background(
+                    color = Theme.colors.secondary,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .wrapContentSize()
+                .padding(8.dp)
         ) {
-            Box(
+            Image(
+                painter = painterResource(id = if (isVideo) R.drawable.ic_video else R.drawable.ic_document),
+                contentDescription = "",
                 modifier = Modifier
-                    .background(
-                        color = Theme.colors.card,
-                        shape = CircleShape
-                    )
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .noRippleEffect { onClick() }
-            ) {
-                if (piedPrice.isNotEmpty()) {
-                    Text(
-                        text = "Download",
-                        style = Theme.typography.labelMedium,
-                        color = Theme.colors.primary,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_cart),
-                        contentDescription = null,
-                        tint = Theme.colors.primary
-                    )
-                }
-            }
+                    .fillMaxWidth(.4f)
+                    .wrapContentHeight()
+                    .padding(vertical = 8.dp, horizontal = 16.dp)
+            )
 
             Text(
-                text = piedPrice.ifEmpty { "Free" },
+                text = chapterNumber,
                 style = Theme.typography.bodyLarge,
-                color = if (piedPrice.isEmpty()) Green else Red
+                color = Theme.colors.primaryShadesDark,
             )
+
+            Text(
+                text = chapterDescription,
+                style = Theme.typography.labelLarge,
+                color = Theme.colors.secondaryShadesDark,
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(.45f)
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = Theme.colors.card,
+                            shape = CircleShape
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .noRippleEffect { onClick() }
+                ) {
+                    if (piedPrice.isNotEmpty()) {
+                        Text(
+                            text = "Download",
+                            style = Theme.typography.labelMedium,
+                            color = Theme.colors.primary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_cart),
+                            contentDescription = null,
+                            tint = Theme.colors.primary
+                        )
+                    }
+                }
+
+                Text(
+                    text = piedPrice.ifEmpty { "Free" },
+                    style = Theme.typography.bodyLarge,
+                    color = if (piedPrice.isEmpty()) Green else Red
+                )
+            }
         }
     }
 }
 
 
-val fakeSummeryList = listOf(
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 1",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 2",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 3",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "10$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 4",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 5",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "5$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 6",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 3",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "10$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 4",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 5",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "5$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 6",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 3",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "10$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 4",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 5",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = "5$"
-    ),
-    SummeryDetailsUIState(
-        chapterNumber = "Chapter 6",
-        chapterDescription = "15 page (pdf)",
-        piedPrice = ""
-    ),
-)
 
 @Composable
 fun MeetingScreen(
+    meetingList: List<MeetingUIState>,
     onClickMeeting: () -> Unit = {}
 ) {
     Column(
@@ -222,14 +157,18 @@ fun MeetingScreen(
             .fillMaxHeight()
             .background(color = Theme.colors.background),
     ) {
-        fakeSummeryList.forEach { _ ->
-            MeetingItem(onClickMeeting)
+        meetingList.forEach { meeting ->
+            MeetingItem(
+                meeting = meeting,
+                onClickMeeting
+            )
         }
     }
 }
 
 @Composable
 fun MeetingItem(
+    meeting: MeetingUIState,
     onClickMeeting: () -> Unit
 ) {
     Column(
@@ -250,37 +189,39 @@ fun MeetingItem(
                 .padding(8.dp)
         ) {
             Text(
-                text = "OOP Cracking",
+                text = meeting.subject,
                 style = Theme.typography.titleSmall,
                 color = Theme.colors.primaryShadesDark,
             )
 
             Text(
-                text = "30$",
+                text = meeting.price + "$",
                 style = Theme.typography.titleSmall,
                 color = Theme.colors.primaryShadesDark,
             )
         }
 
         Text(
-            text = "Thr 25 May in 10 :23 PM",
+            text = meeting.time.formatTimestamp(),
             style = Theme.typography.labelLarge,
             color = Theme.colors.primaryShadesDark,
             modifier = Modifier.padding(8.dp)
         )
 
         Text(
-            text = "This meet to recap oop structure from ch2 to ch 5",
+            text = meeting.notes,
             style = Theme.typography.labelLarge,
             color = Theme.colors.secondaryShadesDark,
             modifier = Modifier.padding(8.dp)
         )
 
-        GGButton(
-            title = "Book now", onClick = onClickMeeting, modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-        )
+        if (!meeting.isBook) {
+            GGButton(
+                title = "Book now", onClick = onClickMeeting, modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            )
+        }
     }
 }
 

@@ -1,15 +1,19 @@
 package com.solutionteam.mindfulmentor.ui.mentor
 
+import com.solutionteam.mindfulmentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.Summaries
+import com.solutionteam.mindfulmentor.ui.home.MeetingUiState
 
 data class MentorUIState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
     val mentorDetailsUIState: MentorDetailsUIState = MentorDetailsUIState(),
-    val mentorSummariseList: List<SummeryDetailsUIState> = emptyList()
+    val mentorSummariseList: List<SummeryDetailsUIState> = emptyList(),
+    val mentorVideoList: List<SummeryDetailsUIState> = emptyList(),
+    val mentorMeetingList: List<MeetingUIState> = emptyList()
 )
 
 
@@ -32,6 +36,16 @@ data class SummeryDetailsUIState(
     val piedPrice: String = "",
 )
 
+data class MeetingUIState(
+    val id: String = "",
+    val mentor: MentorDetailsUIState = MentorDetailsUIState(),
+    val time: Long = 0L,
+    val subject: String = "",
+    val notes: String = "",
+    val isBook: Boolean = false,
+    val price: String = ""
+)
+
 fun Mentor.toUIState(): MentorDetailsUIState {
     return MentorDetailsUIState(
         id = id,
@@ -42,7 +56,8 @@ fun Mentor.toUIState(): MentorDetailsUIState {
         summaries = summaries,
         meeting = meeting,
         subjects = subjects,
-        university = university
+        university = university,
+        videos = videos
     )
 }
 
@@ -53,5 +68,19 @@ fun Summaries.toUIState(): SummeryDetailsUIState {
         chapterNumber = chapterNumber,
         chapterDescription = chapterDescription,
         piedPrice = piedPrice
+    )
+}
+
+fun List<Meeting>.toMeetingListUIState() = map { it.toUIState() }
+
+fun Meeting.toUIState(): MeetingUIState {
+    return MeetingUIState(
+        id = id,
+        mentor = mentor.toUIState(),
+        subject = subject,
+        time = time,
+        notes = notes,
+        isBook = isBook,
+        price = price
     )
 }
