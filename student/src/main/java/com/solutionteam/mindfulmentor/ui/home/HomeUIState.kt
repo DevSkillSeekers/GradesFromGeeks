@@ -28,7 +28,11 @@ data class MentorUiState(
 
 data class SubjectDetailsUiState(
     val id: String = "",
-    val name: String = ""
+    val name: String = "",
+    val mentorNumber: String = "",
+    val summaryNumber: String = "",
+    val videoNumber: String = "",
+    val mentors: List<String> = emptyList()
 )
 
 
@@ -66,7 +70,14 @@ fun Mentor.toUiState() = MentorUiState(
 
 fun List<Mentor>.toUiState() = map { it.toUiState() }
 
-fun Subject.toSubjectUiState() = SubjectDetailsUiState(id, name)
+fun Subject.toSubjectUiState() = SubjectDetailsUiState(
+    id = id,
+    name = name,
+    mentorNumber = mentorNumber,
+    summaryNumber = summaryNumber,
+    videoNumber = videoNumber,
+    mentors = mentors
+)
 
 fun List<Subject>.toSubjectUiState() = map { it.toSubjectUiState() }
 

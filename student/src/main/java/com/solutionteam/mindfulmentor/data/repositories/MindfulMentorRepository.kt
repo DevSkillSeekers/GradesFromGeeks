@@ -39,6 +39,7 @@ interface MindfulMentorRepository {
 
     //region Subject
     suspend fun getSubject(): List<Subject>
+    suspend fun getSubjectById(id: String) : Subject
 
     //endregion
 

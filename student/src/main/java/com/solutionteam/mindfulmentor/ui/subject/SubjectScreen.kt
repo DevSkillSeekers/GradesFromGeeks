@@ -145,7 +145,7 @@ private fun UniversityContent(
 
                     ) {
                         Text(
-                            text = "Data Structure",
+                            text = state.subjectDetails.name,
                             style = Theme.typography.titleMedium,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(horizontal = 16.dp)
@@ -170,9 +170,18 @@ private fun UniversityContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("10", stringResource(id = R.string.mentors)),
-                                ContentCountUIState("20", stringResource(id = R.string.summaries)),
-                                ContentCountUIState("30", stringResource(id = R.string.videos))
+                                ContentCountUIState(
+                                    state.subjectDetails.mentorNumber,
+                                    stringResource(id = R.string.mentors)
+                                ),
+                                ContentCountUIState(
+                                    state.subjectDetails.summaryNumber,
+                                    stringResource(id = R.string.summaries)
+                                ),
+                                ContentCountUIState(
+                                    state.subjectDetails.videoNumber,
+                                    stringResource(id = R.string.videos)
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
@@ -184,7 +193,7 @@ private fun UniversityContent(
                             onClick = navigateToSeeAll
                         )
 
-                        mentor.forEach {
+                        state.subjectMentors.forEach {
                             GGMentor(
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)

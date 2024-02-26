@@ -34,11 +34,9 @@ import com.solutionteam.design_system.components.GGTitleWithSeeAll
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
-import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
-import com.solutionteam.mindfulmentor.ui.mentor.composable.subjectList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf

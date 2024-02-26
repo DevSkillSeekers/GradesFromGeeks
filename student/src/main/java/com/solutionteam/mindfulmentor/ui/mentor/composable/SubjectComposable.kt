@@ -53,11 +53,3 @@ fun SubjectComposable(
     }
 
 }
-
-val subjectList = listOf(
-    Subject(id = "1", "OOP"),
-    Subject(id = "2", "Design System"),
-    Subject(id = "3",  "Kotlin"),
-    Subject(id = "4", "Java"),
-    Subject(id = "5", "C++"),
-)

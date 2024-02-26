@@ -164,87 +164,88 @@ class MindfulMentorRepositoryImp(
         return generateSubjects()
     }
 
+    override suspend fun getSubjectById(id: String): Subject {
+        return getSubject().find { it.id == id } ?: throw Exception("empty subject")
+    }
+
     override suspend fun getNotifications(): List<Notification> {
         return listOf(
             Notification(
                 id = 1,
                 ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "12 sec",
-                        type = NotificationType.MEETING_ACCEPTED,
-                        viewed = true,
-                        subjectId = 1,
-                ),
-                Notification(
-                        id = 2,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 3,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
-                        subjectId = 3
-                ),
-                Notification(
-                        id = 4,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 min ago",
-                        type = NotificationType.NEW_SUMMARY,
-                        viewed = false,
-                        subjectId = 4
-                ),
-                Notification(
-                        id = 5,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 6,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 7,
-                        ownerId = 5,
-                        mentorName = "Amnah.a",
-                        timeCreated = "56 sec",
-                        type = NotificationType.NEW_VIDEO,
-                        viewed = true,
-                        subjectId = 5
-                ),
-                Notification(
-                        id = 8,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.UPCOMING_MEETING,
-                        viewed = false,
-                        subjectId = 2
-                ),
-                Notification(
-                        id = 9,
-                        ownerId = 3,
-                        mentorName = "Nada Feteiha",
-                        timeCreated = "1 hr ago",
-                        type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
-                        viewed = false,
+                mentorName = "Nada Feteiha",
+                timeCreated = "12 sec",
+                type = NotificationType.MEETING_ACCEPTED,
+                viewed = true,
+                subjectId = 1,
+            ),
+            Notification(
+                id = 2,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 3,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
+                subjectId = 3
+            ),
+            Notification(
+                id = 4,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 min ago",
+                type = NotificationType.NEW_SUMMARY,
+                viewed = false,
+                subjectId = 4
+            ),
+            Notification(
+                id = 5,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 6,
+                ownerId = 5,
+                mentorName = "Amnah.a",
+                timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 7, ownerId = 5, mentorName = "Amnah.a", timeCreated = "56 sec",
+                type = NotificationType.NEW_VIDEO,
+                viewed = true,
+                subjectId = 5
+            ),
+            Notification(
+                id = 8,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.UPCOMING_MEETING,
+                viewed = false,
+                subjectId = 2
+            ),
+            Notification(
+                id = 9,
+                ownerId = 3,
+                mentorName = "Nada Feteiha",
+                timeCreated = "1 hr ago",
+                type = NotificationType.NEW_SCHEDULE_MEETING_GROUP,
+                viewed = false,
                         subjectId = 3
                 ),
         )
@@ -338,16 +339,77 @@ class MindfulMentorRepositoryImp(
 
     private fun generateSubjects(): List<Subject> {
         return listOf(
-            Subject(id = "1", name = "Design Pattern"),
-            Subject(id = "2", name = "Data Structures"),
-            Subject(id = "3", name = "Algorithms"),
-            Subject(id = "4", name = "Software Engineering"),
-            Subject(id = "5", name = "Database Systems"),
-            Subject(id = "6", name = "Web Development"),
-            Subject(id = "7", name = "Mobile App Development"),
-            Subject(id = "8", name = "Artificial Intelligence"),
-            Subject(id = "9", name = "Machine Learning"),
-            Subject(id = "10", name = "Computer Networks")
+            Subject(
+                id = "1",
+                name = "Design Pattern",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1", "3", "5")
+            ), Subject(
+                id = "2",
+                name = "Data Structures",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1", "6", "2")
+            ), Subject(
+                id = "3",
+                name = "Algorithms",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("4","2","1")
+            ), Subject(
+                id = "4",
+                name = "Software Engineering",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "5",
+                name = "Database Systems",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","8")
+            ), Subject(
+                id = "6",
+                name = "Web Development",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "7",
+                name = "Mobile App Development",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors =listOf("1","3","5")
+            ), Subject(
+                id = "8",
+                name = "Artificial Intelligence",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("1","3","5")
+            ), Subject(
+                id = "9",
+                name = "Machine Learning",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("4","1","3","5")
+            ), Subject(
+                id = "10",
+                name = "Computer Networks",
+                mentorNumber = "4",
+                summaryNumber = "10",
+                videoNumber = "8",
+                mentors = listOf("3","1","3","5")
+            )
         )
     }
 
