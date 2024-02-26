@@ -56,7 +56,7 @@ fun SearchScreen(
     SearchContent(
             state = state,
             onSearchValueChanged = viewModel::onSearchTextChange,
-            onClickUniversity = { navigateTo(SearchUIEffect.NavigateToUniversityProfile) },
+            onClickUniversity = { navigateTo(SearchUIEffect.NavigateToUniversityProfile(it)) },
             onClickMentor = { navigateTo(SearchUIEffect.NavigateToMentorProfile(it))},
             onClickSeeAllUniversities = { navigateTo(SearchUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
             onClickSeeAllPeople = { navigateTo(SearchUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },

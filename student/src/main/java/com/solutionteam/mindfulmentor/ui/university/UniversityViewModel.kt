@@ -1,14 +1,17 @@
 package com.solutionteam.mindfulmentor.ui.university
 
+import android.util.Log
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
 class UniversityViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    private val id : String,
+    private val ggRepository: MindfulMentorRepository
 ) : BaseViewModel<UniversityUIState, UniversityUIEffect>(UniversityUIState()) {
 
     init {
+        Log.i("lllllllllll", id)
         onMakeRequest()
     }
 

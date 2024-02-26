@@ -55,7 +55,7 @@ fun HomeScreen(
         onNavigateToChatBot = { navigateTo(HomeUIEffect.NavigateToChatBooks) },
         onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile(it)) },
         onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
-        onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
+        onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile(it)) },
         onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
         onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) },
         onNavigateToNotification = { navigateTo(HomeUIEffect.NavigateToNotification) },
@@ -91,12 +91,12 @@ private fun HomeContent(
     onNavigateToChatBot: () -> Unit,
     onNavigateToMentorProfile: (String) -> Unit,
     onNavigateToSubjectScreen: () -> Unit,
-    onNavigateToUniversityProfile: () -> Unit,
+    onNavigateToUniversityProfile: (String) -> Unit,
     onNavigateToSeeALLUniversities: () -> Unit,
     onNavigateToSeeALLSubjects: () -> Unit,
     onNavigateToNotification: () -> Unit,
 
-) {
+    ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -206,7 +206,7 @@ private fun HomeContent(
                             name = university.name,
                             address = university.address,
                             imageUrl = university.imageUrl,
-                            onClick = onNavigateToUniversityProfile
+                            onClick = { onNavigateToUniversityProfile(university.id) }
                         )
                     }
                 }
