@@ -38,6 +38,7 @@ import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
+import com.solutionteam.mindfulmentor.ui.mentor.composable.subjectList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -185,7 +186,8 @@ private fun UniversityContent(
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
                         SubjectComposable(
-                            modifier = Modifier.padding(top= 16.dp)
+                            modifier = Modifier.padding(top= 16.dp),
+                            subjectList = subjectList
                         )
                         GGTitleWithSeeAll(
                             modifier = Modifier
@@ -225,6 +227,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -232,6 +239,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "3",
@@ -239,5 +251,10 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     )
 )

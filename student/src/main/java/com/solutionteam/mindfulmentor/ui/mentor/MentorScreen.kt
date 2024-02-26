@@ -89,7 +89,8 @@ private fun onEffect(effect: MentorUIEffect?, context: Context) {
 
 @Composable
 private fun MentorContent(
-    state: MentorUIState, onBack: () -> Unit,
+    state: MentorUIState,
+    onBack: () -> Unit,
     navigateToScheduleMeeting: () -> Unit
 ) {
 
@@ -123,18 +124,20 @@ private fun MentorContent(
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             },
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
+                        imageUrl = state.mentorDetailsUIState.imageUrl,
                         onBack = onBack
                     )
 
-                    MentorProfileDetails(modifier = Modifier
-                        .fillMaxWidth()
-                        .constrainAs(profileDetails) {
-                            top.linkTo(imageWithShadow.top, margin = 50.dp)
-                            start.linkTo(imageWithShadow.start, margin = 50.dp)
-                            end.linkTo(imageWithShadow.end)
-                            bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
-                        })
+                    MentorProfileDetails(
+                        state = state.mentorDetailsUIState,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .constrainAs(profileDetails) {
+                                top.linkTo(imageWithShadow.top, margin = 50.dp)
+                                start.linkTo(imageWithShadow.start, margin = 50.dp)
+                                end.linkTo(imageWithShadow.end)
+                                bottom.linkTo(imageWithShadow.bottom, margin = 24.dp)
+                            })
 
                     Column(
                         modifier = Modifier
@@ -154,9 +157,18 @@ private fun MentorContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("20", "Summaries"),
-                                ContentCountUIState("30", "Videos"),
-                                ContentCountUIState("10", "Meetings")
+                                ContentCountUIState(
+                                    state.mentorDetailsUIState.summaries.toString(),
+                                    "Summaries"
+                                ),
+                                ContentCountUIState(
+                                    "${state.mentorDetailsUIState.videos}",
+                                    "Videos"
+                                ),
+                                ContentCountUIState(
+                                    "${state.mentorDetailsUIState.meeting}",
+                                    "Meetings"
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
@@ -176,7 +188,9 @@ private fun MentorContent(
                                 .noRippleEffect(navigateToScheduleMeeting),
                         )
 
-                        SubjectComposable()
+                        SubjectComposable(
+                            subjectList = state.mentorDetailsUIState.subjects
+                        )
                         GGTabBar(
                             tabs = listOf(
                                 "Summaries" to { SummeryScreen() },

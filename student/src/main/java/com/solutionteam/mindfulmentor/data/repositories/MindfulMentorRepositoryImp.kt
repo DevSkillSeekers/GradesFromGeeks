@@ -75,6 +75,10 @@ class MindfulMentorRepositoryImp(
         return generatorMentor()
     }
 
+    override suspend fun getMentorDetails(id: String): Mentor {
+        return generatorMentor().find { it.id == id } ?: throw Exception("empty details")
+    }
+
     override suspend fun getSubject(): List<Subject> {
         return generateSubjects()
     }
@@ -224,6 +228,11 @@ class MindfulMentorRepositoryImp(
                     imageUrl = getProfileImage(),
                     rate = (0..10).random().toDouble(),
                     numberReviewers = (1..500).random(),
+                    summaries = 20 + i,
+                    videos = 5 +i,
+                    meeting = 19 +i,
+                    subjects = generateSubjects(),
+                    university = "University $i"
                 )
             )
         }

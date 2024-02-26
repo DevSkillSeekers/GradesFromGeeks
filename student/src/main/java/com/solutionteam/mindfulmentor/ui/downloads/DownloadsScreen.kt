@@ -29,6 +29,7 @@ import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MeetingScreen
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SubjectComposable
 import com.solutionteam.mindfulmentor.ui.mentor.composable.SummeryScreen
+import com.solutionteam.mindfulmentor.ui.mentor.composable.subjectList
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -109,7 +110,9 @@ private fun DownloadContent(
                         ),
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
-                    SubjectComposable()
+                    SubjectComposable(
+                       subjectList =  subjectList
+                    )
                     GGTabBar(
                         tabs = listOf(
                             "Summaries" to { SummeryScreen(onClick = onNavigateToPDFReader) },

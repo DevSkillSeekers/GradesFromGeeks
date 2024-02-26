@@ -21,6 +21,8 @@ interface MindfulMentorRepository {
     //region Mentor
     suspend fun getMentors(): List<Mentor>
 
+    suspend fun getMentorDetails(id: String): Mentor
+
     //endregion
 
 

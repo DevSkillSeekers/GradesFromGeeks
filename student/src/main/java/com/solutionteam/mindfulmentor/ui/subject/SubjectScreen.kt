@@ -211,6 +211,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -218,6 +223,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 30,
+        videos = 20,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "Second University"
     ),
     Mentor(
         id = "3",
@@ -225,6 +235,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "Third University"
     ),
     Mentor(
         id = "2",
@@ -232,6 +247,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -239,6 +259,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "3",
@@ -246,6 +271,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -253,5 +283,10 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     )
 )
