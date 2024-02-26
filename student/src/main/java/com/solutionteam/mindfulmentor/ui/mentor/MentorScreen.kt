@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -31,6 +32,7 @@ import com.solutionteam.design_system.components.GGTabBar
 import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.modifier.noRippleEffect
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ContentCountCard
 import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowComponent
 import com.solutionteam.mindfulmentor.ui.mentor.composable.MeetingScreen
@@ -159,22 +161,23 @@ private fun MentorContent(
                             contentCountList = listOf(
                                 ContentCountUIState(
                                     state.mentorDetailsUIState.summaries.toString(),
-                                    "Summaries"
+                                    stringResource(id = R.string.summaries)
+
                                 ),
                                 ContentCountUIState(
                                     "${state.mentorDetailsUIState.videos}",
-                                    "Videos"
+                                    stringResource(id = R.string.videos)
                                 ),
                                 ContentCountUIState(
                                     "${state.mentorDetailsUIState.meeting}",
-                                    "Meetings"
+                                    stringResource(id = R.string.meetings)
                                 )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
 
                         Text(
-                            text = "Schedule one to one Meeting",
+                            text = stringResource(id = R.string.schedule_one_to_one),
                             color = Theme.colors.secondary,
                             textAlign = TextAlign.Center,
                             style = Theme.typography.titleSmall,
@@ -193,18 +196,22 @@ private fun MentorContent(
                         )
                         GGTabBar(
                             tabs = listOf(
-                                "Summaries" to {
+                                stringResource(id = R.string.summaries) to {
                                     SummeryScreen(
                                         summeryList = state.mentorSummariseList
                                     )
                                 },
-                                "Video" to {
+                                stringResource(id = R.string.videos) to {
                                     SummeryScreen(
                                         summeryList = state.mentorSummariseList,
                                         isVideo = true
                                     )
                                 },
-                                "Meeting" to { MeetingScreen(meetingList = state.mentorMeetingList) }
+                                stringResource(id = R.string.meetings) to {
+                                    MeetingScreen(
+                                        meetingList = state.mentorMeetingList
+                                    )
+                                }
                             ),
                         )
                     }

@@ -12,9 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.solutionteam.design_system.components.GGSubject
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.R
 import com.solutionteam.mindfulmentor.data.entity.Subject
 
 @Composable
@@ -28,7 +30,7 @@ fun SubjectComposable(
         modifier = modifier
     ) {
         Text(
-            text = "Subject",
+            text = stringResource(id = R.string.subjects),
             style = Theme.typography.titleSmall,
             color = Theme.colors.primaryShadesDark,
             modifier = Modifier.padding(horizontal = 16.dp)
@@ -36,7 +38,6 @@ fun SubjectComposable(
 
         LazyRow(
             contentPadding = PaddingValues(16.dp),
-            state = rememberLazyListState(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(subjectList) { subject ->

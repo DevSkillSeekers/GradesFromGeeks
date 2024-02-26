@@ -25,14 +25,6 @@ class DownloadsViewModel(
         )
     }
 
-    fun onClickMeeting(){
-        updateState { it.copy(showReviewBottomSheet = true) }
-    }
-
-    fun onDismissRequest(){
-        updateState { it.copy(showReviewBottomSheet = false) }
-    }
-
     private fun onSuccess() {
         updateState {
             it.copy(

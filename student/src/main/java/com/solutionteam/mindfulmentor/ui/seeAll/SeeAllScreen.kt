@@ -76,7 +76,7 @@ private fun SeeAllContent(
             .fillMaxSize()
             .background(Theme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
     ) {
 
         GGAppBar(

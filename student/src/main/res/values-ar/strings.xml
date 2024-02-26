@@ -55,5 +55,12 @@
     <!-- review section -->
     <string name="help">مساعدة</string>
     <string name="click_summarize">اضغط زر التلخيص للحصول على الشرح كنص.</string>
+
+    <!-- mentor section -->
+    <string name="summaries">ملخصات</string>
+    <string name="videos">فيديوات</string>
+    <string name="meetings">اجتماعات</string>
+    <string name="schedule_one_to_one">حدد موعدًا لاجتماع واحد</string>
+
 </resources>
 

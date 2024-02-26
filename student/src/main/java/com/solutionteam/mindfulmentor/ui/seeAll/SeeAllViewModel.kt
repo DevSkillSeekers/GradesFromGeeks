@@ -22,7 +22,7 @@ class SeeAllViewModel(
         when (state.value.type) {
             SeeAllType.Mentors -> getMentors()
             SeeAllType.Universities -> getUniversities()
-            SeeAllType.Subjects -> TODO()
+            SeeAllType.Subjects -> {}
         }
     }
 

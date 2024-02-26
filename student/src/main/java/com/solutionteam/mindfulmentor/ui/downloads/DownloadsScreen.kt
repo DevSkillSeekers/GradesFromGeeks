@@ -91,7 +91,7 @@ private fun DownloadContent(
                 .background(Theme.colors.background)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
 
             if (state.isLoading) {
@@ -104,9 +104,9 @@ private fun DownloadContent(
                 ) {
                     ContentCountCard(
                         contentCountList = listOf(
-                            ContentCountUIState("10", "Mentors"),
-                            ContentCountUIState("20", "Summaries"),
-                            ContentCountUIState("30", "Videos")
+                            ContentCountUIState("10", stringResource(id = R.string.mentors)),
+                            ContentCountUIState("20", stringResource(id = R.string.summaries)),
+                            ContentCountUIState("30", stringResource(id = R.string.videos))
                         ),
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
@@ -115,9 +115,9 @@ private fun DownloadContent(
                     )
                     GGTabBar(
                         tabs = listOf(
-                            "Summaries" to { SummeryScreen(onClick = onNavigateToPDFReader) },
-                            "Video" to { SummeryScreen(onClick = onNavigateToPDFReader) },
-                            "Meeting" to {
+                            stringResource(id = R.string.summaries) to { SummeryScreen(onClick = onNavigateToPDFReader) },
+                            stringResource(id = R.string.videos) to { SummeryScreen(onClick = onNavigateToPDFReader) },
+                            stringResource(id = R.string.meetings) to {
                                 MeetingScreen(
                                     onClickMeeting = onNavigateToReviewScreen,
                                     meetingList = emptyList()

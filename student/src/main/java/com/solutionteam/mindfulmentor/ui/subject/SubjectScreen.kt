@@ -168,9 +168,9 @@ private fun UniversityContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("10", "Mentors"),
-                                ContentCountUIState("20", "Summaries"),
-                                ContentCountUIState("30", "Videos")
+                                ContentCountUIState("10", stringResource(id = R.string.mentors)),
+                                ContentCountUIState("20", stringResource(id = R.string.summaries)),
+                                ContentCountUIState("30", stringResource(id = R.string.videos))
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
