@@ -115,8 +115,11 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                             .also(onNavigateTo)
                     }
 
-                    HomeUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
-                        .also(onNavigateTo)
+                    is HomeUIEffect.NavigateToSubject -> {
+                        Screen.Subject.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     HomeUIEffect.NavigateToNotification -> Screen.Notification.withClearBackStack()
                         .also(onNavigateTo)
@@ -182,8 +185,11 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
                             .also(onNavigateTo)
                     }
 
-                    SearchUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SearchUIEffect.NavigateToSubject -> {
+                        Screen.Subject.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     else -> {}
                 }
@@ -260,7 +266,11 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
                             .also(onNavigateTo)
                     }
 
-                    else -> {}
+                    SeeAllType.Subjects -> {
+                        Screen.Subject.args = bundleOf(Pair("id", id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
                 }
             },
             navigateBack = onNavigateBack
@@ -345,11 +355,16 @@ fun NavGraphBuilder.subjectNavGraph(
         route = Screen.Subject.route
     ) {
 
+        val value = Screen.Subject.args?.getString("id").toString()
         SubjectScreen(
+            id = value,
             onNavigateTo = {
                 when (it) {
-                    SubjectUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SubjectUIEffect.NavigateToMentorProfile -> {
+                        Screen.Mentor.args = bundleOf(Pair("type", it.id))
+                        Screen.Mentor.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     is SubjectUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))

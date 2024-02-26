@@ -39,10 +39,12 @@ import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowCompon
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun SubjectScreen(
-    viewModel: SubjectViewModel = koinViewModel(),
+    id: String,
+    viewModel: SubjectViewModel = koinViewModel(parameters = { parametersOf(id) }),
     onNavigateTo: (SubjectUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -57,7 +59,7 @@ fun SubjectScreen(
         state = state,
         onBack = navigateBack,
         navigateToSeeAll = { onNavigateTo(SubjectUIEffect.NavigateToSeeAll) },
-        navigateToMentorProfile = { onNavigateTo(SubjectUIEffect.NavigateToMentorProfile) }
+        navigateToMentorProfile = { onNavigateTo(SubjectUIEffect.NavigateToMentorProfile(it)) }
     )
 
     val color = Theme.colors.primary
@@ -92,7 +94,7 @@ private fun UniversityContent(
     state: SubjectUIState,
     onBack: () -> Unit,
     navigateToSeeAll: () -> Unit,
-    navigateToMentorProfile: () -> Unit
+    navigateToMentorProfile: (String) -> Unit
 ) {
 
     Scaffold { padding ->
@@ -191,7 +193,7 @@ private fun UniversityContent(
                                 rate = it.rate,
                                 numberReviewers = it.numberReviewers,
                                 profileUrl = it.imageUrl,
-                                onClick = navigateToMentorProfile
+                                onClick = { navigateToMentorProfile(it.id) }
                             )
 
                         }

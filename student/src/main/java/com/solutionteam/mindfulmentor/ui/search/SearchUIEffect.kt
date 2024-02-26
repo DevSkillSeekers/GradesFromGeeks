@@ -7,5 +7,5 @@ sealed interface SearchUIEffect {
     data class NavigateToSeeAll(val type: SeeAllType) : SearchUIEffect
     data class NavigateToMentorProfile (val id: String) : SearchUIEffect
     data class NavigateToUniversityProfile(val id: String) : SearchUIEffect
-    data object NavigateToSubject : SearchUIEffect
+    data class NavigateToSubject(val id: String) : SearchUIEffect
 }

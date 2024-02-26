@@ -54,7 +54,7 @@ fun HomeScreen(
         onNavigateToSeeAllMentors = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },
         onNavigateToChatBot = { navigateTo(HomeUIEffect.NavigateToChatBooks) },
         onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile(it)) },
-        onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
+        onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject(it)) },
         onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile(it)) },
         onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
         onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) },
@@ -90,7 +90,7 @@ private fun HomeContent(
     onNavigateToSeeAllMentors: () -> Unit,
     onNavigateToChatBot: () -> Unit,
     onNavigateToMentorProfile: (String) -> Unit,
-    onNavigateToSubjectScreen: () -> Unit,
+    onNavigateToSubjectScreen: (String) -> Unit,
     onNavigateToUniversityProfile: (String) -> Unit,
     onNavigateToSeeALLUniversities: () -> Unit,
     onNavigateToSeeALLSubjects: () -> Unit,
@@ -176,7 +176,7 @@ private fun HomeContent(
                         GGSubject(
                             modifier = Modifier.width(100.dp),
                             name = subject.name,
-                            onClick = onNavigateToSubjectScreen
+                            onClick = { onNavigateToSubjectScreen(subject.id) }
                         )
                     }
                 }

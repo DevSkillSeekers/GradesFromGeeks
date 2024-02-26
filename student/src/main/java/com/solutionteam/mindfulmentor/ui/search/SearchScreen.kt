@@ -60,7 +60,7 @@ fun SearchScreen(
             onClickMentor = { navigateTo(SearchUIEffect.NavigateToMentorProfile(it))},
             onClickSeeAllUniversities = { navigateTo(SearchUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
             onClickSeeAllPeople = { navigateTo(SearchUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },
-            onClickSubject = {navigateTo(SearchUIEffect.NavigateToSubject) },
+            onClickSubject = {navigateTo(SearchUIEffect.NavigateToSubject(it)) },
             onClickSeeAllSubject ={ navigateTo(SearchUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) }
     )
 
