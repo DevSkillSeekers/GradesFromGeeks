@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.FirebaseApp
 import com.solutionteam.design_system.theme.Theme
+import android.view.WindowManager.LayoutParams
 
 class MainActivity : ComponentActivity() {
 
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(this)
         super.onCreate(savedInstanceState)
+        window.setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE)
         installSplashScreen()
         setContent {
             Surface(
