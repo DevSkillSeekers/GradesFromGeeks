@@ -17,7 +17,6 @@ import com.solutionteam.mindfulmentor.ui.search.SearchViewModel
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllViewModel
 import com.solutionteam.mindfulmentor.ui.subject.SubjectViewModel
 import com.solutionteam.mindfulmentor.ui.university.UniversityViewModel
-import com.solutionteam.mindfulmentor.ui.video.VideoViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -37,7 +36,6 @@ val viewModelModule = module {
     viewModelOf(::UniversityViewModel)
     viewModelOf(::SubjectViewModel)
     viewModelOf(::IndividualMeetingViewModel)
-    viewModelOf(::VideoViewModel)
     viewModelOf(::NotificationsViewModel)
     viewModelOf(::PDFReaderViewModel)
     viewModelOf(::ReviewViewModel)

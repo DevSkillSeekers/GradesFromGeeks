@@ -38,7 +38,6 @@ import com.solutionteam.mindfulmentor.ui.subject.SubjectScreen
 import com.solutionteam.mindfulmentor.ui.subject.SubjectUIEffect
 import com.solutionteam.mindfulmentor.ui.university.UniversityScreen
 import com.solutionteam.mindfulmentor.ui.university.UniversityUIEffect
-import com.solutionteam.mindfulmentor.ui.video.VideoScreen
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -392,17 +391,6 @@ fun NavGraphBuilder.individualMeetingNavGraph(
         )
     }
 }
-
-fun NavGraphBuilder.videoNavGraph(onNavigateBack: () -> Unit) {
-    composable(
-        route = Screen.Video.route
-    ) {
-        VideoScreen(
-            navigateBack = onNavigateBack
-        )
-    }
-}
-
 
 fun NavGraphBuilder.pdvReaderNavGraph(onNavigateBack: () -> Unit) {
     composable(
