@@ -5,4 +5,8 @@
     <string name="join_after">"Join after..</string>
     <string name="subjects">Subjects</string>
 
+    <string name="services_text"><![CDATA[By continuing you argree Habeet’s Terms of Services & Privacy Policy]]></string>
+    <string name="services_text_link"><![CDATA[Terms of Services & Privacy Policy]]></string>
+    <string name="google_link" translatable="false">https://google.com</string>
+
 </resources>

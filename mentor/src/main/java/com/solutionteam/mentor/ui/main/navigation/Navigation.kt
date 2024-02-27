@@ -1,20 +1,21 @@
 package com.solutionteam.mentor.ui.main.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.solutionteam.mentor.ui.base.signUp.SignUpScreen
+import com.solutionteam.mentor.ui.auth.login.LoginScreen
+import com.solutionteam.mentor.ui.auth.signin.maininfo.SignInScreen
+import com.solutionteam.mentor.ui.auth.welcome.WelcomeScreen
+import com.solutionteam.mentor.ui.auth.welcome.WelcomeUiEffect
+import com.solutionteam.mentor.ui.home.HomeScreen
 import com.solutionteam.mentor.ui.main.MainScreen
 import com.solutionteam.mentor.ui.main.navigation.ext.navigateTo
 import com.solutionteam.mentor.ui.main.navigation.graph.MainNavGraph
-import com.solutionteam.mentor.ui.videos.VideosScreen
-import com.solutionteam.mentor.ui.home.HomeScreen
 import com.solutionteam.mentor.ui.profile.ProfileScreen
+import com.solutionteam.mentor.ui.videos.VideosScreen
 import com.solutionteam.mentor.ui.wallet.WalletScreen
 
 fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
@@ -74,7 +75,6 @@ fun NavGraphBuilder.walletScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
@@ -91,10 +91,44 @@ fun NavGraphBuilder.videosScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.signUpScreen(onNavigateTo: (Screen) -> Unit) {
+//region OnBoarding
+fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
-        route = Screen.SignUp.route
-    ) {
-        SignUpScreen()
+        route = Screen.Welcome.route
+    )
+    {
+        WelcomeScreen {
+            when (it) {
+                WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
+                    .also(onNavigateTo)
+
+                else -> {}
+            }
+        }
     }
 }
+
+fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Login.route
+    ) {
+        LoginScreen(
+            navigateTo = { Screen.Main.withClearBackStack().also(onNavigateToRoot) },
+            onNavigateBack = { onNavigateBack() }
+        )
+    }
+}
+
+fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.SignIn.route
+    ) {
+        SignInScreen(
+            navigateTo = {},
+            onNavigateBack = { onNavigateBack() }
+        )
+    }
+}
+
+//endregion

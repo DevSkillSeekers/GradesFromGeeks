@@ -26,7 +26,7 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
             firstTime?.let {
                 if (it) {
                     RootNavGraph(
-                        navController = navController, startDestination = Screen.SignUp
+                        navController = navController, startDestination = Screen.Welcome
                     )
                 } else {
                     RootNavGraph(navController = navController, startDestination = Screen.Main)

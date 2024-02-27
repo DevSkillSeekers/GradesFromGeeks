@@ -1,15 +1,15 @@
 package com.solutionteam.mentor.ui.main.navigation.graph
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solutionteam.mentor.ui.main.navigation.Screen
 import com.solutionteam.mentor.ui.main.navigation.ext.navigateTo
+import com.solutionteam.mentor.ui.main.navigation.loginNavGraph
 import com.solutionteam.mentor.ui.main.navigation.mainNavGraph
-import com.solutionteam.mentor.ui.main.navigation.signUpScreen
+import com.solutionteam.mentor.ui.main.navigation.signInScreen
+import com.solutionteam.mentor.ui.main.navigation.welcomeScreen
 
 @Composable
 fun RootNavGraph(
@@ -24,6 +24,15 @@ fun RootNavGraph(
         modifier = modifier,
     ) {
         mainNavGraph(onNavigateToRoot = navController::navigateTo)
-        signUpScreen(onNavigateTo = navController::navigateTo)
+
+        loginNavGraph(
+            onNavigateToRoot = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        welcomeScreen(onNavigateTo = navController::navigateTo)
+        signInScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
     }
 }
