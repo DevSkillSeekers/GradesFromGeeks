@@ -39,10 +39,12 @@ import com.solutionteam.mindfulmentor.ui.mentor.composable.ImageWithShadowCompon
 import com.solutionteam.mindfulmentor.ui.university.ContentCountUIState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun SubjectScreen(
-    viewModel: SubjectViewModel = koinViewModel(),
+    id: String,
+    viewModel: SubjectViewModel = koinViewModel(parameters = { parametersOf(id) }),
     onNavigateTo: (SubjectUIEffect) -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -57,7 +59,7 @@ fun SubjectScreen(
         state = state,
         onBack = navigateBack,
         navigateToSeeAll = { onNavigateTo(SubjectUIEffect.NavigateToSeeAll) },
-        navigateToMentorProfile = { onNavigateTo(SubjectUIEffect.NavigateToMentorProfile) }
+        navigateToMentorProfile = { onNavigateTo(SubjectUIEffect.NavigateToMentorProfile(it)) }
     )
 
     val color = Theme.colors.primary
@@ -92,7 +94,7 @@ private fun UniversityContent(
     state: SubjectUIState,
     onBack: () -> Unit,
     navigateToSeeAll: () -> Unit,
-    navigateToMentorProfile: () -> Unit
+    navigateToMentorProfile: (String) -> Unit
 ) {
 
     Scaffold { padding ->
@@ -143,7 +145,7 @@ private fun UniversityContent(
 
                     ) {
                         Text(
-                            text = "Data Structure",
+                            text = state.subjectDetails.name,
                             style = Theme.typography.titleMedium,
                             color = Theme.colors.background,
                             modifier = Modifier.padding(horizontal = 16.dp)
@@ -168,9 +170,18 @@ private fun UniversityContent(
 
                         ContentCountCard(
                             contentCountList = listOf(
-                                ContentCountUIState("10", "Mentors"),
-                                ContentCountUIState("20", "Summaries"),
-                                ContentCountUIState("30", "Videos")
+                                ContentCountUIState(
+                                    state.subjectDetails.mentorNumber,
+                                    stringResource(id = R.string.mentors)
+                                ),
+                                ContentCountUIState(
+                                    state.subjectDetails.summaryNumber,
+                                    stringResource(id = R.string.summaries)
+                                ),
+                                ContentCountUIState(
+                                    state.subjectDetails.videoNumber,
+                                    stringResource(id = R.string.videos)
+                                )
                             ),
                             modifier = Modifier.padding(horizontal = 24.dp)
                         )
@@ -182,7 +193,7 @@ private fun UniversityContent(
                             onClick = navigateToSeeAll
                         )
 
-                        mentor.forEach {
+                        state.subjectMentors.forEach {
                             GGMentor(
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)
@@ -191,7 +202,7 @@ private fun UniversityContent(
                                 rate = it.rate,
                                 numberReviewers = it.numberReviewers,
                                 profileUrl = it.imageUrl,
-                                onClick = navigateToMentorProfile
+                                onClick = { navigateToMentorProfile(it.id) }
                             )
 
                         }
@@ -211,6 +222,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -218,6 +234,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 30,
+        videos = 20,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "Second University"
     ),
     Mentor(
         id = "3",
@@ -225,6 +246,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "Third University"
     ),
     Mentor(
         id = "2",
@@ -232,6 +258,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -239,6 +270,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "3",
@@ -246,6 +282,11 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     ),
     Mentor(
         id = "2",
@@ -253,5 +294,10 @@ private val mentor = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p4wGt_hng5BeADmgd6lf0wPrY6aOssc3RA&usqp=CAU",
         rate = 4.5,
         numberReviewers = 500,
+        summaries = 20,
+        videos = 16,
+        meeting = 18,
+        subjects = emptyList(),
+        university = "First University"
     )
 )

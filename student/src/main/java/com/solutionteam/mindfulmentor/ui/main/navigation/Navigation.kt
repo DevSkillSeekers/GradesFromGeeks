@@ -98,19 +98,28 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.withClearBackStack()
                         .also(onNavigateTo)
 
-                    HomeUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
-                        .also(onNavigateTo)
+                    is HomeUIEffect.NavigateToMentorProfile -> {
+                        Screen.Mentor.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Mentor.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.withClearBackStack().also(onNavigateTo)
                     }
 
-                    HomeUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack()
-                        .also(onNavigateTo)
+                    is HomeUIEffect.NavigateToUniversityProfile -> {
+                        Screen.University.args = bundleOf(Pair("id", navigate.id))
+                        Screen.University.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
-                    HomeUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
-                        .also(onNavigateTo)
+                    is HomeUIEffect.NavigateToSubject -> {
+                        Screen.Subject.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     HomeUIEffect.NavigateToNotification -> Screen.Notification.withClearBackStack()
                         .also(onNavigateTo)
@@ -164,14 +173,23 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
                         Screen.SeeAll.withClearBackStack().also(onNavigateTo)
                     }
 
-                    SearchUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SearchUIEffect.NavigateToMentorProfile -> {
+                        Screen.Mentor.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Mentor.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
-                    SearchUIEffect.NavigateToUniversityProfile -> Screen.University.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SearchUIEffect.NavigateToUniversityProfile -> {
+                        Screen.University.args = bundleOf(Pair("id", navigate.id))
+                        Screen.University.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
-                    SearchUIEffect.NavigateToSubject -> Screen.Subject.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SearchUIEffect.NavigateToSubject -> {
+                        Screen.Subject.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     else -> {}
                 }
@@ -232,15 +250,27 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
         route = Screen.SeeAll.route
     ) {
         val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
+
         SeeAllScreen(
             type = value,
-            navigateTo = {
+            navigateTo = {id->
                 when (value) {
-                    SeeAllType.Mentors -> Screen.Mentor.withClearBackStack().also(onNavigateTo)
-                    SeeAllType.Universities -> Screen.University.withClearBackStack()
-                        .also(onNavigateTo)
+                    SeeAllType.Mentors -> {
+                        Screen.Mentor.args = bundleOf(Pair("id", id))
+                        Screen.Mentor.withClearBackStack().also(onNavigateTo)
+                    }
 
-                    else -> {}
+                    SeeAllType.Universities -> {
+                        Screen.University.args = bundleOf(Pair("id", id))
+                        Screen.University.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
+
+                    SeeAllType.Subjects -> {
+                        Screen.Subject.args = bundleOf(Pair("id", id))
+                        Screen.Subject.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
                 }
             },
             navigateBack = onNavigateBack
@@ -253,7 +283,9 @@ fun NavGraphBuilder.mentorNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigat
         route = Screen.Mentor.route
     ) {
 
+        val value = Screen.Mentor.args?.getString("id").toString()
         MentorScreen(
+            id = value,
             onNavigateTo = {
                 when (it) {
                     is MentorUIEffect.NavigateToScheduleMeeting -> {
@@ -276,11 +308,16 @@ fun NavGraphBuilder.universityNavGraph(
         route = Screen.University.route
     ) {
 
+        val value = Screen.University.args?.getString("id").toString()
         UniversityScreen(
+            id = value,
             onNavigateTo = {
                 when (it) {
-                    UniversityUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
-                        .also(onNavigateTo)
+                    is UniversityUIEffect.NavigateToMentorProfile -> {
+                        Screen.Mentor.args = bundleOf(Pair("id", it.id))
+                        Screen.Mentor.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     is UniversityUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))
@@ -318,11 +355,16 @@ fun NavGraphBuilder.subjectNavGraph(
         route = Screen.Subject.route
     ) {
 
+        val value = Screen.Subject.args?.getString("id").toString()
         SubjectScreen(
+            id = value,
             onNavigateTo = {
                 when (it) {
-                    SubjectUIEffect.NavigateToMentorProfile -> Screen.Mentor.withClearBackStack()
-                        .also(onNavigateTo)
+                    is SubjectUIEffect.NavigateToMentorProfile -> {
+                        Screen.Mentor.args = bundleOf(Pair("type", it.id))
+                        Screen.Mentor.withClearBackStack()
+                            .also(onNavigateTo)
+                    }
 
                     is SubjectUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", SeeAllType.Mentors.value))

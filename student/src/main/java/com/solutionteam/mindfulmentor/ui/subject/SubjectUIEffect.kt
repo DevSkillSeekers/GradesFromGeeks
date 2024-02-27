@@ -7,5 +7,5 @@ sealed interface SubjectUIEffect {
 
     data object NavigateToSeeAll : SubjectUIEffect
 
-    data object NavigateToMentorProfile : SubjectUIEffect
+    data class NavigateToMentorProfile(val id: String) : SubjectUIEffect
 }

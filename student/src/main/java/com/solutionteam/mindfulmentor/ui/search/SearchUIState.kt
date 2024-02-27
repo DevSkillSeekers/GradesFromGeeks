@@ -2,7 +2,7 @@ package com.solutionteam.mindfulmentor.ui.search
 
 import com.solutionteam.mindfulmentor.data.entity.SearchResult
 import com.solutionteam.mindfulmentor.ui.home.MentorUiState
-import com.solutionteam.mindfulmentor.ui.home.SubjectUiState
+import com.solutionteam.mindfulmentor.ui.home.SubjectDetailsUiState
 import com.solutionteam.mindfulmentor.ui.home.UniversityUiState
 import com.solutionteam.mindfulmentor.ui.home.toSubjectUiState
 import com.solutionteam.mindfulmentor.ui.home.toUiState
@@ -12,7 +12,7 @@ data class SearchUIState(
     val keyword: String = "",
     val universities: List<UniversityUiState> = emptyList(),
     val mentors: List<MentorUiState> = emptyList(),
-    val subjects: List<SubjectUiState> = emptyList(),
+    val subjects: List<SubjectDetailsUiState> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = ""
 )

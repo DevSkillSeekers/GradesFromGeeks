@@ -23,9 +23,11 @@ import coil.compose.rememberAsyncImagePainter
 import com.solutionteam.design_system.R
 import com.solutionteam.design_system.theme.Gold
 import com.solutionteam.design_system.theme.Theme
+import com.solutionteam.mindfulmentor.ui.mentor.MentorDetailsUIState
 
 @Composable
 fun MentorProfileDetails(
+    state: MentorDetailsUIState,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -34,7 +36,7 @@ fun MentorProfileDetails(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = rememberAsyncImagePainter(model = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGuH6Vo5XDGGvgriYJwqI9I8efWEOeVQrVTw&usqp=CAU"),
+            painter = rememberAsyncImagePainter(model = state.imageUrl),
             contentDescription = "image_profile_without_shadow",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -51,7 +53,7 @@ fun MentorProfileDetails(
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = "Amnah Ali",
+                text = state.name,
                 style = Theme.typography.titleLarge,
                 color = Theme.colors.background
             )
@@ -66,14 +68,14 @@ fun MentorProfileDetails(
                     tint = Gold
                 )
                 Text(
-                    text = "${10}/10  -  (${100000})",
+                    text = "${state.rate}/10  -  (${100000})",
                     style = Theme.typography.labelLarge,
                     color = Theme.colors.background
                 )
             }
 
             Text(
-                text = "Harvard University",
+                text = state.university,
                 style = Theme.typography.bodyMedium,
                 color = Theme.colors.background
             )

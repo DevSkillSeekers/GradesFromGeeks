@@ -7,13 +7,13 @@ sealed interface HomeUIEffect {
 
     data class NavigateToSeeAll(val type: SeeAllType) : HomeUIEffect
 
-    data object NavigateToMentorProfile : HomeUIEffect
-    data object NavigateToUniversityProfile : HomeUIEffect
+    data class NavigateToMentorProfile(val id: String) : HomeUIEffect
+    data class NavigateToUniversityProfile(val id: String) : HomeUIEffect
 
     data object NavigateToNotification : HomeUIEffect
 
     data object NavigateToChatBooks : HomeUIEffect
 
-    data object NavigateToSubject : HomeUIEffect
+    data class NavigateToSubject(val id: String) : HomeUIEffect
 
 }

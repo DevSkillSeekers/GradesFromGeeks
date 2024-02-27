@@ -1,44 +1,41 @@
 package com.solutionteam.mindfulmentor.ui.downloads
 
+import com.solutionteam.mindfulmentor.data.entity.Download
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
 class DownloadsViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    private val ggRepository: MindfulMentorRepository
 ) : BaseViewModel<DownloadsUIState, DownloadsUIEffect>(DownloadsUIState()) {
 
     init {
-        onMakeRequest()
+        getDataOfDownload()
     }
 
-    private fun onMakeRequest() {
+    private fun getDataOfDownload() {
         updateState { it.copy(isLoading = true) }
+        onGetDownloadDetails()
+    }
 
+    private fun onGetDownloadDetails() {
         tryToExecute(
             {
                 delay(1000)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
+                ggRepository.getDownloadDetails("1")
             },
-            { onSuccess() },
+            ::onSuccess,
             ::onError
         )
     }
 
-    fun onClickMeeting(){
-        updateState { it.copy(showReviewBottomSheet = true) }
-    }
-
-    fun onDismissRequest(){
-        updateState { it.copy(showReviewBottomSheet = false) }
-    }
-
-    private fun onSuccess() {
+    private fun onSuccess(download: Download) {
         updateState {
             it.copy(
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
+                downloadDetails = download.toUIState()
             )
         }
     }

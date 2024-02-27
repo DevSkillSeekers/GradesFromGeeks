@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import com.rizzi.bouquet.VerticalPDFReader
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
 fun PDFViewerScreen(
     viewModel: PDFReaderViewModel = koinViewModel(),
@@ -15,7 +16,6 @@ fun PDFViewerScreen(
         state = viewModel.pdfVerticalReaderState,
         modifier = Modifier.fillMaxSize()
     )
-
 }
 
 

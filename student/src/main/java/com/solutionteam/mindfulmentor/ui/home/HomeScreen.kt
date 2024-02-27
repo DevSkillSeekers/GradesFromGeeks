@@ -53,9 +53,9 @@ fun HomeScreen(
         state = state,
         onNavigateToSeeAllMentors = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) },
         onNavigateToChatBot = { navigateTo(HomeUIEffect.NavigateToChatBooks) },
-        onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile) },
-        onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject) },
-        onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile) },
+        onNavigateToMentorProfile = { navigateTo(HomeUIEffect.NavigateToMentorProfile(it)) },
+        onNavigateToSubjectScreen = { navigateTo(HomeUIEffect.NavigateToSubject(it)) },
+        onNavigateToUniversityProfile = { navigateTo(HomeUIEffect.NavigateToUniversityProfile(it)) },
         onNavigateToSeeALLUniversities = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) },
         onNavigateToSeeALLSubjects = { navigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Subjects)) },
         onNavigateToNotification = { navigateTo(HomeUIEffect.NavigateToNotification) },
@@ -89,14 +89,14 @@ private fun HomeContent(
     state: HomeUIState,
     onNavigateToSeeAllMentors: () -> Unit,
     onNavigateToChatBot: () -> Unit,
-    onNavigateToMentorProfile: () -> Unit,
-    onNavigateToSubjectScreen: () -> Unit,
-    onNavigateToUniversityProfile: () -> Unit,
+    onNavigateToMentorProfile: (String) -> Unit,
+    onNavigateToSubjectScreen: (String) -> Unit,
+    onNavigateToUniversityProfile: (String) -> Unit,
     onNavigateToSeeALLUniversities: () -> Unit,
     onNavigateToSeeALLSubjects: () -> Unit,
     onNavigateToNotification: () -> Unit,
 
-) {
+    ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -153,7 +153,7 @@ private fun HomeContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = onNavigateToMentorProfile
+                        onClick = { onNavigateToMentorProfile(mentor.id) }
                     )
                 }
 
@@ -176,7 +176,7 @@ private fun HomeContent(
                         GGSubject(
                             modifier = Modifier.width(100.dp),
                             name = subject.name,
-                            onClick = onNavigateToSubjectScreen
+                            onClick = { onNavigateToSubjectScreen(subject.id) }
                         )
                     }
                 }
@@ -206,7 +206,7 @@ private fun HomeContent(
                             name = university.name,
                             address = university.address,
                             imageUrl = university.imageUrl,
-                            onClick = onNavigateToUniversityProfile
+                            onClick = { onNavigateToUniversityProfile(university.id) }
                         )
                     }
                 }

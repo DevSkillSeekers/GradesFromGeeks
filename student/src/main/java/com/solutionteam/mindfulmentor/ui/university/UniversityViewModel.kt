@@ -1,14 +1,18 @@
 package com.solutionteam.mindfulmentor.ui.university
 
+import android.util.Log
+import com.solutionteam.mindfulmentor.data.entity.University
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 
 class UniversityViewModel(
-    private val mindfulMentorRepository: MindfulMentorRepository
+    private val id : String,
+    private val ggRepository: MindfulMentorRepository
 ) : BaseViewModel<UniversityUIState, UniversityUIEffect>(UniversityUIState()) {
 
     init {
+        Log.i("lllllllllll", id)
         onMakeRequest()
     }
 
@@ -18,20 +22,21 @@ class UniversityViewModel(
         tryToExecute(
             {
                 delay(1000)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
+                ggRepository.getUniversityById(id)
             },
-            { onSuccess() },
+            ::onSuccess,
             ::onError
         )
     }
 
 
-    private fun onSuccess() {
+    private fun onSuccess(university: University) {
         updateState {
             it.copy(
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
+                universityDetails = university.toUIState()
             )
         }
     }

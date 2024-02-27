@@ -58,4 +58,12 @@
     <string name="help">Help</string>
     <string name="click_summarize">Click Summarize button to get ths explain as text.</string>
 
+    <!-- mentor section -->
+    <string name="summaries">Summaries</string>
+    <string name="videos">Video</string>
+    <string name="meetings">Meetings</string>
+    <string name="schedule_one_to_one">Schedule one to one Meeting</string>
+    <string name="free">Free</string>
+
+
 </resources>
