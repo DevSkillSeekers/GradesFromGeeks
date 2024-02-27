@@ -34,8 +34,8 @@
     <string name="google_link" translatable="false">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
 <!--    <string name="userRole">When asked any question that is not related to this university , please say: “I don’t know.”</string>-->
-    <string name="user_role">When asked any question that is not related to this university %1$s , please say: “I don’t know.”</string>
-    <string name="model_role">Plz ask me about something related on %1$s just, so I can answer you.</string>
+    <string name="user_role">When asked any question that is not related to resources of this %1$s , please say: “I don’t know.”</string>
+    <string name="model_role">Plz ask me about something related on resources of %1$s just, so I can answer you.</string>
 
     <!-- download section -->
     <string name="download_title">Download</string>
