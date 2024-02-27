@@ -2,12 +2,15 @@ package com.solutionteam.mindfulmentor.ui.review
 
 import RatingStar
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.exoplayer2.Player
 import com.solutionteam.design_system.components.GGAppBar
 import com.solutionteam.design_system.components.GGButton
 import com.solutionteam.design_system.components.GGMentor
@@ -49,13 +51,14 @@ import com.solutionteam.design_system.components.setStatusBarColor
 import com.solutionteam.design_system.theme.PlusJakartaSans
 import com.solutionteam.design_system.theme.Theme
 import com.solutionteam.mindfulmentor.R
+import com.solutionteam.mindfulmentor.ui.review.composable.VideoLayout
+import com.solutionteam.mindfulmentor.utils.setScreenOrientation
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ReviewScreen(
     viewModel: ReviewViewModel = koinViewModel(),
-    onNavigateTo: () -> Unit,
     navigateBack: () -> Unit
 ) {
 
@@ -65,9 +68,10 @@ fun ReviewScreen(
     val systemUIController = rememberSystemUiController()
 
     ReviewContent(
-        state = state,
-        onBack = navigateBack,
-        onNavigateToVideoScreen = onNavigateTo
+            state = state,
+            onBack = navigateBack,
+            player = viewModel.player,
+            onClickFullVideoScreen = viewModel::onClickFullVideoScreen
     )
 
     val color = Theme.colors.background
@@ -103,13 +107,26 @@ private fun onEffect(effect: ReviewUIEffect?, context: Context) {
 @Composable
 private fun ReviewContent(
     state: ReviewUIState,
-    onNavigateToVideoScreen: () -> Unit,
-    onBack: () -> Unit
+    onClickFullVideoScreen: (Boolean) -> Unit,
+    onBack: () -> Unit,
+    player: Player
 ) {
-    Scaffold(
-        topBar = {
-            GGAppBar(title = "Data Structure-lecture 1", onBack = onBack)
+    val context = LocalContext.current
+
+    BackHandler {
+        if (state.isVideoFullScreen) {
+            onClickFullVideoScreen(false)
+            context.setScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        } else {
+            onBack()
         }
+    }
+    Scaffold(
+            topBar = {
+                if (!state.isVideoFullScreen) {
+                    GGAppBar(title = "Data Structure-lecture 1", onBack = onBack)
+                }
+            }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -122,24 +139,13 @@ private fun ReviewContent(
             if (state.isLoading) {
                 CircularProgressIndicator()
             } else {
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(.3f)
-                        .background(Theme.colors.primaryShadesDark),
-                    contentAlignment = Alignment.TopEnd
-                ) {
-                    IconButton(
-                        onClick = onNavigateToVideoScreen
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_fill_screen),
-                            contentDescription = null,
-                            tint = Theme.colors.card
+                VideoLayout(
+                        exoPlayer = player,
+                        onClick = onClickFullVideoScreen,
+                        modifier = if (state.isVideoFullScreen) Modifier.fillMaxSize() else Modifier.aspectRatio(
+                                16 / 9f
                         )
-                    }
-                }
+                )
 
                 GGTabBar(
                     tabs = listOf(

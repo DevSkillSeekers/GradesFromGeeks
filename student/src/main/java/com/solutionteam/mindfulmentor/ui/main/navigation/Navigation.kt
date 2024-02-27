@@ -378,7 +378,6 @@ fun NavGraphBuilder.reviewNavGraph(onNavigateBack: () -> Unit, onNavigateTo: (Sc
     ) {
         ReviewScreen(
             navigateBack = onNavigateBack,
-            onNavigateTo = { Screen.Video.withClearBackStack().also(onNavigateTo) }
         )
     }
 }
