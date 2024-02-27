@@ -2,7 +2,7 @@ package com.solutionteam.mentor.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.solutionteam.mentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mentor.ui.profile.Language
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
