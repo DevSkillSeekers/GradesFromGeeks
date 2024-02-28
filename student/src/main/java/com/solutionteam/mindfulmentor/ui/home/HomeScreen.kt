@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.aallam.openai.api.audio.TranscriptionRequest
+import com.aallam.openai.api.file.FileSource
+import com.aallam.openai.api.http.Timeout
+import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.OpenAI
+import com.aallam.openai.client.OpenAIConfig
 import com.solutionteam.design_system.components.GGMentor
 import com.solutionteam.design_system.components.GGSubject
 import com.solutionteam.design_system.components.GGTitleWithSeeAll
@@ -35,9 +42,17 @@ import com.solutionteam.mindfulmentor.ui.home.component.ChatBot
 import com.solutionteam.mindfulmentor.ui.home.component.HomeAppBar
 import com.solutionteam.mindfulmentor.ui.home.component.InComingMeeting
 import com.solutionteam.mindfulmentor.ui.seeAll.SeeAllType
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.runBlocking
+import okio.FileSystem
+import okio.Path.Companion.toPath
+import okio.source
 import org.koin.androidx.compose.koinViewModel
+import java.io.File
+import java.net.URL
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun HomeScreen(
@@ -61,6 +76,16 @@ fun HomeScreen(
         onNavigateToNotification = { navigateTo(HomeUIEffect.NavigateToNotification) },
     )
 
+
+   runBlocking(Dispatchers.IO) {
+       try {
+           textAi()
+       } catch (e: Exception) {
+              Log.i("lllllllllllllleror", e.message.toString())
+       }
+   }
+
+
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
             onEffect(effect, context)
@@ -74,6 +99,63 @@ fun HomeScreen(
         }
     }
 }
+
+suspend fun textAi() {
+    val token = "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"
+    val config = OpenAIConfig(
+        token = token
+    )
+
+    val openAI = OpenAI(config)
+
+    val url =
+        "https://vbcache1152.videobuster.de/clips/1uyTL32KI_M-Xml3RgwTIw/public/vod005/8bsus0u3w54/video-h264-1.mp4"
+
+    val path = getPath(url)
+
+    val request = TranscriptionRequest(
+        audio = FileSource(name = path.name, source = path.source()),
+        model = ModelId("whisper-1"),
+    )
+    val transcription = openAI.transcription(request)
+
+
+    Log.i("llllllllllllll", transcription.text)
+
+
+}
+
+fun getPath(url: String): File {
+    val tempFile = File.createTempFile("temp_audio", ".mp4")
+    tempFile.deleteOnExit()
+
+    val connection = URL(url).openConnection()
+    connection.connect()
+    connection.getInputStream().use { input ->
+        tempFile.outputStream().use { output ->
+            input.copyTo(output)
+        }
+    }
+
+    return tempFile
+}
+//
+//suspend fun transcribeAudio(openai: OpenAI, videoPath: String): String {
+//    try {
+//        // Read audio file and convert it to text using OpenAI API
+//        val request = CompletionRequest(
+//            model = ModelId(id = "davinci"),
+//            maxTokens = 200,
+//            prompt = "Transcribe the following audio: \"$videoPath\""
+//        )
+//
+//        val response = openai.transcription(request)
+//        return response.choices[0].text.strip()
+//    } catch (e: APIException) {
+//        println("Error: ${e.message}")
+//        return ""
+//    }
+//}
 
 
 private fun onEffect(effect: HomeUIEffect?, context: Context) {

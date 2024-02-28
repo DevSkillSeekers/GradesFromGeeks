@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.main
 
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager.LayoutParams
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -11,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.FirebaseApp
 import com.solutionteam.design_system.theme.Theme
-import android.view.WindowManager.LayoutParams
 
 class MainActivity : ComponentActivity() {
 
@@ -33,4 +33,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

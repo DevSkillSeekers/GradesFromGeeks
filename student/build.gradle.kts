@@ -138,6 +138,9 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    implementation ("io.github.grizzi91:bouquet:1.1.2")
+    implementation("io.github.grizzi91:bouquet:1.1.2")
+
+    // ai
+    implementation("com.aallam.openai:openai-client:3.7.0")
 
 }
