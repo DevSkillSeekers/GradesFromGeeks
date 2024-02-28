@@ -32,6 +32,11 @@ class MindfulMentorRepositoryImp(
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
     }
 
+    override suspend fun getVideoUrl(): String {
+        return "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+//        return "https://vbcache1152.videobuster.de/clips/1uyTL32KI_M-Xml3RgwTIw/public/vod005/8bsus0u3w54/video-h264-1.mp4"
+    }
+
     override suspend fun getUniversitiesName(): List<String> {
         return listOf(
                 "University of Washington",

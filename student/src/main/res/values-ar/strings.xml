@@ -33,8 +33,8 @@
     <string name="services_text_link"><![CDATA[شروط الخدمة وسياسة الخصوصية]]></string>
     <string name="let_do_it">لنقم بها</string>
 
-    <string name="user_role">عندما يُطلب أي سؤال غير متعلق بالجامعات %%1$s ، يرجى قول: "لا أعلم".</string>
-    <string name="model_role">يرجى سؤالي حول شيء يتعلق %%1$s  فقط، حتى أستطيع الإجابة عليك.</string>
+    <string name="user_role">عندما يُطلب أي سؤال غير متعلق بمصادر %%1$s ، يرجى قول: "لا أعلم".</string>
+    <string name="model_role">يرجى سؤالي حول شيء يتعلق بمصادر من %%1$s  فقط، حتى أستطيع الإجابة عليك.</string>
 
     <string name="download_title">التنزيلات</string>
     <string name="nothing_to_show">لا يوجد شيئ لعرضه</string>
