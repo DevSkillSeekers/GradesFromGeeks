@@ -1,15 +1,11 @@
-package com.solutionteam.mentor.ui.auth.signin
+package com.solutionteam.mentor.ui.auth.signup
 
-import androidx.lifecycle.viewModelScope
 import com.solutionteam.mentor.data.repositories.AuthRepository
 import com.solutionteam.mentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mentor.data.source.remote.response.SignInResult
-import com.solutionteam.mentor.data.utils.UserAlreadyExistsException
-import com.solutionteam.mentor.ui.auth.signin.maininfo.SignInUIEffect
 import com.solutionteam.mentor.ui.base.BaseViewModel
-import kotlinx.coroutines.launch
 
-class SignInViewModel(
+class SignUpViewModel(
     private val authRepository: AuthRepository,
     private val midFulMentorRepository: MindfulMentorRepository
 ) : BaseViewModel<SignUpUiState, SignInUIEffect>(SignUpUiState()) {
@@ -56,20 +52,7 @@ class SignInViewModel(
     }
 
     fun onClickContinue() {
-        if (
-            validateEmail(state.value.email)
-            && validatePassword(state.value.password)
-            && validateUserName(state.value.userName)
-        ) {
-            updateState { it.copy(isScreenContinue = false) }
-        } else {
-            updateState {
-                it.copy(
-                    isError = true,
-                    errorMessage = "email, password or username is not invalid "
-                )
-            }
-        }
+        updateState { it.copy(isScreenContinue = false) }
     }
 
     fun onClickBackInAdditionalInfo() {
@@ -78,38 +61,13 @@ class SignInViewModel(
 
     fun onClickSignUp() {
         if (state.value.universityName.isNotEmpty() && state.value.field.isNotEmpty()) {
-            onSignUP()
+//            onSignUP()
         } else {
             updateState {
                 it.copy(
                     isError = true,
                     errorMessage = "University or Field is empty "
                 )
-            }
-        }
-    }
-    private fun onSignUP() {
-        viewModelScope.launch {
-            try {
-                onLoading()
-                val result =
-                    authRepository.signUp(state.value.email, state.value.password)
-//                val studentInfo = StudentInfo(
-//                    userName = state.value.userName,
-//                    universityName = state.value.universityName,
-//                    field = state.value.field,
-//                    level = state.value.level,
-//                    imageUrl = ""
-//                )
-//                val studentInfoResult =
-//                    authRepository.addStudentInfo(studentInfo = studentInfo, user = result.user!!)
-//                if (studentInfoResult)
-//                    onSuccess()
-
-            } catch (e: UserAlreadyExistsException) {
-                onError(e.message ?: "error")
-            } catch (e: Exception) {
-                onError(e.message ?: "error")
             }
         }
     }
@@ -142,18 +100,6 @@ class SignInViewModel(
 
     fun onChangeLevel(level: Int?) {
         updateState { it.copy(level = level) }
-    }
-
-    private fun validateEmail(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    private fun validatePassword(password: String): Boolean {
-        return password.length >= 6
-    }
-
-    private fun validateUserName(userName: String): Boolean {
-        return userName.length >= 6
     }
 
 }

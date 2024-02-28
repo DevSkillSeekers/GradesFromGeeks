@@ -1,4 +1,4 @@
-package com.solutionteam.mentor.ui.auth.signin.maininfo
+package com.solutionteam.mentor.ui.auth.signup
 
 interface SignInUIEffect {
     object SignInError : SignInUIEffect

@@ -1,4 +1,4 @@
-package com.solutionteam.mentor.ui.auth.signin
+package com.solutionteam.mentor.ui.auth.signup
 
 data class SignUpUiState(
     val isSignInSuccessful: Boolean = false,

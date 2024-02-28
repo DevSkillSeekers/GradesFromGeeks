@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.solutionteam.mentor.ui.auth.login.LoginScreen
-import com.solutionteam.mentor.ui.auth.signin.maininfo.SignInScreen
+import com.solutionteam.mentor.ui.auth.signup.SignUpScreen
 import com.solutionteam.mentor.ui.auth.welcome.WelcomeScreen
 import com.solutionteam.mentor.ui.auth.welcome.WelcomeUiEffect
 import com.solutionteam.mentor.ui.home.HomeScreen
@@ -124,7 +124,7 @@ fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack:
     composable(
         route = Screen.SignIn.route
     ) {
-        SignInScreen(
+        SignUpScreen(
             navigateTo = {},
             onNavigateBack = { onNavigateBack() }
         )
