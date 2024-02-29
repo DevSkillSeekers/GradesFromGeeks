@@ -112,8 +112,8 @@ private fun DownloadContent(
                         tabs = listOf(
                             stringResource(id = R.string.summaries) to {
                                 SummeryScreen(
-                                    onClick = onNavigateToPDFReader,
-                                    summeryList = state.downloadDetails.summaryList
+                                    summeryList = state.downloadDetails.summaryList,
+                                    onNavigate = onNavigateToPDFReader
                                 )
                             },
                             stringResource(id = R.string.videos) to {

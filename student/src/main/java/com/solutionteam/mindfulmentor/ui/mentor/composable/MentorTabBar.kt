@@ -38,7 +38,7 @@ import com.solutionteam.mindfulmentor.utils.formatTimestamp
 fun SummeryScreen(
     summeryList: List<SummeryDetailsUIState> = emptyList(),
     isVideo: Boolean = false,
-    onClick: () -> Unit = {},
+    onBuy: () -> Unit = {},
     onNavigate: () -> Unit = {}
 ) {
     FlowRow(
@@ -57,7 +57,7 @@ fun SummeryScreen(
                 chapterDescription = it.chapterDescription,
                 piedPrice = it.piedPrice,
                 isVideo = isVideo,
-                onBuy = onClick,
+                onBuy = onBuy,
                 isBuy = it.isBuy,
                 onNavigate = onNavigate
             )
