@@ -34,8 +34,8 @@
     <string name="google_link" translatable="false">https://google.com</string>
     <string name="let_do_it">Let’s do it</string>
 <!--    <string name="userRole">When asked any question that is not related to this university , please say: “I don’t know.”</string>-->
-    <string name="user_role">When asked any question that is not related to resources of this %1$s , please say: “I don’t know.”</string>
-    <string name="model_role">Plz ask me about something related on resources of %1$s just, so I can answer you.</string>
+    <string name="user_role">When I ask you any question, answer me from the resources available to you from a %1$s . In the event Resources are not available of this %1$s specific , answer from your own sources, but in the manner that you deem appropriate with that %1$s. if I ask you any question that is far from academic subjects or scientific terminology, answer me “Ask me about the Academic topics“.</string>
+    <string name="model_role">I will answer you from the resources available to you from a %1$s. if you ask me any question that is far from academic subjects or scientific terminology, answer me “Ask me about the Academic topics“.</string>
 
     <!-- download section -->
     <string name="download_title">Download</string>
