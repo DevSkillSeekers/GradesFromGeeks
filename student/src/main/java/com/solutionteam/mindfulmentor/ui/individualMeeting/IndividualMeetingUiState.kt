@@ -61,7 +61,8 @@ private fun Long.getFormattedDay(): String {
 
 
 fun AvailableDateUiState.setSelectTime(selectTimeId: String? = null) = AvailableDateUiState(
-    times = times.map {
+        day = day,
+        times = times.map {
         return@map if (selectTimeId == null) {
             it.copy(isSelected = false)
         } else if (it.id == selectTimeId) {
@@ -69,7 +70,6 @@ fun AvailableDateUiState.setSelectTime(selectTimeId: String? = null) = Available
         } else {
             it.copy(isSelected = false)
         }
-
     }
 )
 //endregion

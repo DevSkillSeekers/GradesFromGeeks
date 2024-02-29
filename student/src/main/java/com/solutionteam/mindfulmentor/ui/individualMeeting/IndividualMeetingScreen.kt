@@ -75,7 +75,7 @@ private fun onEffect(effect: IndividualMeetingUIEffect?, context: Context) {
 private fun IndividualMeetingContent(
     state: IndividualMeetingUIState,
     onBack: () -> Unit,
-    onTimeSelected: (TimeUiState) -> Unit,
+    onTimeSelected: (TimeUiState,String) -> Unit,
     onDismissRequest: () -> Unit,
     onValueChange: (String) -> Unit,
     onBookClick: () -> Unit

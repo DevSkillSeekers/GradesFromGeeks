@@ -38,12 +38,13 @@ class IndividualMeetingViewModel(
     }
 
 
-    fun onTimeSelected(time: TimeUiState) {
+    fun onTimeSelected(time: TimeUiState, day: String) {
         updateState {
             it.copy(
-                selectedTime = time,
+                selectedTime = time.copy(day = day),
                 showBottomSheet = true,
-                availableDates = it.availableDates.map { it.setSelectTime(time.id) }
+                availableDates = it.availableDates.map {availableDate->
+                    availableDate.setSelectTime(time.id) },
             )
         }
     }
