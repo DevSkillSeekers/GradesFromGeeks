@@ -23,7 +23,7 @@ import com.solutionteam.mindfulmentor.ui.individualMeeting.TimeUiState
 fun AvailableTimePerDay(
     day: AvailableDateUiState,
     modifier: Modifier = Modifier,
-    onTimeSelected: (TimeUiState) -> Unit
+    onTimeSelected: (TimeUiState,String) -> Unit
 ) {
     Column(
         modifier = modifier.padding(16.dp),
@@ -45,7 +45,7 @@ fun AvailableTimePerDay(
             day.times.forEach { time ->
                 GGTextChipStyle(
                     modifier = Modifier
-                        .noRippleEffect { onTimeSelected(time) },
+                        .noRippleEffect { onTimeSelected(time,day.day) },
                     value = time.time,
                     backgroundColor = if (time.isSelected) {
                         Theme.colors.primary
