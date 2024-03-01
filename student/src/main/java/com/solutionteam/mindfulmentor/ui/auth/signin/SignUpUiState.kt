@@ -8,7 +8,6 @@ data class SignUpUiState(
     val userName: String = "",
     val password: String = "",
     val email: String = "",
-    val userId: Int? = null,
     val universityName: String = "",
     val field : String = "",
     val level: Int? = 1,
@@ -16,4 +15,6 @@ data class SignUpUiState(
     val fields : List<String> = emptyList(),
     val levels: List<String> = emptyList(),
     val isScreenContinue: Boolean = true,
+    val userId: String? = null,
+    val profilePictureUrl: String = ""
 )

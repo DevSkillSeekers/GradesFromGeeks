@@ -1,8 +1,11 @@
 package com.solutionteam.mindfulmentor.ui.auth.signin
 
+import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.solutionteam.mindfulmentor.data.entity.StudentInfo
 import com.solutionteam.mindfulmentor.data.repositories.AuthRepository
+import com.solutionteam.mindfulmentor.data.repositories.GoogleAuthUiClient
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.data.source.remote.response.SignInResult
 import com.solutionteam.mindfulmentor.data.utils.UserAlreadyExistsException
@@ -12,19 +15,53 @@ import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val authRepository: AuthRepository,
-    private val midFulMentorRepository: MindfulMentorRepository
+    private val googleAuthUiClient: GoogleAuthUiClient
 ) : BaseViewModel<SignUpUiState, SignInUIEffect>(SignUpUiState()) {
 
-    fun onSignInResult(result: SignInResult) {
-        updateState {
-            it.copy(
-                isSignInSuccessful = result.data != null,
-                errorMessage = result.errorMessage
-            )
+
+    fun onClickGoogle() {
+        viewModelScope.launch {
+            try {
+                Log.e("TAG", "onClickGoogle: ")
+                val intentSender = googleAuthUiClient.signInWithGoogle()
+                sendNewEffect(SignInUIEffect.GoogleSignIn(intentSender ?: return@launch))
+            } catch (e: Exception) {
+                Log.e("TAG", "signInWithGoogle: ${e.message}")
+            }
+        }
+    }
+
+    fun onGoogleSignInResult(intent: Intent?) {
+        viewModelScope.launch {
+            try {
+                Log.e("TAG", "onGoogleSignInResult: ")
+                googleAuthUiClient.signInWithIntent(intent ?: return@launch).also { result ->
+                    result.data?.let { user->
+                       if (authRepository.checkUserExist(user.email)) {
+                           Log.e("TAG", "onGoogleSignInResult: user not found")
+                           updateState {
+                               it.copy(
+                                       isScreenContinue = false,
+                                       userId = user.userId,
+                                       profilePictureUrl = user.profilePictureUrl
+                                           ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo5xoN3QF2DBxrVUq7FSxymtDoD3-_IW5CgQ&usqp=CAU",
+                                       userName = user.username ?: "",
+                                       email = user.email ?: ""
+                               )
+                           }
+                       }else {
+                           onSuccess()
+                       }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("TAG", "onGoogleSignInResult: ${e.message}")
+            }
         }
     }
 
     private fun onSuccess() {
+        Log.e("TAG", "onSuccess: ")
         updateState {
             it.copy(
                 isSignInSuccessful = true,
@@ -83,36 +120,46 @@ class SignInViewModel(
         } else {
             updateState {
                 it.copy(
-                    isError = true,
-                    errorMessage = "University or Field is empty "
+                        isError = true,
+                        errorMessage = "University or Field is empty "
                 )
             }
         }
     }
+
+    private suspend fun signUpByEmailAndPassword(studentInfo:StudentInfo): Boolean {
+        return authRepository.signUp(state.value.email, state.value.password,studentInfo)
+    }
+
     private fun onSignUP() {
         viewModelScope.launch {
             try {
                 onLoading()
-                val result =
-                    authRepository.signUp(state.value.email, state.value.password)
                 val studentInfo = StudentInfo(
-                    userName = state.value.userName,
-                    universityName = state.value.universityName,
-                    field = state.value.field,
-                    level = state.value.level,
-                    imageUrl = ""
+                        userName = state.value.userName,
+                        universityName = state.value.universityName,
+                        field = state.value.field,
+                        level = state.value.level,
+                        imageUrl = state.value.profilePictureUrl,
+                        email = state.value.email
                 )
-                val studentInfoResult =
-                    authRepository.addStudentInfo(studentInfo = studentInfo, user = result.user!!)
-                if (studentInfoResult)
-                    onSuccess()
-
+                if (state.value.email.isEmpty() || state.value.password.isEmpty()) {
+                    Log.e("TAG", "signInWithInfo: ${state.value.userId}")
+                    if (signInWithInfo(studentInfo, state.value.userId ?: "")) onSuccess()
+                } else {
+                    Log.e("TAG", "signUpByEmailAndPassword: ${state.value.userId}")
+                    if (signUpByEmailAndPassword(studentInfo)) onSuccess()
+                }
             } catch (e: UserAlreadyExistsException) {
                 onError(e.message ?: "error")
             } catch (e: Exception) {
                 onError(e.message ?: "error")
             }
         }
+    }
+
+    private suspend fun signInWithInfo(studentInfo: StudentInfo, userId:String): Boolean {
+          return authRepository.addStudentInfo(studentInfo,userId)
     }
 
     fun clearErrorState() {

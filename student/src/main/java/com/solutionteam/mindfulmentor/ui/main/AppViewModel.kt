@@ -2,6 +2,7 @@ package com.solutionteam.mindfulmentor.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solutionteam.mindfulmentor.data.repositories.AuthRepository
 import com.solutionteam.mindfulmentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mindfulmentor.ui.profile.Language
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
 class AppViewModel(
-    private val repository: MindfulMentorRepository
+    private val repository: MindfulMentorRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel(), KoinComponent {
 
     private val _language: MutableStateFlow<Language?> = MutableStateFlow(null)
@@ -23,6 +25,9 @@ class AppViewModel(
 
     private val _theme: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val theme: StateFlow<Boolean?> = _theme.asStateFlow()
+
+    private val _isLogin: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isLogin: StateFlow<Boolean> = _isLogin.asStateFlow()
 
     private val _isFirstTimeOpenApp: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isFirstTimeOpenApp: StateFlow<Boolean?> = _isFirstTimeOpenApp.asStateFlow()
@@ -33,8 +38,16 @@ class AppViewModel(
         getTheme()
         getInitScreen()
         saveIsFirstTimeOpenApp()
+        checkUserIfLogin()
     }
 
+    private fun checkUserIfLogin(){
+        viewModelScope.launch {
+            authRepository.getSignedInUser().also { user->
+                _isLogin.update { user != null }
+            }
+        }
+    }
     private fun saveIsFirstTimeOpenApp() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.saveIsFirstTimeUseApp(false)

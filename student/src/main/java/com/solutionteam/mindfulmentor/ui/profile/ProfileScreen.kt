@@ -37,7 +37,10 @@ import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun ProfileScreen(viewModel: ProfileViewModel = koinViewModel()) {
+fun ProfileScreen(
+    viewModel: ProfileViewModel = koinViewModel(),
+    navigateTo: (ProfileUIEffect) -> Unit
+) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
@@ -49,6 +52,10 @@ fun ProfileScreen(viewModel: ProfileViewModel = koinViewModel()) {
         onThemeChanged = viewModel::onThemeChanged,
         onLanguageClicked = viewModel::onLanguageClicked,
         onDismissLanguageRequest = viewModel::onDismissLanguageRequest,
+        onLogout = {
+            viewModel.onLogout()
+            navigateTo(ProfileUIEffect.NavigateToSignIn)
+          },
         onLanguageChanged = {
             updateLanguage(context = context, language = it.abbreviation)
             viewModel.onLanguageChanged(it)
@@ -79,6 +86,7 @@ private fun ProfileContent(
     onThemeChanged: (Boolean) -> Unit,
     onLanguageClicked: () -> Unit,
     onDismissLanguageRequest: () -> Unit,
+    onLogout: () -> Unit,
     onLanguageChanged: (Language) -> Unit
 ) {
     Box(
@@ -140,7 +148,7 @@ private fun ProfileContent(
                     .padding(horizontal = 16.dp),
                 title = stringResource(id = R.string.logout),
                 painter = painterResource(id = R.drawable.logout),
-                onClick = {}
+                onClick = onLogout
             )
         }
 
