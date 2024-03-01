@@ -30,17 +30,20 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
         GGTheme(isDarkTheme = isDarkTheme ?: false) {
             CompositionLocalProvider(LocalLayoutDirection provides it.layoutDirection) {
                 val navController = rememberNavController()
-                firstTime?.let {first->
-                    if (first) {
-                        RootNavGraph(navController = navController, startDestination = Screen.OnBoarding)
-                    } else {
-                        if (isLogin){
-                            RootNavGraph(navController = navController, startDestination = Screen.Main)
-                        }else{
+
+                if (isLogin) {
+                    RootNavGraph(navController = navController, startDestination = Screen.Main)
+                } else {
+                    firstTime?.let { first ->
+                        if (first) {
+                            RootNavGraph(navController = navController, startDestination = Screen.OnBoarding)
+                        } else {
                             RootNavGraph(navController = navController, startDestination = Screen.Welcome)
                         }
+
                     }
                 }
+
             }
         }
     }
