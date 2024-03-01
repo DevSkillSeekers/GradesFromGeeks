@@ -1,5 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.main.navigation.graph
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,6 +12,7 @@ import com.solutionteam.mindfulmentor.ui.main.navigation.homeScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.profileScreen
 import com.solutionteam.mindfulmentor.ui.main.navigation.searchScreen
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun MainNavGraph(
     modifier: Modifier = Modifier,

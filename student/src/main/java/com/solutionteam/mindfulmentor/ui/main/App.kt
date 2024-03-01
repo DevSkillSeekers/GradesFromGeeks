@@ -1,6 +1,7 @@
 package com.solutionteam.mindfulmentor.ui.main
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -28,13 +29,13 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
         GGTheme(isDarkTheme = isDarkTheme ?: false) {
             CompositionLocalProvider(LocalLayoutDirection provides it.layoutDirection) {
                 val navController = rememberNavController()
-//            firstTime?.let {
-//                if (it) {
-//                    RootNavGraph(navController = navController, startDestination = Screen.OnBoarding)
-//                } else {
-                RootNavGraph(navController = navController, startDestination = Screen.Main)
-//                }
-//            }
+                firstTime?.let {first->
+                    if (first) {
+                        RootNavGraph(navController = navController, startDestination = Screen.OnBoarding)
+                    } else {
+                        RootNavGraph(navController = navController, startDestination = Screen.Main)
+                    }
+                }
             }
         }
     }

@@ -6,4 +6,5 @@ data class StudentInfo(
     val universityName: String,
     val field : String,
     val level: Int?,
+    val email: String
 )

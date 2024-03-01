@@ -28,6 +28,7 @@ import com.solutionteam.mindfulmentor.ui.notification.NotificationScreen
 import com.solutionteam.mindfulmentor.ui.onboarding.OnBoardingScreen
 import com.solutionteam.mindfulmentor.ui.pdfReader.PDFViewerScreen
 import com.solutionteam.mindfulmentor.ui.profile.ProfileScreen
+import com.solutionteam.mindfulmentor.ui.profile.ProfileUIEffect
 import com.solutionteam.mindfulmentor.ui.review.ReviewScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchScreen
 import com.solutionteam.mindfulmentor.ui.search.SearchUIEffect
@@ -153,7 +154,7 @@ fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack:
     ) {
         SignInScreen(
             navigateTo = {
-                Screen.AdditionalInfo.withClearBackStack().also(onNavigateTo)
+                Screen.Main.withClearBackStack().also(onNavigateTo)
             },
             onNavigateBack = { onNavigateBack() }
         )
@@ -202,7 +203,14 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
     ) {
-        ProfileScreen()
+        ProfileScreen(
+            navigateTo = { navigate ->
+                when (navigate) {
+                    ProfileUIEffect.NavigateToSignIn -> Screen.SignIn.also(onNavigateTo).clearBackStack
+                    else -> {}
+                }
+            }
+        )
     }
 }
 
