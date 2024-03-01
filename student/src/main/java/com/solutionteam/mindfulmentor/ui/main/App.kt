@@ -22,6 +22,7 @@ import org.koin.androidx.compose.koinViewModel
 fun App(viewModel: AppViewModel = koinViewModel()) {
     val firstTime by viewModel.isFirstTimeOpenApp.collectAsState()
     val language by viewModel.language.collectAsState()
+    val isLogin by viewModel.isLogin.collectAsState()
     val isDarkTheme by viewModel.theme.collectAsState()
 
     language?.let {
@@ -33,7 +34,11 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
                     if (first) {
                         RootNavGraph(navController = navController, startDestination = Screen.OnBoarding)
                     } else {
-                        RootNavGraph(navController = navController, startDestination = Screen.Main)
+                        if (isLogin){
+                            RootNavGraph(navController = navController, startDestination = Screen.Main)
+                        }else{
+                            RootNavGraph(navController = navController, startDestination = Screen.Welcome)
+                        }
                     }
                 }
             }

@@ -206,7 +206,7 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
         ProfileScreen(
             navigateTo = { navigate ->
                 when (navigate) {
-                    ProfileUIEffect.NavigateToSignIn -> Screen.SignIn.also(onNavigateTo).clearBackStack
+                    ProfileUIEffect.NavigateToSignIn -> Screen.Welcome.also(onNavigateTo).clearBackStack
                     else -> {}
                 }
             }
