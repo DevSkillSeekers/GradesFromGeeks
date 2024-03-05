@@ -1,6 +1,6 @@
-package com.solutionteam.mentor.data.network
+package com.solutionteam.mentor.data.repositories
 
-import com.solutionteam.mentor.data.network.response.BaseResponse
+import com.solutionteam.mentor.data.source.remote.response.BaseResponse
 import retrofit2.Response
 
 abstract class BaseRepository() {

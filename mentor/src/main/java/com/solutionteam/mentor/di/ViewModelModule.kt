@@ -6,6 +6,9 @@ import com.solutionteam.mentor.ui.profile.ProfileViewModel
 import com.solutionteam.mentor.ui.wallet.WalletViewModel
 import com.solutionteam.mentor.ui.main.AppViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
+import  com.solutionteam.mentor.ui.auth.signup.SignUpViewModel
+import  com.solutionteam.mentor.ui.auth.welcome.WelcomeViewModel
+import com.solutionteam.mentor.ui.auth.login.LoginViewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
@@ -14,4 +17,8 @@ val viewModelModule = module {
     viewModelOf(::ProfileViewModel)
     viewModelOf(::WalletViewModel)
     viewModelOf(::AppViewModel)
+    viewModelOf(::SignUpViewModel)
+    viewModelOf(::WelcomeViewModel)
+    viewModelOf(::LoginViewModel)
+
 }

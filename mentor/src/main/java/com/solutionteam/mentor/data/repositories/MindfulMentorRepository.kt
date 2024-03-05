@@ -1,4 +1,4 @@
-package com.solutionteam.mentor.data.network.repositories
+package com.solutionteam.mentor.data.repositories
 
 import com.solutionteam.mentor.data.entity.Meeting
 import com.solutionteam.mindfulmentor.data.entity.Mentor

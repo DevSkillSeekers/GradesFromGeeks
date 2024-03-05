@@ -1,7 +1,7 @@
 package com.solutionteam.mentor.ui.home
 
 import com.solutionteam.mentor.data.entity.Meeting
-import com.solutionteam.mentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mentor.ui.base.BaseViewModel
 import com.solutionteam.mentor.utils.isLessThanXMinutes
 import com.solutionteam.mindfulmentor.data.entity.Subject

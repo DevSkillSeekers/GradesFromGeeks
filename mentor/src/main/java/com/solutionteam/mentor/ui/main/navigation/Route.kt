@@ -4,8 +4,13 @@ import android.os.Bundle
 import com.solutionteam.mentor.R
 
 
-const val navigationRouteMain = "main"
+const val navigationRouteSignUp = "signUp"
+const val navigationRouteWelcome = "welcome"
+const val navigationRouteSignIn = "sign_in"
+const val navigationRouteLogin = "login"
+const val navigationRouteOnBoarding = "onboarding"
 
+const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteWallet = "wallet"
 const val navigationRouteProfile = "profile"
@@ -27,6 +32,13 @@ sealed class Screen(
     fun routeWith(path: String) = apply {
         routePath = path
     }
+
+    data object SignUp : Screen(navigationRouteSignUp)
+    data object Login : Screen(navigationRouteLogin)
+    data object OnBoarding : Screen(navigationRouteOnBoarding)
+    data object Welcome : Screen(navigationRouteWelcome)
+    data object SignIn : Screen(navigationRouteSignIn)
+
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(
