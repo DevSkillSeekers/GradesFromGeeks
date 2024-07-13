@@ -2,8 +2,9 @@ package com.solutionteam.mentor.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.solutionteam.mentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mentor.ui.profile.Language
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,11 +24,20 @@ class AppViewModel(
     private val _theme: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val theme: StateFlow<Boolean> = _theme.asStateFlow()
 
+    private val _isFirstTimeOpenApp: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    val isFirstTimeOpenApp: StateFlow<Boolean?> = _isFirstTimeOpenApp.asStateFlow()
+
     init {
         getLanguage()
         getTheme()
+        getInitScreen()
     }
 
+    private fun getInitScreen() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isFirstTimeOpenApp.update { true }
+        }
+    }
     private fun getLanguage() {
         viewModelScope.launch {
             repository.getLanguage().distinctUntilChanged().collectLatest { lang ->

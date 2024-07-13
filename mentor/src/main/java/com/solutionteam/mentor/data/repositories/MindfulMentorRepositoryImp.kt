@@ -1,8 +1,7 @@
-package com.solutionteam.mentor.data.network.repositories
+package com.solutionteam.mentor.data.repositories
 
 import com.solutionteam.mentor.data.entity.Meeting
 import com.solutionteam.mentor.data.entity.MeetingType
-import com.solutionteam.mentor.data.network.BaseRepository
 import com.solutionteam.mindfulmentor.data.entity.Mentor
 import com.solutionteam.mindfulmentor.data.entity.Subject
 import com.solutionteam.mindfulmentor.data.entity.University

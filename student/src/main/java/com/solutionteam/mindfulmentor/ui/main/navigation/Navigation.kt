@@ -1,7 +1,5 @@
 package com.solutionteam.mindfulmentor.ui.main.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
@@ -198,7 +196,6 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
@@ -385,7 +382,6 @@ fun NavGraphBuilder.subjectNavGraph(
         )
     }
 }
-
 
 fun NavGraphBuilder.individualMeetingNavGraph(
     onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit

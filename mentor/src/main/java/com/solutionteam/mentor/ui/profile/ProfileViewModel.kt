@@ -1,7 +1,7 @@
 package com.solutionteam.mentor.ui.profile
 
 import androidx.lifecycle.viewModelScope
-import com.solutionteam.mentor.data.network.repositories.MindfulMentorRepository
+import com.solutionteam.mentor.data.repositories.MindfulMentorRepository
 import com.solutionteam.mentor.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged

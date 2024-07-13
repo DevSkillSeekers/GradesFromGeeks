@@ -1,6 +1,6 @@
 package com.solutionteam.mentor.di
 
-import com.solutionteam.mentor.data.service.MindFulMentorService
+import com.solutionteam.mentor.data.source.remote.MindFulMentorService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module

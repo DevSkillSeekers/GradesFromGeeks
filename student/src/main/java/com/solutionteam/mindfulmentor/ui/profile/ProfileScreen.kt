@@ -35,7 +35,6 @@ import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),

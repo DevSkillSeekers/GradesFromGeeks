@@ -1,4 +1,4 @@
-package com.solutionteam.mentor.data.network.response
+package com.solutionteam.mentor.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
